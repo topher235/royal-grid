@@ -8,7 +8,7 @@ enum TileState {NORMAL, HIGHLIGHTED, SELECTED, VALID_MOVE, INVALID_MOVE}
 var grid_position: Vector2i = Vector2i.ZERO
 var current_state: TileState = TileState.NORMAL
 var is_occupied := false
-var occupying_piece: Node2D = null
+var occupying_piece: ChessPiece = null
 
 @export var background: ColorRect
 @export var highlight: ColorRect
@@ -18,7 +18,8 @@ var occupying_piece: Node2D = null
 
 func _ready() -> void:
     setup_visual_nodes()
-    connect_input_events()
+    if not Engine.is_editor_hint():
+        connect_input_events()
 
 
 func setup_visual_nodes() -> void:
@@ -75,9 +76,18 @@ func set_state(new_state: TileState) -> void:
             valid_move_indicator.visible = true
 
 
-func set_occupancy(piece: Node2D = null) -> void:
+func set_occupancy(piece: ChessPiece = null) -> void:
     is_occupied = piece != null
     occupying_piece = piece
+    if piece:
+        add_child(piece)
+
+
+func remove_piece(piece: ChessPiece) -> void:
+    if not piece:
+        return
+    remove_child(piece)
+    set_occupancy(null)
 
 
 func clear_indicators() -> void:

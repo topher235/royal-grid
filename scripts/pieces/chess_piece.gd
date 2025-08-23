@@ -1,44 +1,34 @@
 class_name ChessPiece extends Control
 
-signal piece_clicked(piece: ChessPiece)
+@export var label: Label
 
-var piece_color := true  # true = white, false = black
-var grid_position: Vector2i = Vector2i.ZERO
-var has_moved := false
-
-
-func _ready() -> void:
-    mouse_entered.connect(_on_mouse_entered)
-    mouse_exited.connect(_on_mouse_exited)
+var color: bool:
+    get = _get_color
+var grid_position: Vector2i = Vector2i.ZERO:
+    get = _get_grid_position
+var data: PieceSpawnData:
+    set = _set_data
 
 
-func _on_mouse_entered() -> void:
-    modulate = Color.YELLOW
+func _set_data(value: PieceSpawnData) -> void:
+    data = value
+    grid_position = data.position
+    var color = "W" if data.color else "B"
+    label.text = color + " - " + data.get_piece_type()
 
 
-func _on_mouse_exited() -> void:
-    modulate = Color.WHITE
-
-
-func _gui_input(event: InputEvent) -> void:
-    if event is InputEventMouseButton and event.is_pressed():
-        piece_clicked.emit(self)
+func _get_color() -> bool:
+    return data.color
 
 
 func set_grid_position(pos: Vector2i) -> void:
-    grid_position = pos
+    data.position = pos
+
+
+func _get_grid_position() -> Vector2i:
+    return data.position
 
 
 func get_legal_moves() -> Array[Vector2i]:
-    # to be overridden by specific piece types
-    return []
-
-
-func can_move_to(pos: Vector2i) -> bool:
-    var legal_moves = get_legal_moves()
-    return pos in legal_moves
-
-
-func move_to(new_pos: Vector2i) -> void:
-    grid_position = new_pos
-    has_moved = true
+    var board = get_tree().get_first_node_in_group("gameboard")
+    return data.rules.get_legal_moves(board, data)

@@ -1,0 +1,25 @@
+class_name KnightRules extends PieceRules
+
+
+func get_piece_type() -> String:
+    return "Knight"
+
+
+func get_legal_moves(board: ChessBoard, piece: PieceSpawnData) -> Array[Vector2i]:
+    var moves: Array[Vector2i] = []
+
+    # Knight moves in L-shape: 2 squares in one direction, 1 square perpendicular
+    var knight_moves = [
+        Vector2i(2, 1), Vector2i(2, -1), Vector2i(-2, 1), Vector2i(-2, -1),
+        Vector2i(1, 2), Vector2i(1, -2), Vector2i(-1, 2), Vector2i(-1, -2)
+    ]
+    
+    for move in knight_moves:
+        var target_pos = piece.position + move
+        if board.is_valid_position(target_pos):
+            if not board.is_position_occupied(target_pos):
+                moves.append(target_pos)
+            elif board.is_position_occupied_by_opponent(target_pos, piece):
+                moves.append(target_pos)
+    
+    return moves
