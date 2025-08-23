@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccixrxm3lt7ib"]
+
+[ext_resource type="Script" uid="uid://df4ikyc530lgi" path="res://scripts/core/tile.gd" id="1_bfaab"]
+
+[node name="Tile" type="Control" node_paths=PackedStringArray("background", "highlight", "selection", "valid_move_indicator") groups=["tiles"]]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 32.0
+offset_bottom = 32.0
+script = ExtResource("1_bfaab")
+background = NodePath("Background")
+highlight = NodePath("Highlight")
+selection = NodePath("Selection")
+valid_move_indicator = NodePath("ValidMoveIndicator")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Highlight" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Selection" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ValidMoveIndicator" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
