@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PieceSpawnData" load_steps=4 format=3 uid="uid://cdsxtdpu2uk0y"]
+
+[ext_resource type="Script" uid="uid://occ5x85heb6x" path="res://resources/pieces/pawn_rules.gd" id="1_nscve"]
+[ext_resource type="Script" uid="uid://mphr7bciikvs" path="res://resources/piece_spawn_data.gd" id="1_o8q71"]
+
+[sub_resource type="Resource" id="Resource_hqcfx"]
+script = ExtResource("1_nscve")
+metadata/_custom_type_script = "uid://occ5x85heb6x"
+
+[resource]
+script = ExtResource("1_o8q71")
+piece_type = 0
+position = Vector2i(0, 0)
+color = true
+has_moved = false
+rules = SubResource("Resource_hqcfx")
+metadata/_custom_type_script = "uid://mphr7bciikvs"

@@ -1,14 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc6wexdak0j2f"]
+[gd_scene load_steps=4 format=3 uid="uid://cc6wexdak0j2f"]
 
 [ext_resource type="Script" uid="uid://e5rb3aveuy7n" path="res://scripts/pieces/chess_piece.gd" id="1_mw4x2"]
+[ext_resource type="Resource" uid="uid://b37g3brr5otlj" path="res://resources/pieces/default_pieces.tres" id="2_7anj6"]
+[ext_resource type="Resource" uid="uid://cdsxtdpu2uk0y" path="res://resources/pieces/data/pawn_data.tres" id="3_q3cbl"]
 
-[node name="ChessPiece" type="Control" node_paths=PackedStringArray("label")]
+[node name="ChessPiece" type="Control" node_paths=PackedStringArray("label", "sprite")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 1
 script = ExtResource("1_mw4x2")
 label = NodePath("CenterContainer/Label")
+sprite = NodePath("CenterContainer/Sprite")
+sprite_atlas = ExtResource("2_7anj6")
+data = ExtResource("3_q3cbl")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -25,7 +30,14 @@ mouse_filter = 1
 color = Color(0, 1, 1, 1)
 
 [node name="Label" type="Label" parent="CenterContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 10
-text = "Pawn"
+
+[node name="Sprite" type="TextureRect" parent="CenterContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
