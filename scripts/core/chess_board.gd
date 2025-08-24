@@ -3,11 +3,14 @@ class_name ChessBoard extends Node2D
 
 signal piece_moved(from_pos: Vector2i, to_pos: Vector2i)
 signal piece_captured(pos: Vector2i)
+signal turn_over(did_capture: bool)
 
 const TILE_SCENE = preload("res://scenes/board/tile.tscn")
 const PIECE_SCENE = preload("res://scenes/pieces/chess_piece.tscn")
 
+@export var piece_spawner: PieceSpawner
 @export var game_config: GameConfig
+
 var game_state: GameState
 var tiles: Array[Array] = []
 var pieces: Array[Array] = []
@@ -17,6 +20,7 @@ var selected_tile: Tile = null
 func _ready() -> void:
     if not game_config:
         game_config = GameConfig.default_game()
+    piece_spawner.game_config = game_config
     
     initialize_grid()
     create_tiles()
@@ -62,6 +66,7 @@ func load_new_game() -> void:
 
 
 func spawn_piece(piece_data: PieceSpawnData) -> void:
+    print("spawning at ", piece_data.position)
     var piece = PIECE_SCENE.instantiate()
     if piece:
         piece.data = piece_data
@@ -84,9 +89,12 @@ func _on_tile_clicked(tile: Tile) -> void:
     else:
         # Second click - attempt move
         if tile != selected_tile:
-            attempt_move(selected_tile, tile)
-        # Deselect current tile
-        deselect_current_tile()
+            var move_successful = attempt_move(selected_tile, tile)
+            if move_successful:
+                deselect_current_tile()
+        else:
+            # Deselect current tile
+            deselect_current_tile()
 
 
 func select_tile(tile: Tile) -> void:
@@ -140,14 +148,9 @@ func attempt_move(from_tile: Tile, to_tile: Tile) -> bool:
         return false
 
     if move_piece(from_pos, to_pos):
-        print("Move successful")
-
         # Update piece's internal position
         piece.set_grid_position(to_pos)
         # piece.move_to(to_pos)
-
-        if to_tile.is_occupied:
-            print("piece captured!")
         return true
     else:
         print("move failed")
@@ -204,7 +207,9 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
     if not piece:
         return false
     
+    var did_capture = false
     if is_position_occupied(to_pos):
+        did_capture = true
         var captured_piece = remove_piece(to_pos)
         piece_captured.emit(to_pos)
         captured_piece.queue_free()
@@ -212,6 +217,7 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
     remove_piece(from_pos)
     place_piece(piece, to_pos)
     piece_moved.emit(from_pos, to_pos)
+    turn_over.emit(did_capture)
     return true
 
 

@@ -1,9 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://be5nrbdyw7jo3"]
+[gd_scene load_steps=4 format=3 uid="uid://be5nrbdyw7jo3"]
 
 [ext_resource type="Script" uid="uid://bcq3wyntgcumb" path="res://scripts/core/chess_board.gd" id="1_3wu0g"]
+[ext_resource type="Script" uid="uid://c47sos0nlvq5q" path="res://scripts/core/game_manager.gd" id="2_0jtfi"]
+[ext_resource type="Script" uid="uid://dgtrrh1d251nf" path="res://scripts/core/piece_spawner.gd" id="2_j06l4"]
 
-[node name="GameBoard" type="Node2D" groups=["gameboard"]]
+[node name="GameBoard" type="Node2D" node_paths=PackedStringArray("piece_spawner") groups=["gameboard"]]
 script = ExtResource("1_3wu0g")
+piece_spawner = NodePath("PieceSpawner")
+
+[node name="PieceSpawner" type="Node" parent="." node_paths=PackedStringArray("chess_board")]
+script = ExtResource("2_j06l4")
+chess_board = NodePath("..")
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("chess_board", "piece_spawner")]
+script = ExtResource("2_0jtfi")
+chess_board = NodePath("..")
+piece_spawner = NodePath("../PieceSpawner")
 
 [connection signal="gui_input" from="Tile" to="Tile" method="_on_gui_input"]
 [connection signal="gui_input" from="@Control@90588" to="@Control@90588" method="_on_gui_input"]

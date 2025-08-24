@@ -51,6 +51,7 @@ func update_sprite() -> void:
     if not data or not sprite_atlas or not sprite:
         return
     
-    var sprite_texture = sprite_atlas.get_sprite_texture(data.piece_type, data.color)
+    var sprite_texture = Sprites.get_sprite_texture(data.piece_type, data.color)
+    # var sprite_texture = sprite_atlas.get_sprite_texture(data.piece_type, data.color)
     if sprite_texture:
         sprite.texture = sprite_texture

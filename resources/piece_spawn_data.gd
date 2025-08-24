@@ -2,6 +2,13 @@ class_name PieceSpawnData extends Resource
 
 enum PieceType {PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING}
 
+const PAWN_RULES = preload("res://resources/pieces/pawn_rules.gd")
+const ROOK_RULES = preload("res://resources/pieces/rook_rules.gd")
+const KNIGHT_RULES = preload("res://resources/pieces/knight_rules.gd")
+const BISHOP_RULES = preload("res://resources/pieces/bishop_rules.gd")
+const QUEEN_RULES = preload("res://resources/pieces/queen_rules.gd")
+const KING_RULES = preload("res://resources/pieces/king_rules.gd")
+
 @export var piece_type: PieceType:
     set = _set_piece_type
 @export var position: Vector2i
@@ -15,7 +22,7 @@ func _init() -> void:
     position = Vector2i.ZERO
     color = true
     has_moved = false
-    _init_rules()
+    # _init_rules()
 
 
 func _set_piece_type(value: PieceType) -> void:
@@ -30,14 +37,14 @@ func get_piece_type() -> String:
 func _init_rules() -> void:
     match piece_type:
         PieceType.PAWN:
-            rules = PawnRules.new()
+            rules = PAWN_RULES.new()
         PieceType.ROOK:
-            rules = RookRules.new()
+            rules = ROOK_RULES.new()
         PieceType.KNIGHT:
-            rules = KnightRules.new()
+            rules = KNIGHT_RULES.new()
         PieceType.BISHOP:
-            rules = BishopRules.new()
+            rules = BISHOP_RULES.new()
         PieceType.QUEEN:
-            rules = QueenRules.new()
+            rules = QUEEN_RULES.new()
         PieceType.KING:
-            rules = KingRules.new()
+            rules = KING_RULES.new()

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ChessSpriteAtlas" load_steps=3 format=3 uid="uid://b37g3brr5otlj"]
 
-[ext_resource type="Script" uid="uid://daat22ih2vn6m" path="res://resources/pieces/chess_sprite_atlas.gd" id="1_vjeff"]
+[ext_resource type="Script" uid="uid://daat22ih2vn6m" path="res://resources/pieces/sprites/chess_sprite_atlas.gd" id="1_vjeff"]
 [ext_resource type="Texture2D" uid="uid://j61i3k1nbbq8" path="res://assets/images/pieces.png" id="2_ry3iw"]
 
 [resource]
