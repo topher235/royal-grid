@@ -11,7 +11,7 @@ func _ready() -> void:
     rng.randomize()
 
 
-func should_spawn_piece(did_capture: bool) -> bool:
+func should_spawn_piece(did_capture: bool, override: bool) -> bool:
     if not game_config or not game_config.piece_spawn_rules:
         print("Missing game config or spawn rules")
         return false
@@ -27,6 +27,9 @@ func should_spawn_piece(did_capture: bool) -> bool:
         print("Do not spawn more than max number of pieces")
         return false
     
+    if override:
+        return true
+    
     # If player captured a piece then there's a chance a new one does not spawn
     if did_capture:
         var chance = rng.randf()
@@ -36,8 +39,8 @@ func should_spawn_piece(did_capture: bool) -> bool:
     return true
 
 
-func spawn_random_piece(did_capture: bool) -> void:
-    if not should_spawn_piece(did_capture):
+func spawn_random_piece(did_capture: bool, override: bool = false) -> void:
+    if not should_spawn_piece(did_capture, override):
         return
     
     var empty_position = find_random_empty_position()

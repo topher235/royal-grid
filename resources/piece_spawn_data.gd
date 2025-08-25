@@ -16,6 +16,9 @@ const KING_RULES = preload("res://resources/pieces/king_rules.gd")
 @export var has_moved: bool = false
 @export var rules: PieceRules
 
+var points: int:
+    get = _get_points
+
 
 func _init() -> void:
     piece_type = PieceType.PAWN
@@ -48,3 +51,20 @@ func _init_rules() -> void:
             rules = QUEEN_RULES.new()
         PieceType.KING:
             rules = KING_RULES.new()
+
+
+func _get_points() -> int:
+    match piece_type:
+        PieceType.PAWN:
+            return 10
+        PieceType.ROOK:
+            return 5
+        PieceType.KNIGHT:
+            return 8
+        PieceType.BISHOP:
+            return 5
+        PieceType.QUEEN:
+            return 2
+        PieceType.KING:
+            return 10
+    return 0

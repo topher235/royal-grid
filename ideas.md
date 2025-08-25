@@ -21,3 +21,6 @@
   - Periodically place effects on tiles that will affect other aspects of the game
   - Example of hazard: if piece is moved to a bomb tile, then the game is over (or just can't go there)
   - Example of reward: if a piece is moved to a reward tile, then the next X turns have 2x point multiplier
+
+- Time trial
+  - New piece appears after X seconds instead of every move

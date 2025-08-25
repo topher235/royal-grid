@@ -21,5 +21,7 @@ func get_legal_moves(board: ChessBoard, piece: PieceSpawnData) -> Array[Vector2i
                 moves.append(target_pos)
             elif board.is_position_occupied_by_opponent(target_pos, piece):
                 moves.append(target_pos)
+            # elif board.can_piece_move_to_tile(target_pos):
+            #     moves.append(target_pos)
     
     return moves

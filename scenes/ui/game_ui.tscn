@@ -1,3 +1,95 @@
-[gd_scene format=3 uid="uid://j2grci2ratew"]
+[gd_scene load_steps=16 format=3 uid="uid://j2grci2ratew"]
 
-[node name="GameUi" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://be5nrbdyw7jo3" path="res://scenes/board/game_board.tscn" id="1_qrkc0"]
+[ext_resource type="Script" uid="uid://ckd1v14s6ohpj" path="res://scripts/ui/game_ui.gd" id="1_yvtb5"]
+[ext_resource type="Script" uid="uid://bhdb5h87dcags" path="res://resources/game_rules.gd" id="2_yvtb5"]
+[ext_resource type="Script" uid="uid://comwnq0c27il5" path="res://resources/piece_spawn_rules.gd" id="3_k7elv"]
+[ext_resource type="Script" uid="uid://cr8t7wydqjk8f" path="res://resources/game_config.gd" id="4_fftnl"]
+[ext_resource type="Script" uid="uid://mphr7bciikvs" path="res://resources/piece_spawn_data.gd" id="5_bxde6"]
+[ext_resource type="Script" uid="uid://cowhgb5wufh4d" path="res://resources/pieces/bishop_rules.gd" id="6_opxtl"]
+[ext_resource type="Script" uid="uid://dknn0sc7q6dgw" path="res://resources/pieces/king_rules.gd" id="7_crnce"]
+
+[sub_resource type="Resource" id="Resource_yvtb5"]
+script = ExtResource("2_yvtb5")
+extra_turn_on_capture = true
+allow_en_passant = false
+allow_castling = false
+max_turns_without_capture = 10
+win_condition = 0
+
+[sub_resource type="Resource" id="Resource_k7elv"]
+script = ExtResource("3_k7elv")
+spawn_pieces_on_empty_turn = true
+max_pieces_on_board = 25
+piece_spawn_chance = 0.4
+piece_type_weights = {
+"bishop": 0.15,
+"king": 0.05,
+"knight": 0.15,
+"pawn": 1.0,
+"queen": 0.1,
+"rook": 0.15
+}
+
+[sub_resource type="Resource" id="Resource_fftnl"]
+script = ExtResource("6_opxtl")
+
+[sub_resource type="Resource" id="Resource_bxde6"]
+script = ExtResource("5_bxde6")
+piece_type = 3
+position = Vector2i(1, 3)
+color = true
+has_moved = false
+rules = SubResource("Resource_fftnl")
+
+[sub_resource type="Resource" id="Resource_opxtl"]
+script = ExtResource("7_crnce")
+
+[sub_resource type="Resource" id="Resource_crnce"]
+script = ExtResource("5_bxde6")
+piece_type = 5
+position = Vector2i(2, 0)
+color = false
+has_moved = false
+rules = SubResource("Resource_opxtl")
+
+[sub_resource type="Resource" id="Resource_x0n6o"]
+script = ExtResource("4_fftnl")
+grid_size = Vector2i(4, 4)
+tile_size = 40
+starting_pieces = Array[ExtResource("5_bxde6")]([SubResource("Resource_bxde6"), SubResource("Resource_crnce")])
+piece_spawn_rules = SubResource("Resource_k7elv")
+game_rules = SubResource("Resource_yvtb5")
+
+[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "score_label")]
+script = ExtResource("1_yvtb5")
+game_board = NodePath("GameBoard")
+score_label = NodePath("CanvasLayer/ScoreLabel")
+
+[node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
+position = Vector2(9, 78)
+game_config = SubResource("Resource_x0n6o")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Score:"
+
+[connection signal="gui_input" from="GameBoard/Tile" to="GameBoard/Tile" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064186" to="GameBoard/@Control@1064186" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064187" to="GameBoard/@Control@1064187" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064188" to="GameBoard/@Control@1064188" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064189" to="GameBoard/@Control@1064189" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064190" to="GameBoard/@Control@1064190" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064191" to="GameBoard/@Control@1064191" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064192" to="GameBoard/@Control@1064192" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064193" to="GameBoard/@Control@1064193" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064194" to="GameBoard/@Control@1064194" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064195" to="GameBoard/@Control@1064195" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064196" to="GameBoard/@Control@1064196" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064197" to="GameBoard/@Control@1064197" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064198" to="GameBoard/@Control@1064198" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064199" to="GameBoard/@Control@1064199" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@1064200" to="GameBoard/@Control@1064200" method="_on_gui_input"]

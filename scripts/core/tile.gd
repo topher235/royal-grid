@@ -9,11 +9,14 @@ var grid_position: Vector2i = Vector2i.ZERO
 var current_state: TileState = TileState.NORMAL
 var is_occupied := false
 var occupying_piece: ChessPiece = null
+var occupying_effect: Effect = null
 
 @export var background: ColorRect
 @export var highlight: ColorRect
 @export var selection: ColorRect
 @export var valid_move_indicator: ColorRect
+@export var pieces_container: Node
+@export var effects_container: Node
 
 
 func _ready() -> void:
@@ -88,6 +91,27 @@ func remove_piece(piece: ChessPiece) -> void:
         return
     remove_child(piece)
     set_occupancy(null)
+
+
+func add_effect(effect: Effect) -> void:
+    is_occupied = not effect.can_piece_move_to()
+    occupying_effect = effect
+    add_child(effect)
+    effect.effect_ended.connect(_on_effect_ended.bind(effect))
+
+
+func remove_effect() -> Effect:
+    is_occupied = false
+    var effect = occupying_effect
+    occupying_effect = null
+    remove_child(occupying_effect)
+    # have to keep this in the tree somewhere...
+    get_viewport().add_child(effect)
+    return effect
+
+
+func _on_effect_ended(effect: Effect) -> void:
+    remove_effect()
 
 
 func clear_indicators() -> void:

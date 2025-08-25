@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://et64mvvl0rqg"]
+
+[ext_resource type="Script" uid="uid://txs67yysww25" path="res://scripts/core/effect.gd" id="1_ki6ay"]
+
+[node name="Effect" type="Node2D" node_paths=PackedStringArray("background", "label") groups=["effects"]]
+script = ExtResource("1_ki6ay")
+background = NodePath("CenterContainer/VBoxContainer/ColorRect")
+label = NodePath("CenterContainer/VBoxContainer/Label")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+color = Color(0, 0, 1, 1)
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "name"

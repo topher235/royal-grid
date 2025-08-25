@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://df4ikyc530lgi" path="res://scripts/core/tile.gd" id="1_bfaab"]
 
-[node name="Tile" type="Control" node_paths=PackedStringArray("background", "highlight", "selection", "valid_move_indicator") groups=["tiles"]]
+[node name="Tile" type="Control" node_paths=PackedStringArray("background", "highlight", "selection", "valid_move_indicator", "pieces_container", "effects_container") groups=["tiles"]]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0
@@ -13,6 +13,10 @@ background = NodePath("Background")
 highlight = NodePath("Highlight")
 selection = NodePath("Selection")
 valid_move_indicator = NodePath("ValidMoveIndicator")
+pieces_container = NodePath("Pieces")
+effects_container = NodePath("Effects")
+
+[node name="Pieces" type="Node" parent="."]
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -49,5 +53,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="Effects" type="Node" parent="."]
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

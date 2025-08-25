@@ -2,14 +2,17 @@
 class_name ChessBoard extends Node2D
 
 signal piece_moved(from_pos: Vector2i, to_pos: Vector2i)
-signal piece_captured(pos: Vector2i)
+signal piece_captured(piece_used: ChessPiece, piece_captured: ChessPiece)
 signal turn_over(did_capture: bool)
 
 const TILE_SCENE = preload("res://scenes/board/tile.tscn")
 const PIECE_SCENE = preload("res://scenes/pieces/chess_piece.tscn")
+const EFFECT_SCENE = preload("res://scenes/board/effect.tscn")
 
 @export var piece_spawner: PieceSpawner
 @export var game_config: GameConfig
+@export var game_manager: GameManager
+@export var effect_spawner: EffectSpawner
 
 var game_state: GameState
 var tiles: Array[Array] = []
@@ -21,6 +24,7 @@ func _ready() -> void:
     if not game_config:
         game_config = GameConfig.default_game()
     piece_spawner.game_config = game_config
+    effect_spawner.game_config = game_config
     
     initialize_grid()
     create_tiles()
@@ -47,7 +51,7 @@ func create_tiles() -> void:
         for y in range(game_config.grid_size.y):
             var tile = TILE_SCENE.instantiate() as Tile
             tile.grid_position = Vector2i(x, y)
-            tile.set_size(Vector2(game_config.tile_size, game_config.tile_size))
+            tile.custom_minimum_size = Vector2(game_config.tile_size, game_config.tile_size)
             tile.position = Vector2(x * game_config.tile_size, y * game_config.tile_size)
             tile.tile_clicked.connect(_on_tile_clicked)
             tiles[x][y] = tile
@@ -59,18 +63,23 @@ func load_new_game() -> void:
 
     # game_state = GameState.new()
     # game_state.config = game_config
-    # game_state.pieces_on_board = game_config.starting_pieces.duplicate()
 
     for piece_data in game_config.starting_pieces:
         spawn_piece(piece_data)
 
 
 func spawn_piece(piece_data: PieceSpawnData) -> void:
-    print("spawning at ", piece_data.position)
     var piece = PIECE_SCENE.instantiate()
     if piece:
         piece.data = piece_data
         place_piece(piece, piece_data.position)
+
+
+func spawn_effect(effect_data: EffectSpawnData) -> void:
+    var effect = EFFECT_SCENE.instantiate()
+    if effect:
+        effect.data = effect_data
+        add_effect(effect, effect_data.position)
 
 
 func clear_board() -> void:
@@ -83,7 +92,7 @@ func clear_board() -> void:
 func _on_tile_clicked(tile: Tile) -> void:
     if selected_tile == null:
         # First click - select tile if it has a piece
-        if tile.is_occupied:
+        if tile.occupying_piece:
             select_tile(tile)
             show_valid_moves(tile)
     else:
@@ -125,8 +134,13 @@ func show_valid_moves(tile: Tile) -> void:
     
     var valid_moves = piece.get_legal_moves()
 
+    var blocked_spaces = []
+    for effect in get_tree().get_nodes_in_group("effects"):
+        if not effect.can_piece_move_to():
+            blocked_spaces.append(effect.grid_position)
+
     for move_pos in valid_moves:
-        if is_valid_position(move_pos):
+        if is_valid_position(move_pos) and move_pos not in blocked_spaces:
             tiles[move_pos.x][move_pos.y].show_valid_move()
 
 
@@ -175,6 +189,10 @@ func is_position_occupied_by_opponent(pos: Vector2i, piece: PieceSpawnData) -> b
     return other_piece and piece.color != other_piece.color
 
 
+func is_position_occupied_by_effect(pos: Vector2i) -> bool:
+    return tiles[pos.x][pos.y].occupying_effect != null
+
+
 func place_piece(piece: ChessPiece, pos: Vector2i) -> bool:
     if not is_valid_position(pos) or is_position_occupied(pos):
         return false
@@ -196,6 +214,14 @@ func remove_piece(pos: Vector2i) -> ChessPiece:
     return piece
 
 
+func remove_effect(pos: Vector2i) -> Effect:
+    if not is_valid_position(pos):
+        return null
+    var tile = tiles[pos.x][pos.y]
+    var effect = tile.remove_effect()
+    return effect
+
+
 func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
     if not is_valid_position(from_pos) or not is_valid_position(to_pos):
         return false
@@ -208,16 +234,29 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
         return false
     
     var did_capture = false
-    if is_position_occupied(to_pos):
+    if is_position_occupied_by_opponent(to_pos, piece.data):
         did_capture = true
         var captured_piece = remove_piece(to_pos)
-        piece_captured.emit(to_pos)
+        piece_captured.emit(piece, captured_piece)
         captured_piece.queue_free()
+    if is_position_occupied_by_effect(to_pos):
+        var captured_effect = remove_effect(to_pos)
+        if captured_effect:
+            captured_effect.execute()
     
     remove_piece(from_pos)
     place_piece(piece, to_pos)
     piece_moved.emit(from_pos, to_pos)
     turn_over.emit(did_capture)
+    return true
+
+
+func add_effect(effect: Effect, pos: Vector2i) -> bool:
+    if not is_valid_position(pos) or is_position_occupied(pos):
+        return false
+    
+    var tile = tiles[pos.x][pos.y]
+    tile.add_effect(effect)
     return true
 
 
@@ -237,3 +276,10 @@ func can_piece_move_to(piece: ChessPiece, target_pos: Vector2i) -> bool:
     
     var legal_moves = piece.get_legal_moves()
     return target_pos in legal_moves
+
+
+func is_position_empty(pos: Vector2i) -> bool:
+    if not is_valid_position(pos):
+        return false
+    
+    return not tiles[pos.x][pos.y].is_occupied

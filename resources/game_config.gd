@@ -1,7 +1,7 @@
 class_name GameConfig extends Resource
 
 @export var grid_size: Vector2i = Vector2i(4, 4)
-@export var tile_size: int = 32
+@export var tile_size: int = 48
 @export var starting_pieces: Array[PieceSpawnData] = []
 @export var piece_spawn_rules: PieceSpawnRules
 @export var game_rules: GameRules
@@ -18,7 +18,7 @@ static func default_game() -> GameConfig:
     var this = GameConfig.new()
 
     var white_pawn = PieceSpawnData.new()
-    white_pawn.piece_type = PieceSpawnData.PieceType.BISHOP
+    white_pawn.piece_type = PieceSpawnData.PieceType.PAWN
     white_pawn.position = Vector2i(1, 3)
     white_pawn.color = true
 

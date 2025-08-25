@@ -8,6 +8,8 @@ class_name GameState extends Resource
 @export var last_move: MoveData
 @export var game_phase: GamePhase = GamePhase.SETUP
 
+var score: int
+
 enum GamePhase {SETUP, PLAYING, GAME_OVER}
 
 

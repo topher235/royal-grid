@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Sprites="*res://autoloads/sprites.gd"
+Events="*res://autoloads/events.gd"
 
 [display]
 
@@ -33,6 +34,7 @@ window/stretch/aspect="expand"
 
 gameboard=""
 tiles=""
+effects=""
 
 [rendering]
 

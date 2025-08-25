@@ -19,6 +19,8 @@ func get_legal_moves(board: ChessBoard, piece: PieceSpawnData) -> Array[Vector2i
                 # Check if we can capture an opponent piece
                 if board.is_position_occupied_by_opponent(current_pos, piece):
                     moves.append(current_pos)
+                # elif board.can_piece_move_to_tile(current_pos):
+                #     moves.append(current_pos)
                 break  # Stop at first occupied square
             else:
                 moves.append(current_pos)
