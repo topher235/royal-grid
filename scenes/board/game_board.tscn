@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://be5nrbdyw7jo3"]
+[gd_scene load_steps=19 format=3 uid="uid://be5nrbdyw7jo3"]
 
 [ext_resource type="Script" uid="uid://bcq3wyntgcumb" path="res://scripts/core/chess_board.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://c47sos0nlvq5q" path="res://scripts/core/game_manager.gd" id="2_0jtfi"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://occ5x85heb6x" path="res://resources/pieces/pawn_rules.gd" id="6_503no"]
 [ext_resource type="Script" uid="uid://dknn0sc7q6dgw" path="res://resources/pieces/king_rules.gd" id="7_g76io"]
 [ext_resource type="Script" uid="uid://cx3rtn3wemtwt" path="res://scripts/core/effect_spawner.gd" id="10_503no"]
+[ext_resource type="Script" uid="uid://gg0r47tjbyoq" path="res://scripts/core/board_animator.gd" id="11_l0rtg"]
 
 [sub_resource type="Resource" id="Resource_ddl7t"]
 script = ExtResource("2_6n5dj")
@@ -39,7 +40,7 @@ script = ExtResource("6_503no")
 [sub_resource type="Resource" id="Resource_qo40v"]
 script = ExtResource("5_jrjqq")
 piece_type = 0
-position = Vector2i(1, 3)
+position = Vector2i(1, 1)
 color = true
 has_moved = false
 rules = SubResource("Resource_l0rtg")
@@ -63,12 +64,13 @@ starting_pieces = Array[ExtResource("5_jrjqq")]([SubResource("Resource_qo40v"), 
 piece_spawn_rules = SubResource("Resource_avcb0")
 game_rules = SubResource("Resource_ddl7t")
 
-[node name="GameBoard" type="Node2D" node_paths=PackedStringArray("piece_spawner", "game_manager", "effect_spawner") groups=["gameboard"]]
+[node name="GameBoard" type="Node2D" node_paths=PackedStringArray("piece_spawner", "game_manager", "effect_spawner", "animator") groups=["gameboard"]]
 script = ExtResource("1_3wu0g")
 piece_spawner = NodePath("PieceSpawner")
 game_config = SubResource("Resource_u734o")
 game_manager = NodePath("GameManager")
 effect_spawner = NodePath("EffectSpawner")
+animator = NodePath("BoardAnimator")
 
 [node name="PieceSpawner" type="Node" parent="." node_paths=PackedStringArray("chess_board")]
 script = ExtResource("2_j06l4")
@@ -83,6 +85,10 @@ effect_spawner = NodePath("../EffectSpawner")
 
 [node name="EffectSpawner" type="Node" parent="." node_paths=PackedStringArray("chess_board")]
 script = ExtResource("10_503no")
+chess_board = NodePath("..")
+
+[node name="BoardAnimator" type="Node" parent="." node_paths=PackedStringArray("chess_board")]
+script = ExtResource("11_l0rtg")
 chess_board = NodePath("..")
 
 [connection signal="gui_input" from="Tile" to="Tile" method="_on_gui_input"]

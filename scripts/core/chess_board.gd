@@ -1,7 +1,7 @@
 @tool
 class_name ChessBoard extends Node2D
 
-signal piece_moved(from_pos: Vector2i, to_pos: Vector2i)
+signal piece_moved(piece: ChessPiece, from_pos: Vector2i, to_pos: Vector2i)
 signal piece_captured(piece_used: ChessPiece, piece_captured: ChessPiece)
 signal turn_over(did_capture: bool)
 
@@ -13,6 +13,7 @@ const EFFECT_SCENE = preload("res://scenes/board/effect.tscn")
 @export var game_config: GameConfig
 @export var game_manager: GameManager
 @export var effect_spawner: EffectSpawner
+@export var animator: ChessBoardAnimator
 
 var game_state: GameState
 var tiles: Array[Array] = []
@@ -66,6 +67,7 @@ func load_new_game() -> void:
 
     for piece_data in game_config.starting_pieces:
         spawn_piece(piece_data)
+        await get_tree().create_timer(0.2).timeout
 
 
 func spawn_piece(piece_data: PieceSpawnData) -> void:
@@ -73,6 +75,7 @@ func spawn_piece(piece_data: PieceSpawnData) -> void:
     if piece:
         piece.data = piece_data
         place_piece(piece, piece_data.position)
+        piece.animate_spawn()
 
 
 func spawn_effect(effect_data: EffectSpawnData) -> void:
@@ -98,7 +101,7 @@ func _on_tile_clicked(tile: Tile) -> void:
     else:
         # Second click - attempt move
         if tile != selected_tile:
-            var move_successful = attempt_move(selected_tile, tile)
+            var move_successful = await attempt_move(selected_tile, tile)
             if move_successful:
                 deselect_current_tile()
         else:
@@ -161,7 +164,7 @@ func attempt_move(from_tile: Tile, to_tile: Tile) -> bool:
         print("Illegal move for piece")
         return false
 
-    if move_piece(from_pos, to_pos):
+    if await move_piece(from_pos, to_pos):
         # Update piece's internal position
         piece.set_grid_position(to_pos)
         # piece.move_to(to_pos)
@@ -197,6 +200,7 @@ func place_piece(piece: ChessPiece, pos: Vector2i) -> bool:
     if not is_valid_position(pos) or is_position_occupied(pos):
         return false
     
+    remove_child(piece)
     pieces[pos.x][pos.y] = piece
     var tile = tiles[pos.x][pos.y]
     tile.set_occupancy(piece)
@@ -211,6 +215,11 @@ func remove_piece(pos: Vector2i) -> ChessPiece:
     pieces[pos.x][pos.y] = null
     var tile = tiles[pos.x][pos.y]
     tile.remove_piece(piece)
+
+    # temporarily reparent to the board
+    add_child(piece)
+    piece.position = tile.position
+
     return piece
 
 
@@ -237,16 +246,17 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
     if is_position_occupied_by_opponent(to_pos, piece.data):
         did_capture = true
         var captured_piece = remove_piece(to_pos)
+        captured_piece.animate_capture()
         piece_captured.emit(piece, captured_piece)
-        captured_piece.queue_free()
     if is_position_occupied_by_effect(to_pos):
         var captured_effect = remove_effect(to_pos)
         if captured_effect:
             captured_effect.execute()
-    
+
     remove_piece(from_pos)
     place_piece(piece, to_pos)
-    piece_moved.emit(from_pos, to_pos)
+    await animator.animate_piece_move(piece, from_pos, to_pos)
+    piece_moved.emit(piece, from_pos, to_pos)
     turn_over.emit(did_capture)
     return true
 

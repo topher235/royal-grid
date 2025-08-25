@@ -14,7 +14,7 @@ var occupying_effect: Effect = null
 @export var background: ColorRect
 @export var highlight: ColorRect
 @export var selection: ColorRect
-@export var valid_move_indicator: ColorRect
+@export var valid_move_indicator: TextureRect
 @export var pieces_container: Node
 @export var effects_container: Node
 
@@ -38,8 +38,7 @@ func setup_visual_nodes() -> void:
     selection.modulate.a = 0.5
     selection.visible = false
 
-    valid_move_indicator.color = Color.GREEN
-    valid_move_indicator.modulate.a = 0.6
+    valid_move_indicator.modulate.a = 0.9
     valid_move_indicator.visible = false
 
 
@@ -86,6 +85,7 @@ func set_occupancy(piece: ChessPiece = null) -> void:
     occupying_piece = piece
     if piece:
         add_child(piece)
+        piece.position = Vector2(0, 0)
 
 
 func remove_piece(piece: ChessPiece) -> void:

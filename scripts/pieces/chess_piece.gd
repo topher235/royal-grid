@@ -1,5 +1,6 @@
-class_name ChessPiece extends Control
+class_name ChessPiece extends Node2D
 
+@export var animator: PieceAnimator
 @export var label: Label
 @export var sprite: TextureRect
 @export var sprite_atlas: ChessSpriteAtlas
@@ -55,3 +56,15 @@ func update_sprite() -> void:
     # var sprite_texture = sprite_atlas.get_sprite_texture(data.piece_type, data.color)
     if sprite_texture:
         sprite.texture = sprite_texture
+
+
+func animate_move_to(to_pos) -> void:
+    await animator.animate_move_to(to_pos)
+
+
+func animate_spawn() -> void:
+    animator.animate_spawn()
+
+
+func animate_capture() -> void:
+    animator.animate_capture()

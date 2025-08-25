@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccixrxm3lt7ib"]
+[gd_scene load_steps=3 format=3 uid="uid://ccixrxm3lt7ib"]
 
 [ext_resource type="Script" uid="uid://df4ikyc530lgi" path="res://scripts/core/tile.gd" id="1_bfaab"]
+[ext_resource type="Texture2D" uid="uid://360g3ib0kr2m" path="res://assets/images/button_round/button_rnd_grayscale.png" id="2_kx4x0"]
 
 [node name="Tile" type="Control" node_paths=PackedStringArray("background", "highlight", "selection", "valid_move_indicator", "pieces_container", "effects_container") groups=["tiles"]]
 custom_minimum_size = Vector2(32, 32)
@@ -13,10 +14,8 @@ background = NodePath("Background")
 highlight = NodePath("Highlight")
 selection = NodePath("Selection")
 valid_move_indicator = NodePath("ValidMoveIndicator")
-pieces_container = NodePath("Pieces")
-effects_container = NodePath("Effects")
-
-[node name="Pieces" type="Node" parent="."]
+pieces_container = NodePath("")
+effects_container = NodePath("")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -45,15 +44,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="ValidMoveIndicator" type="ColorRect" parent="."]
+[node name="ValidMoveIndicator" type="TextureRect" parent="."]
+z_index = 5
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
-
-[node name="Effects" type="Node" parent="."]
+texture = ExtResource("2_kx4x0")
+expand_mode = 1
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

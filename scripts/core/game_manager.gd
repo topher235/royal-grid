@@ -68,8 +68,9 @@ func remove_effect(special_effect: SpecialEffect) -> void:
 func destroy_at_position(pos: Vector2i, perform_scoring: bool) -> void:
     var piece = chess_board.remove_piece(pos)
     if piece:
+        piece.animate_capture()
+        # TODO: might want a slight delay here?
         score_points(piece.data.points)
-        piece.queue_free()
 
 
 func freeze_tile(pos: Vector2i, duration: int) -> void:
