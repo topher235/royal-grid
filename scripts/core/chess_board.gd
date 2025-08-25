@@ -102,8 +102,7 @@ func _on_tile_clicked(tile: Tile) -> void:
         # Second click - attempt move
         if tile != selected_tile:
             var move_successful = await attempt_move(selected_tile, tile)
-            if move_successful:
-                deselect_current_tile()
+            deselect_current_tile()
         else:
             # Deselect current tile
             deselect_current_tile()
@@ -162,6 +161,7 @@ func attempt_move(from_tile: Tile, to_tile: Tile) -> bool:
     
     if not can_piece_move_to(piece, to_pos):
         print("Illegal move for piece")
+        piece.animate_error()
         return false
 
     if await move_piece(from_pos, to_pos):
@@ -219,6 +219,7 @@ func remove_piece(pos: Vector2i) -> ChessPiece:
     # temporarily reparent to the board
     add_child(piece)
     piece.position = tile.position
+    print(piece.position)
 
     return piece
 
@@ -254,8 +255,8 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
             captured_effect.execute()
 
     remove_piece(from_pos)
-    place_piece(piece, to_pos)
     await animator.animate_piece_move(piece, from_pos, to_pos)
+    place_piece(piece, to_pos)
     piece_moved.emit(piece, from_pos, to_pos)
     turn_over.emit(did_capture)
     return true

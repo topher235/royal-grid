@@ -1,4 +1,9 @@
+@tool
 class_name ChessPiece extends Node2D
+
+const WHITE_OUTLINE_COLOR = Color8(152, 59, 202)
+const BLACK_OUTLINE_COLOR = Color8(0, 145, 45)
+const OUTLINE_SHADER_MATERIAL = preload("res://resources/shader_materials/chess_piece_outline.tres")
 
 @export var animator: PieceAnimator
 @export var label: Label
@@ -41,11 +46,15 @@ func get_legal_moves() -> Array[Vector2i]:
 
 
 func update_visuals() -> void:
+    if not data:
+        return
+    
     if label:
         var color = "W" if data.color else "B"
         label.text = color + " - " + data.get_piece_type()
 
     update_sprite()
+    update_outline_shader_color()
 
 
 func update_sprite() -> void:
@@ -58,8 +67,15 @@ func update_sprite() -> void:
         sprite.texture = sprite_texture
 
 
+func update_outline_shader_color() -> void:
+    if data and sprite:
+        var outline_color = WHITE_OUTLINE_COLOR if data.color else BLACK_OUTLINE_COLOR
+        sprite.material.set_shader_parameter("color", outline_color)
+
+
 func animate_move_to(to_pos) -> void:
     await animator.animate_move_to(to_pos)
+    toggle_outline(false)
 
 
 func animate_spawn() -> void:
@@ -68,3 +84,17 @@ func animate_spawn() -> void:
 
 func animate_capture() -> void:
     animator.animate_capture()
+
+
+func animate_error() -> void:
+    sprite.material = null
+    animator.animate_error(
+        func():
+            sprite.material = OUTLINE_SHADER_MATERIAL.duplicate()
+            update_outline_shader_color()
+    )
+
+
+func toggle_outline(is_enabled: bool) -> void:
+    if sprite and sprite.material:
+        sprite.material.set_shader_parameter("enable_outline", float(is_enabled))

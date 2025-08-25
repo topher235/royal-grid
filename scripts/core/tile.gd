@@ -125,11 +125,17 @@ func show_valid_move() -> void:
 
 
 func select() -> void:
+    SoundManager.play_ui_sound_with_pitch(Sounds.HOVER, 1.2)
     set_state(TileState.SELECTED)
+    if occupying_piece:
+        occupying_piece.toggle_outline(true)
 
 
 func deselect() -> void:
+    SoundManager.play_ui_sound_with_pitch(Sounds.HOVER, 0.9)
     set_state(TileState.NORMAL)
+    if occupying_piece:
+        occupying_piece.toggle_outline(false)
 
 
 func freeze(duration: int) -> void:

@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bx8i76ixs5jq7"]
+
+[ext_resource type="Shader" uid="uid://dlpolp7gltfmg" path="res://shaders/chess_piece_toon.gdshader" id="1_7hoh2"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_7hoh2")
+shader_parameter/enable_outline = 0.0
+shader_parameter/maxLineWidth = 25.0
+shader_parameter/minLineWidth = 15.0
+shader_parameter/speed = 7.0
+shader_parameter/blockSize = 20.0
+shader_parameter/color = Color(2.62313e-06, 0.567441, 0.176532, 1)
+shader_parameter/tolerance = 0.0

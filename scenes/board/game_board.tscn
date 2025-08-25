@@ -86,24 +86,25 @@ effect_spawner = NodePath("../EffectSpawner")
 [node name="EffectSpawner" type="Node" parent="." node_paths=PackedStringArray("chess_board")]
 script = ExtResource("10_503no")
 chess_board = NodePath("..")
+game_config = SubResource("Resource_u734o")
 
 [node name="BoardAnimator" type="Node" parent="." node_paths=PackedStringArray("chess_board")]
 script = ExtResource("11_l0rtg")
 chess_board = NodePath("..")
 
 [connection signal="gui_input" from="Tile" to="Tile" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412710" to="@Control@412710" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412711" to="@Control@412711" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412712" to="@Control@412712" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412713" to="@Control@412713" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412714" to="@Control@412714" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412715" to="@Control@412715" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412716" to="@Control@412716" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412717" to="@Control@412717" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412718" to="@Control@412718" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412719" to="@Control@412719" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412720" to="@Control@412720" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412721" to="@Control@412721" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412722" to="@Control@412722" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412723" to="@Control@412723" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@412724" to="@Control@412724" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21770" to="@Control@21770" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21771" to="@Control@21771" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21772" to="@Control@21772" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21773" to="@Control@21773" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21774" to="@Control@21774" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21775" to="@Control@21775" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21776" to="@Control@21776" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21777" to="@Control@21777" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21778" to="@Control@21778" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21779" to="@Control@21779" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21780" to="@Control@21780" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21781" to="@Control@21781" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21782" to="@Control@21782" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21783" to="@Control@21783" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@21784" to="@Control@21784" method="_on_gui_input"]

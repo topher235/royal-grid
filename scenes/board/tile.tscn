@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://df4ikyc530lgi" path="res://scripts/core/tile.gd" id="1_bfaab"]
 [ext_resource type="Texture2D" uid="uid://360g3ib0kr2m" path="res://assets/images/button_round/button_rnd_grayscale.png" id="2_kx4x0"]
 
-[node name="Tile" type="Control" node_paths=PackedStringArray("background", "highlight", "selection", "valid_move_indicator", "pieces_container", "effects_container") groups=["tiles"]]
+[node name="Tile" type="Control" node_paths=PackedStringArray("background", "highlight", "selection", "valid_move_indicator") groups=["tiles"]]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0
@@ -14,8 +14,6 @@ background = NodePath("Background")
 highlight = NodePath("Highlight")
 selection = NodePath("Selection")
 valid_move_indicator = NodePath("ValidMoveIndicator")
-pieces_container = NodePath("")
-effects_container = NodePath("")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -27,6 +25,8 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="Highlight" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.3)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,8 +34,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+color = Color(1, 1, 0, 1)
 
 [node name="Selection" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.5)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,8 +46,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+color = Color(0, 0, 1, 1)
 
 [node name="ValidMoveIndicator" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.9)
 z_index = 5
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1

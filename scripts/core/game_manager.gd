@@ -32,6 +32,9 @@ func _on_piece_captured(piece_used: ChessPiece, _piece_captured: ChessPiece) -> 
 func score_points(points: int) -> void:
     score += calculate_points(points)
     Events.score_updated.emit(score)
+    # for point in range(calculate_points(points)):
+    #     score += 1
+    #     Events.score_updated.emit(score)
 
 
 func calculate_points(points: int) -> int:
