@@ -32,6 +32,7 @@ func on_end_turn() -> void:
 
 func _on_effect_end() -> void:
     effect_ended.emit()
+    queue_free()
 
 
 func _set_data(value: EffectSpawnData) -> void:

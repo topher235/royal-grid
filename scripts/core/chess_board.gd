@@ -92,7 +92,7 @@ func clear_board() -> void:
 func _on_tile_clicked(tile: Tile) -> void:
     if selected_tile == null:
         # First click - select tile if it has a piece
-        if tile.occupying_piece:
+        if tile.occupying_piece and tile.freeze_counter <= 0:
             select_tile(tile)
             show_valid_moves(tile)
     else:
@@ -283,3 +283,7 @@ func is_position_empty(pos: Vector2i) -> bool:
         return false
     
     return not tiles[pos.x][pos.y].is_occupied
+
+
+func retrieve_tile_at_position(pos: Vector2i) -> Tile:
+    return tiles[pos.x][pos.y]

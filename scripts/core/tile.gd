@@ -18,6 +18,8 @@ var occupying_effect: Effect = null
 @export var pieces_container: Node
 @export var effects_container: Node
 
+var freeze_counter := 0
+
 
 func _ready() -> void:
     setup_visual_nodes()
@@ -128,3 +130,15 @@ func select() -> void:
 
 func deselect() -> void:
     set_state(TileState.NORMAL)
+
+
+func freeze(duration: int) -> void:
+    freeze_counter += duration
+
+
+func on_end_turn() -> void:
+    """
+    Various cleanup tasks after a player makes their move.
+    """
+    if freeze_counter > 0:
+        freeze_counter -= 1

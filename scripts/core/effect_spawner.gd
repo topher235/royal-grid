@@ -49,7 +49,7 @@ func find_random_empty_position() -> Vector2i:
     for x in range(game_config.grid_size.x):
         for y in range(game_config.grid_size.y):
             var pos = Vector2i(x, y)
-            if not chess_board.is_position_occupied(pos):
+            if not chess_board.is_position_occupied(pos) and not chess_board.is_position_occupied_by_effect(pos):
                 empty_positions.append(pos)
     
     if empty_positions.is_empty():

@@ -11,3 +11,8 @@ func _init() -> void:
 func execute(gm: GameManager, pos: Vector2i) -> void:
     super(gm, pos)
     pass
+
+
+func expire(gm: GameManager) -> void:
+    super(gm)
+    # gm.remove_effect(self)
