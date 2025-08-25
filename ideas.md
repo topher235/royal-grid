@@ -24,3 +24,8 @@
 
 - Time trial
   - New piece appears after X seconds instead of every move
+
+
+
+
+- [ ] Add a small pulse animation to effects

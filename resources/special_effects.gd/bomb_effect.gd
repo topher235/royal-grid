@@ -6,6 +6,7 @@ func _init() -> void:
     color = Color.BLUE_VIOLET
     duration = 1
     name = "BOMB"
+    icon = Sprites.BOMB_ICON
 
 
 func execute(gm: GameManager, pos: Vector2i) -> void:

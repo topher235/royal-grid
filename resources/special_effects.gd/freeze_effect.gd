@@ -7,6 +7,7 @@ func _init() -> void:
     color = Color.VIOLET
     duration = 2
     name = "FRZ"
+    icon = Sprites.FREEZE_ICON
 
 
 func execute(gm: GameManager, pos: Vector2i) -> void:

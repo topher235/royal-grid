@@ -14,6 +14,12 @@ const BISHOP_BLACK = preload("res://assets/images/cartoon/chess-bishop-black.png
 const QUEEN_BLACK = preload("res://assets/images/cartoon/chess-queen-black.png")
 const KING_BLACK = preload("res://assets/images/cartoon/chess-king-black.png")
 
+const BLOCK_ICON = preload("res://assets/images/effects/block.png")
+const BOMB_ICON = preload("res://assets/images/effects/bomb.png")
+const FREEZE_ICON = preload("res://assets/images/effects/freeze.png")
+const MULT_ICON = preload("res://assets/images/effects/multiplier.png")
+const SPAWN_ICON = preload("res://assets/images/effects/spawn.png")
+
 const WHITE_SPRITES = {
     PieceSpawnData.PieceType.PAWN: PAWN_WHITE,
     PieceSpawnData.PieceType.KNIGHT: KNIGHT_WHITE,

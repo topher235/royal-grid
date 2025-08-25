@@ -54,7 +54,6 @@ func update_visuals() -> void:
         label.text = color + " - " + data.get_piece_type()
 
     update_sprite()
-    update_outline_shader_color()
 
 
 func update_sprite() -> void:
@@ -97,4 +96,16 @@ func animate_error() -> void:
 
 func toggle_outline(is_enabled: bool) -> void:
     if sprite and sprite.material:
-        sprite.material.set_shader_parameter("enable_outline", float(is_enabled))
+        if is_enabled:
+            sprite.material.set_shader_parameter("enable_outline", 1.0)
+            sprite.material.set_shader_parameter("max_line_width", 25.0)
+            sprite.material.set_shader_parameter("min_line_width", 15.0)
+            sprite.material.set_shader_parameter("speed", 7.0)
+            var outline_color = WHITE_OUTLINE_COLOR if data.color else BLACK_OUTLINE_COLOR
+            sprite.material.set_shader_parameter("color", outline_color)
+        else:
+            sprite.material.set_shader_parameter("enable_outline", 1.0)
+            sprite.material.set_shader_parameter("max_line_width", 15.0)
+            sprite.material.set_shader_parameter("min_line_width", 10.0)
+            sprite.material.set_shader_parameter("speed", 4.0)
+            sprite.material.set_shader_parameter("color", Color.BLACK)

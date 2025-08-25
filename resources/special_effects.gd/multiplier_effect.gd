@@ -8,6 +8,7 @@ func _init() -> void:
     color = Color.GREEN
     duration = 2
     name = "MULT"
+    icon = Sprites.MULT_ICON
 
 
 func execute(gm: GameManager, pos: Vector2i) -> void:

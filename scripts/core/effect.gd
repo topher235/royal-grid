@@ -3,6 +3,7 @@ class_name Effect extends Node2D
 
 signal effect_ended
 
+@export var icon: TextureRect
 @export var background: ColorRect
 @export var label: Label
 @export var color: Color = Color.BLUE
@@ -17,6 +18,7 @@ var grid_position: Vector2i = Vector2i.ZERO:
 
 func _ready() -> void:
     background.color = color
+    
     if data:
         special_effect = data.effect
     
@@ -43,6 +45,9 @@ func _set_data(value: EffectSpawnData) -> void:
 func _set_special_effect(value: SpecialEffect) -> void:
     special_effect = value
     label.text = special_effect.name
+    if icon and special_effect.icon:
+        icon.texture = special_effect.icon
+        icon.material.set_shader_parameter("color", special_effect.color)
 
 
 func can_piece_move_to() -> bool:

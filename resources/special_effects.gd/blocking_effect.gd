@@ -6,6 +6,7 @@ func _init() -> void:
     can_piece_move_to = false
     color = Color.RED
     name = "BLOCK"
+    icon = Sprites.BLOCK_ICON
 
 
 func execute(gm: GameManager, pos: Vector2i) -> void:

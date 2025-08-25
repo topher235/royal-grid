@@ -9,6 +9,7 @@ var can_piece_move_to := true
 # this field is for prototyping, replace with sprite or something
 var color: Color = Color.WHITE
 var name := "BASE"
+var icon: Texture2D
 
 
 func execute(gm: GameManager, pos: Vector2i) -> void:
