@@ -61,6 +61,10 @@ func spawn_new_piece() -> void:
     piece_spawner.spawn_random_piece(false, true)
 
 
+func spawn_new_piece_from_data(piece_data: PieceSpawnData) -> void:
+    piece_spawner.spawn_from_data(piece_data)
+
+
 func remove_effect(special_effect: SpecialEffect) -> void:
     for effect in get_tree().get_nodes_in_group("effects"):
         if effect.special_effect == special_effect:
@@ -69,6 +73,9 @@ func remove_effect(special_effect: SpecialEffect) -> void:
 
 
 func destroy_at_position(pos: Vector2i, _perform_scoring: bool) -> void:
+    if not chess_board.does_position_have_piece(pos):
+        return
+    
     var piece = chess_board.remove_piece(pos)
     if piece:
         piece.animate_capture()

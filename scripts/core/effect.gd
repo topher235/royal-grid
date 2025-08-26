@@ -3,6 +3,7 @@ class_name Effect extends Node2D
 
 signal effect_ended
 
+@export var animation_player: AnimationPlayer
 @export var icon: TextureRect
 @export var background: ColorRect
 @export var label: Label
@@ -25,6 +26,7 @@ func _ready() -> void:
     if special_effect:
         special_effect.end_effect.connect(_on_effect_end)
         label.text = special_effect.name
+    animation_player.play("pulse")
 
 
 func on_end_turn() -> void:

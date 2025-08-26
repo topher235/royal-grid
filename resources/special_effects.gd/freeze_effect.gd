@@ -1,5 +1,8 @@
 class_name FreezeSpecialEffect extends SpecialEffect
 
+# This freezes a tile (not the unit on the tile)
+# So if a player captures a piece on this tile, then that new piece
+# cannot move until the freeze_duration is up
 # Piece cannot move for X (duration) turns
 @export var freeze_duration := 3
 

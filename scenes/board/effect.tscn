@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://et64mvvl0rqg"]
+[gd_scene load_steps=8 format=3 uid="uid://et64mvvl0rqg"]
 
 [ext_resource type="Script" uid="uid://txs67yysww25" path="res://scripts/core/effect.gd" id="1_ki6ay"]
 [ext_resource type="Shader" uid="uid://dlpolp7gltfmg" path="res://shaders/chess_piece_toon.gdshader" id="2_8xdjr"]
-[ext_resource type="Texture2D" uid="uid://uphpy2o5b5xk" path="res://assets/images/effects/spawn.png" id="3_e1aav"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0f4w7"]
 resource_local_to_scene = true
@@ -15,11 +14,86 @@ shader_parameter/blockSize = 9.521
 shader_parameter/color = Color(0, 1, 0, 1)
 shader_parameter/tolerance = 0.209
 
-[node name="Effect" type="Node2D" node_paths=PackedStringArray("icon", "background", "label") groups=["effects"]]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_spnv3"]
+load_path = "res://.godot/imported/spawn.png-5f0b636b29522b687c10bf7a1845b250.ctex"
+
+[sub_resource type="Animation" id="Animation_8xdjr"]
+resource_name = "pulse"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.50648, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:pivot_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.51052),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(20, 20), Vector2(22, 22)]
+}
+
+[sub_resource type="Animation" id="Animation_e1aav"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:pivot_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(20, 20)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0f4w7"]
+_data = {
+&"RESET": SubResource("Animation_e1aav"),
+&"pulse": SubResource("Animation_8xdjr")
+}
+
+[node name="Effect" type="Node2D" node_paths=PackedStringArray("animation_player", "icon", "background", "label") groups=["effects"]]
 script = ExtResource("1_ki6ay")
-icon = NodePath("CenterContainer/Icon")
+animation_player = NodePath("AnimationPlayer")
+icon = NodePath("Icon")
 background = NodePath("CenterContainer/VBoxContainer/ColorRect")
 label = NodePath("CenterContainer/VBoxContainer/Label")
+
+[node name="Icon" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_0f4w7")
+custom_minimum_size = Vector2(40, 40)
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(20, 20)
+texture = SubResource("CompressedTexture2D_spnv3")
+expand_mode = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 custom_minimum_size = Vector2(40, 40)
@@ -30,13 +104,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Icon" type="TextureRect" parent="CenterContainer"]
-material = SubResource("ShaderMaterial_0f4w7")
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("3_e1aav")
-expand_mode = 1
+scale = Vector2(1.05722, 1.05722)
+pivot_offset = Vector2(20, 20)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
@@ -56,3 +125,8 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 10
 text = "name"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_0f4w7")
+}

@@ -23,7 +23,7 @@ win_condition = 0
 [sub_resource type="Resource" id="Resource_avcb0"]
 script = ExtResource("3_503no")
 spawn_pieces_on_empty_turn = true
-max_pieces_on_board = 25
+max_pieces_on_board = 16
 piece_spawn_chance = 0.4
 piece_type_weights = {
 "bishop": 0.15,

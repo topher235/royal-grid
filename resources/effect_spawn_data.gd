@@ -3,9 +3,11 @@ class_name EffectSpawnData extends Resource
 @export var position: Vector2i
 @export var effect: SpecialEffect
 @export var weights: Dictionary = {
-    "blocking": 0.7,
+    "blocking": 0.4,
     "multiplier": 0.1,
     "spawn": 0.2,
+    "freeze": 0.3,
+    "bomb": 0.3,
 }
 
 var rng: RandomNumberGenerator
@@ -40,7 +42,6 @@ func init_random_effect() -> void:
     for effect_name in weights.keys():
         current_weight += weights[effect_name]
         if random_value <= current_weight:
-            print(effect_name)
             match effect_name:
                 "blocking":
                     effect = BlockingSpecialEffect.new()
@@ -50,6 +51,12 @@ func init_random_effect() -> void:
                     break
                 "spawn":
                     effect = SpawnSpecialEffect.new()
+                    break
+                "freeze":
+                    effect = FreezeSpecialEffect.new()
+                    break
+                "bomb":
+                    effect = BombSpecialEffect.new()
                     break
 
     # Fallback to blocking effect    

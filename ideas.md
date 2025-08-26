@@ -28,7 +28,12 @@
 
 
 
-- [ ] Add a small pulse animation to effects
+- [X] Add a small pulse animation to effects
 - [ ] Change effect spawn to spawn a king or queen and use the crown icon. then take out the king and queen from the normal weights
 - [ ] Add effect that rotates the board, but makes the new top-left tile (0, 0)
 - [ ] Add other effects to the spawn weights
+- [ ] Make effects have a chance to happen every move, but chance grows each time no effect is spawned
+- [ ] Add frozen animation for user feedback when they try to press a frozen piece
+- [ ] Fix bomb effect animating before move indicator is hidden
+- [ ] Fix effects spawning under units
+

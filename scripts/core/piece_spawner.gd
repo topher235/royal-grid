@@ -54,6 +54,15 @@ func spawn_random_piece(did_capture: bool, override: bool = false) -> void:
     chess_board.spawn_piece(piece_data)
 
 
+func spawn_from_data(piece_data: PieceSpawnData) -> void:
+    var empty_position = find_random_empty_position()
+    if empty_position == Vector2i(-1, -1):
+        return
+    
+    piece_data.position = empty_position
+    chess_board.spawn_piece(piece_data)
+
+
 func find_random_empty_position() -> Vector2i:
     if not chess_board or not game_config:
         return Vector2i(-1, -1)

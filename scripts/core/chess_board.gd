@@ -247,6 +247,7 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
     if not piece:
         return false
     
+    remove_piece(from_pos)
     var did_capture = false
     if is_position_occupied_by_opponent(to_pos, piece.data):
         did_capture = true
@@ -258,7 +259,6 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
         if captured_effect:
             captured_effect.execute()
 
-    remove_piece(from_pos)
     await animator.animate_piece_move(piece, from_pos, to_pos)
     place_piece(piece, to_pos)
     piece_moved.emit(piece, from_pos, to_pos)
@@ -298,6 +298,13 @@ func is_position_empty(pos: Vector2i) -> bool:
         return false
     
     return not tiles[pos.x][pos.y].is_occupied
+
+
+func does_position_have_piece(pos: Vector2i) -> bool:
+    if not is_valid_position(pos):
+        return false
+    
+    return pieces[pos.x][pos.y] != null
 
 
 func retrieve_tile_at_position(pos: Vector2i) -> Tile:

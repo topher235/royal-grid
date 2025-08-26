@@ -20,7 +20,7 @@ win_condition = 0
 [sub_resource type="Resource" id="Resource_k7elv"]
 script = ExtResource("3_k7elv")
 spawn_pieces_on_empty_turn = true
-max_pieces_on_board = 25
+max_pieces_on_board = 16
 piece_spawn_chance = 0.4
 piece_type_weights = {
 "bishop": 0.15,
@@ -78,18 +78,18 @@ offset_bottom = 23.0
 text = "Score:"
 
 [connection signal="gui_input" from="GameBoard/Tile" to="GameBoard/Tile" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220659" to="GameBoard/@Control@220659" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220660" to="GameBoard/@Control@220660" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220661" to="GameBoard/@Control@220661" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220662" to="GameBoard/@Control@220662" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220663" to="GameBoard/@Control@220663" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220664" to="GameBoard/@Control@220664" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220665" to="GameBoard/@Control@220665" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220666" to="GameBoard/@Control@220666" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220667" to="GameBoard/@Control@220667" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220668" to="GameBoard/@Control@220668" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220669" to="GameBoard/@Control@220669" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220670" to="GameBoard/@Control@220670" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220671" to="GameBoard/@Control@220671" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220672" to="GameBoard/@Control@220672" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@220673" to="GameBoard/@Control@220673" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245620" to="GameBoard/@Control@245620" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245621" to="GameBoard/@Control@245621" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245622" to="GameBoard/@Control@245622" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245623" to="GameBoard/@Control@245623" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245624" to="GameBoard/@Control@245624" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245625" to="GameBoard/@Control@245625" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245626" to="GameBoard/@Control@245626" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245627" to="GameBoard/@Control@245627" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245628" to="GameBoard/@Control@245628" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245629" to="GameBoard/@Control@245629" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245630" to="GameBoard/@Control@245630" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245631" to="GameBoard/@Control@245631" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245632" to="GameBoard/@Control@245632" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245633" to="GameBoard/@Control@245633" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@245634" to="GameBoard/@Control@245634" method="_on_gui_input"]
