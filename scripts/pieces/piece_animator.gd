@@ -51,7 +51,7 @@ func animate_error(cb: Callable) -> void:
     animation_player.animation_finished.connect(_on_animation_finished.bind(cb), CONNECT_ONE_SHOT)
 
 
-func _on_animation_finished(animation_name: String, callback: Callable) -> void:
+func _on_animation_finished(_animation_name: String, callback: Callable) -> void:
     print("at animation finished")
     if callback:
         callback.call()

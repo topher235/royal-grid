@@ -50,8 +50,8 @@ func update_visuals() -> void:
         return
     
     if label:
-        var color = "W" if data.color else "B"
-        label.text = color + " - " + data.get_piece_type()
+        var piece_color_text = "W" if data.color else "B"
+        label.text = piece_color_text + " - " + data.get_piece_type()
 
     update_sprite()
 

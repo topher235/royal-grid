@@ -50,6 +50,6 @@ func is_position_occupied_by_opponent(pos: Vector2i, piece: PieceSpawnData) -> b
     return other_piece and piece.color != other_piece.color
 
 
-func get_legal_moves_for_piece(piece_data: PieceSpawnData) -> Array[Vector2i]:
+func get_legal_moves_for_piece(_piece_data: PieceSpawnData) -> Array[Vector2i]:
     return []
 

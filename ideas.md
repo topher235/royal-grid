@@ -29,3 +29,6 @@
 
 
 - [ ] Add a small pulse animation to effects
+- [ ] Change effect spawn to spawn a king or queen and use the crown icon. then take out the king and queen from the normal weights
+- [ ] Add effect that rotates the board, but makes the new top-left tile (0, 0)
+- [ ] Add other effects to the spawn weights

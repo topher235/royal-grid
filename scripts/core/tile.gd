@@ -105,14 +105,14 @@ func add_effect(effect: Effect) -> void:
 func remove_effect() -> Effect:
     is_occupied = false
     var effect = occupying_effect
-    occupying_effect = null
     remove_child(occupying_effect)
+    occupying_effect = null
     # have to keep this in the tree somewhere...
     get_viewport().add_child(effect)
     return effect
 
 
-func _on_effect_ended(effect: Effect) -> void:
+func _on_effect_ended(_effect: Effect) -> void:
     remove_effect()
 
 

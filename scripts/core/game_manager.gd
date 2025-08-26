@@ -68,7 +68,7 @@ func remove_effect(special_effect: SpecialEffect) -> void:
             return
 
 
-func destroy_at_position(pos: Vector2i, perform_scoring: bool) -> void:
+func destroy_at_position(pos: Vector2i, _perform_scoring: bool) -> void:
     var piece = chess_board.remove_piece(pos)
     if piece:
         piece.animate_capture()

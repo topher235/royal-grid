@@ -5,7 +5,7 @@ func get_piece_type() -> String:
     return "Base"
 
 
-func get_legal_moves(board: ChessBoard, piece: PieceSpawnData) -> Array[Vector2i]:
+func get_legal_moves(_board: ChessBoard, _piece: PieceSpawnData) -> Array[Vector2i]:
     return []
 
 

@@ -12,7 +12,7 @@ var name := "BASE"
 var icon: Texture2D
 
 
-func execute(gm: GameManager, pos: Vector2i) -> void:
+func execute(_gm: GameManager, _pos: Vector2i) -> void:
     print("Executing - ", name)
     pass
 

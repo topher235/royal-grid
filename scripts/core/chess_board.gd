@@ -101,7 +101,7 @@ func _on_tile_clicked(tile: Tile) -> void:
     else:
         # Second click - attempt move
         if tile != selected_tile:
-            var move_successful = await attempt_move(selected_tile, tile)
+            await attempt_move(selected_tile, tile)
             deselect_current_tile()
         else:
             # Deselect current tile
@@ -200,7 +200,11 @@ func place_piece(piece: ChessPiece, pos: Vector2i) -> bool:
     if not is_valid_position(pos) or is_position_occupied(pos):
         return false
     
-    remove_child(piece)
+    # Remove from parent so it can be reparented to the tile
+    var piece_parent = piece.get_parent()
+    if piece_parent:
+        piece_parent.remove_child(piece)
+
     pieces[pos.x][pos.y] = piece
     var tile = tiles[pos.x][pos.y]
     tile.set_occupancy(piece)
