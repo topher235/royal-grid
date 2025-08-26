@@ -101,7 +101,7 @@ func _on_tile_clicked(tile: Tile) -> void:
     else:
         # Second click - attempt move
         if tile != selected_tile:
-            await attempt_move(selected_tile, tile)
+            attempt_move(selected_tile, tile)
             deselect_current_tile()
         else:
             # Deselect current tile
@@ -223,7 +223,6 @@ func remove_piece(pos: Vector2i) -> ChessPiece:
     # temporarily reparent to the board
     add_child(piece)
     piece.position = tile.position
-    print(piece.position)
 
     return piece
 

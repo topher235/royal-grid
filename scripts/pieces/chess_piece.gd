@@ -90,7 +90,8 @@ func animate_error() -> void:
     animator.animate_error(
         func():
             sprite.material = OUTLINE_SHADER_MATERIAL.duplicate()
-            update_outline_shader_color()
+            # update_outline_shader_color()
+            toggle_outline(false)
     )
 
 
