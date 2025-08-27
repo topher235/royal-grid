@@ -36,4 +36,5 @@
 - [ ] Add frozen animation for user feedback when they try to press a frozen piece
 - [X] Fix bomb effect animating before move indicator is hidden
 - [ ] Fix effects spawning under units
+- [X] Preview upcoming piece
 

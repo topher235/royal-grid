@@ -1,9 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccixrxm3lt7ib"]
+[gd_scene load_steps=7 format=3 uid="uid://ccixrxm3lt7ib"]
 
 [ext_resource type="Script" uid="uid://df4ikyc530lgi" path="res://scripts/core/tile.gd" id="1_bfaab"]
 [ext_resource type="Texture2D" uid="uid://360g3ib0kr2m" path="res://assets/images/button_round/button_rnd_grayscale.png" id="2_kx4x0"]
+[ext_resource type="Texture2D" uid="uid://cdewkaslvt76b" path="res://assets/images/snow/snowfalke_tiny.png" id="3_vpg4h"]
 
-[node name="Tile" type="Control" node_paths=PackedStringArray("background", "highlight", "selection", "valid_move_indicator") groups=["tiles"]]
+[sub_resource type="Gradient" id="Gradient_vpg4h"]
+offsets = PackedFloat32Array(0, 0.0018797, 0.975564)
+colors = PackedColorArray(1, 1, 1, 1, 0.949248, 0.949248, 0.949248, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xm3w6"]
+gradient = SubResource("Gradient_vpg4h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vpg4h"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(20, 1, 0)
+emission_shape = 3
+emission_box_extents = Vector3(15, 1, 1)
+gravity = Vector3(0, 20, 0)
+radial_accel_min = -1.0
+radial_accel_max = -1.0
+damping_min = 5.0
+damping_max = 5.0
+scale_min = 0.0
+scale_max = 0.3
+color_ramp = SubResource("GradientTexture1D_xm3w6")
+
+[node name="Tile" type="Control" node_paths=PackedStringArray("background", "highlight", "selection", "valid_move_indicator", "snow_particles") groups=["tiles"]]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0
@@ -14,6 +37,7 @@ background = NodePath("Background")
 highlight = NodePath("Highlight")
 selection = NodePath("Selection")
 valid_move_indicator = NodePath("ValidMoveIndicator")
+snow_particles = NodePath("SnowParticles")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -63,5 +87,14 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_kx4x0")
 expand_mode = 1
+
+[node name="SnowParticles" type="GPUParticles2D" parent="."]
+z_index = 99
+emitting = false
+amount = 4
+texture = ExtResource("3_vpg4h")
+lifetime = 2.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_vpg4h")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

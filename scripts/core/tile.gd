@@ -15,8 +15,7 @@ var occupying_effect: Effect = null
 @export var highlight: ColorRect
 @export var selection: ColorRect
 @export var valid_move_indicator: TextureRect
-@export var pieces_container: Node
-@export var effects_container: Node
+@export var snow_particles: GPUParticles2D
 
 var freeze_counter := 0
 
@@ -140,6 +139,10 @@ func deselect() -> void:
 
 func freeze(duration: int) -> void:
     freeze_counter += duration
+    if freeze_counter > 0:
+        if not snow_particles.emitting:
+            snow_particles.emitting = true
+            snow_particles.restart()
 
 
 func on_end_turn() -> void:
@@ -148,3 +151,6 @@ func on_end_turn() -> void:
     """
     if freeze_counter > 0:
         freeze_counter -= 1
+    
+    if freeze_counter <= 0:
+        snow_particles.emitting = false
