@@ -4,11 +4,17 @@ class_name PieceSpawner extends Node
 @export var game_config: GameConfig
 
 var rng: RandomNumberGenerator
+var next_piece_data: PieceSpawnData
 
 
 func _ready() -> void:
     rng = RandomNumberGenerator.new()
     rng.randomize()
+    next_piece_data = create_random_piece_data(Vector2(0, 0))
+    get_tree().create_timer(0.5).timeout.connect(
+        func():
+            Events.next_piece_generated.emit(next_piece_data)
+    )
 
 
 func should_spawn_piece(did_capture: bool, override: bool) -> bool:
@@ -47,11 +53,15 @@ func spawn_random_piece(did_capture: bool, override: bool = false) -> void:
     if empty_position == Vector2i(-1, -1):
         return
     
-    var piece_data = create_random_piece_data(empty_position)
+    var piece_data = next_piece_data
     if not piece_data:
         return
     
+    Events.next_piece_is_spawning.emit()
     chess_board.spawn_piece(piece_data)
+    next_piece_data = create_random_piece_data(empty_position)
+    Events.next_piece_generated.emit(next_piece_data)
+
 
 
 func spawn_from_data(piece_data: PieceSpawnData) -> void:
@@ -83,6 +93,7 @@ func find_random_empty_position() -> Vector2i:
 
 func create_random_piece_data(position: Vector2i) -> PieceSpawnData:
     if not game_config or not game_config.piece_spawn_rules:
+        printerr("PieceSpawner missing game config")
         return null
     
 

@@ -85,6 +85,10 @@ func animate_capture() -> void:
     animator.animate_capture()
 
 
+func fadeout() -> void:
+    animator.animate_disappear(queue_free)
+
+
 func animate_error() -> void:
     sprite.material = null
     animator.animate_error(

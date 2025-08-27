@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://j2grci2ratew"]
+[gd_scene load_steps=11 format=3 uid="uid://j2grci2ratew"]
 
 [ext_resource type="PackedScene" uid="uid://be5nrbdyw7jo3" path="res://scenes/board/game_board.tscn" id="1_qrkc0"]
 [ext_resource type="Script" uid="uid://ckd1v14s6ohpj" path="res://scripts/ui/game_ui.gd" id="1_yvtb5"]
@@ -29,18 +29,27 @@ piece_type_weights = {
 "rook": 0.15
 }
 
+[sub_resource type="Resource" id="Resource_v1bdg"]
+script = ExtResource("5_bxde6")
+piece_type = 0
+position = Vector2i(0, 0)
+color = false
+has_moved = false
+metadata/_custom_type_script = "uid://mphr7bciikvs"
+
 [sub_resource type="Resource" id="Resource_x0n6o"]
 script = ExtResource("4_fftnl")
 grid_size = Vector2i(4, 4)
 tile_size = 40
-starting_pieces = Array[ExtResource("5_bxde6")]([])
+starting_pieces = Array[ExtResource("5_bxde6")]([SubResource("Resource_v1bdg")])
 piece_spawn_rules = SubResource("Resource_k7elv")
 game_rules = SubResource("Resource_yvtb5")
 
-[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "score_label")]
+[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "score_label", "next_piece_container")]
 script = ExtResource("1_yvtb5")
 game_board = NodePath("GameBoard")
 score_label = NodePath("CanvasLayer/ScoreLabel")
+next_piece_container = NodePath("CanvasLayer/NextPiecePanelContainer")
 
 [node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
 position = Vector2(9, 78)
@@ -53,19 +62,26 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "Score:"
 
+[node name="NextPiecePanelContainer" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 90.0
+offset_top = 5.0
+offset_right = 170.0
+offset_bottom = 45.0
+size_flags_horizontal = 8
+
 [connection signal="gui_input" from="GameBoard/Tile" to="GameBoard/Tile" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27503" to="GameBoard/@Control@27503" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27504" to="GameBoard/@Control@27504" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27505" to="GameBoard/@Control@27505" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27506" to="GameBoard/@Control@27506" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27507" to="GameBoard/@Control@27507" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27508" to="GameBoard/@Control@27508" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27509" to="GameBoard/@Control@27509" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27510" to="GameBoard/@Control@27510" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27511" to="GameBoard/@Control@27511" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27512" to="GameBoard/@Control@27512" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27513" to="GameBoard/@Control@27513" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27514" to="GameBoard/@Control@27514" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27515" to="GameBoard/@Control@27515" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27516" to="GameBoard/@Control@27516" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@27517" to="GameBoard/@Control@27517" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56361" to="GameBoard/@Control@56361" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56362" to="GameBoard/@Control@56362" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56363" to="GameBoard/@Control@56363" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56364" to="GameBoard/@Control@56364" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56365" to="GameBoard/@Control@56365" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56366" to="GameBoard/@Control@56366" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56367" to="GameBoard/@Control@56367" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56368" to="GameBoard/@Control@56368" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56369" to="GameBoard/@Control@56369" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56370" to="GameBoard/@Control@56370" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56371" to="GameBoard/@Control@56371" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56372" to="GameBoard/@Control@56372" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56373" to="GameBoard/@Control@56373" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56374" to="GameBoard/@Control@56374" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@56375" to="GameBoard/@Control@56375" method="_on_gui_input"]

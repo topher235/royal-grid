@@ -1,7 +1,10 @@
 class_name GameUI extends Node2D
 
+const CHESS_PIECE = preload("res://scenes/pieces/chess_piece.tscn")
+
 @export var game_board: ChessBoard
 @export var score_label: Label
+@export var next_piece_container: PanelContainer
 
 var score_tween: Tween
 var score_queue: Array[int]
@@ -10,6 +13,8 @@ var current_score := 0
 
 func _ready() -> void:
     Events.score_updated.connect(_on_score_updated)
+    Events.next_piece_is_spawning.connect(_on_next_piece_is_spawning)
+    Events.next_piece_generated.connect(_on_next_piece_generated)
 
 
 func _on_score_updated(new_score: int) -> void:
@@ -45,3 +50,15 @@ func update_score_label() -> void:
 
     await score_tween.finished
     current_score = target_score
+
+
+func _on_next_piece_is_spawning() -> void:
+    var piece: ChessPiece = next_piece_container.get_child(0)
+    piece.fadeout()
+
+
+func _on_next_piece_generated(piece_data: PieceSpawnData) -> void:
+    var piece: ChessPiece = CHESS_PIECE.instantiate() as ChessPiece
+    piece.data = piece_data
+    piece.animate_spawn()
+    next_piece_container.add_child(piece)

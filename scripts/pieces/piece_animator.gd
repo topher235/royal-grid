@@ -48,7 +48,16 @@ func animate_spawn() -> void:
 
 func animate_error(cb: Callable) -> void:
     animation_player.play("error")
-    animation_player.animation_finished.connect(_on_animation_finished.bind(cb), CONNECT_ONE_SHOT)
+    animation_player.animation_finished.connect(
+        _on_animation_finished.bind(cb), CONNECT_ONE_SHOT
+    )
+
+
+func animate_disappear(cb: Callable) -> void:
+    animation_player.play("disappear")
+    animation_player.animation_finished.connect(
+        _on_animation_finished.bind(cb), CONNECT_ONE_SHOT
+    )
 
 
 func _on_animation_finished(_animation_name: String, callback: Callable) -> void:
