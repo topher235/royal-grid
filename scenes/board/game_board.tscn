@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://be5nrbdyw7jo3"]
+[gd_scene load_steps=13 format=3 uid="uid://be5nrbdyw7jo3"]
 
 [ext_resource type="Script" uid="uid://bcq3wyntgcumb" path="res://scripts/core/chess_board.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://c47sos0nlvq5q" path="res://scripts/core/game_manager.gd" id="2_0jtfi"]
@@ -7,8 +7,6 @@
 [ext_resource type="Script" uid="uid://comwnq0c27il5" path="res://resources/piece_spawn_rules.gd" id="3_503no"]
 [ext_resource type="Script" uid="uid://cr8t7wydqjk8f" path="res://resources/game_config.gd" id="4_l0rtg"]
 [ext_resource type="Script" uid="uid://mphr7bciikvs" path="res://resources/piece_spawn_data.gd" id="5_jrjqq"]
-[ext_resource type="Script" uid="uid://occ5x85heb6x" path="res://resources/pieces/pawn_rules.gd" id="6_503no"]
-[ext_resource type="Script" uid="uid://dknn0sc7q6dgw" path="res://resources/pieces/king_rules.gd" id="7_g76io"]
 [ext_resource type="Script" uid="uid://cx3rtn3wemtwt" path="res://scripts/core/effect_spawner.gd" id="10_503no"]
 [ext_resource type="Script" uid="uid://gg0r47tjbyoq" path="res://scripts/core/board_animator.gd" id="11_l0rtg"]
 
@@ -34,33 +32,11 @@ piece_type_weights = {
 "rook": 0.15
 }
 
-[sub_resource type="Resource" id="Resource_l0rtg"]
-script = ExtResource("6_503no")
-
-[sub_resource type="Resource" id="Resource_qo40v"]
-script = ExtResource("5_jrjqq")
-piece_type = 0
-position = Vector2i(1, 1)
-color = true
-has_moved = false
-rules = SubResource("Resource_l0rtg")
-
-[sub_resource type="Resource" id="Resource_yf3ts"]
-script = ExtResource("7_g76io")
-
-[sub_resource type="Resource" id="Resource_a82yk"]
-script = ExtResource("5_jrjqq")
-piece_type = 5
-position = Vector2i(2, 0)
-color = false
-has_moved = false
-rules = SubResource("Resource_yf3ts")
-
 [sub_resource type="Resource" id="Resource_u734o"]
 script = ExtResource("4_l0rtg")
 grid_size = Vector2i(4, 4)
 tile_size = 40
-starting_pieces = Array[ExtResource("5_jrjqq")]([SubResource("Resource_qo40v"), SubResource("Resource_a82yk")])
+starting_pieces = Array[ExtResource("5_jrjqq")]([])
 piece_spawn_rules = SubResource("Resource_avcb0")
 game_rules = SubResource("Resource_ddl7t")
 
@@ -93,18 +69,18 @@ script = ExtResource("11_l0rtg")
 chess_board = NodePath("..")
 
 [connection signal="gui_input" from="Tile" to="Tile" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21770" to="@Control@21770" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21771" to="@Control@21771" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21772" to="@Control@21772" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21773" to="@Control@21773" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21774" to="@Control@21774" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21775" to="@Control@21775" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21776" to="@Control@21776" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21777" to="@Control@21777" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21778" to="@Control@21778" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21779" to="@Control@21779" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21780" to="@Control@21780" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21781" to="@Control@21781" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21782" to="@Control@21782" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21783" to="@Control@21783" method="_on_gui_input"]
-[connection signal="gui_input" from="@Control@21784" to="@Control@21784" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24126" to="@Control@24126" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24127" to="@Control@24127" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24128" to="@Control@24128" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24129" to="@Control@24129" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24130" to="@Control@24130" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24131" to="@Control@24131" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24132" to="@Control@24132" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24133" to="@Control@24133" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24134" to="@Control@24134" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24135" to="@Control@24135" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24136" to="@Control@24136" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24137" to="@Control@24137" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24138" to="@Control@24138" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24139" to="@Control@24139" method="_on_gui_input"]
+[connection signal="gui_input" from="@Control@24140" to="@Control@24140" method="_on_gui_input"]

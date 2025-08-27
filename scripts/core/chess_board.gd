@@ -22,10 +22,12 @@ var selected_tile: Tile = null
 
 
 func _ready() -> void:
-    if not game_config:
-        game_config = GameConfig.default_game()
-    piece_spawner.game_config = game_config
-    effect_spawner.game_config = game_config
+    # if not game_config:
+    #     game_config = GameConfig.default_game()
+    
+    if game_config:
+        piece_spawner.game_config = game_config
+        effect_spawner.game_config = game_config
     
     initialize_grid()
     create_tiles()
@@ -61,6 +63,9 @@ func create_tiles() -> void:
 
 func load_new_game() -> void:
     clear_board()
+
+    if not game_config:
+        return
 
     # game_state = GameState.new()
     # game_state.config = game_config
