@@ -59,7 +59,7 @@
 
 Todo today:
 
-- [ ] Set up SceneManager and make a Main scene -> MainMenu -> GameUI
-- [ ] Add frozen animation
-- [ ] Add multiplier label to UI
+- [X] Set up SceneManager and make a Main scene -> MainMenu -> GameUI
+- [X] Add frozen animation
+- [X] Add multiplier label to UI
 - [ ] Fix effect/piece `is_occupied` duplication

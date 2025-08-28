@@ -1,6 +1,6 @@
 class_name MultiplierSpecialEffect extends SpecialEffect
 
-@export var multiplier := 2
+@export var multiplier := 1
 @export var multiplier_duration := 5
 
 

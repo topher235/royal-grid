@@ -17,9 +17,13 @@ func _ready() -> void:
 
 func _on_turn_over(did_capture: bool) -> void:
     moves += 1
+    
     # Do end of turn effects - could involve effects expiring (duration running out)
     get_tree().call_group("effects", "on_end_turn")
     get_tree().call_group("tiles", "on_end_turn")
+    if score_multiplier_duration > 0:
+        score_multiplier_duration -= 1
+    
     # Now spawn new things
     piece_spawner.spawn_random_piece(did_capture)
     effect_spawner.spawn_random_effect(moves, false)
@@ -48,13 +52,15 @@ func calculate_points(points: int) -> int:
 
 
 func update_points_multiplier(multiplier: int, duration: int) -> void:
-    score_multiplier = multiplier
+    score_multiplier += multiplier
     score_multiplier_duration += duration
+    Events.mult_updated.emit(score_multiplier)
 
 
 func reset_points_multiplier() -> void:
     score_multiplier = 1
     score_multiplier_duration = 0
+    Events.mult_updated.emit(score_multiplier)
 
 
 func spawn_new_piece() -> void:
