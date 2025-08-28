@@ -101,8 +101,10 @@ func clear_board() -> void:
 
 func _on_tile_clicked(tile: Tile) -> void:
     if selected_tile == null:
+        if tile.is_frozen():
+            tile.animate_frozen()
         # First click - select tile if it has a piece
-        if tile.occupying_piece and tile.freeze_counter <= 0:
+        elif tile.occupying_piece:
             select_tile(tile)
             show_valid_moves(tile)
     else:

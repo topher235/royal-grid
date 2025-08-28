@@ -99,6 +99,15 @@ func animate_error() -> void:
     )
 
 
+func animate_frozen() -> void:
+    sprite.material = null
+    animator.animate_frozen(
+        func():
+            sprite.material = OUTLINE_SHADER_MATERIAL.duplicate()
+            toggle_outline(false)
+    )
+
+
 func toggle_outline(is_enabled: bool) -> void:
     if sprite and sprite.material:
         if is_enabled:

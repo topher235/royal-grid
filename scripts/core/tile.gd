@@ -33,7 +33,7 @@ func _ready() -> void:
 func setup_visual_nodes() -> void:
     white_sprite.visible = is_white_tile
     color_sprite.visible = not is_white_tile
-    
+
     background.color = Color.WHITE if (grid_position.x + grid_position.y) % 2 == 0 else Color.GRAY
 
     highlight.color = Color.YELLOW
@@ -163,3 +163,14 @@ func on_end_turn() -> void:
     
     if freeze_counter <= 0:
         snow_particles.emitting = false
+
+
+func is_frozen() -> bool:
+    return freeze_counter > 0
+
+
+func animate_frozen() -> void:
+    if not occupying_piece:
+        return
+    
+    occupying_piece.animate_frozen()

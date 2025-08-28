@@ -53,6 +53,13 @@ func animate_error(cb: Callable) -> void:
     )
 
 
+func animate_frozen(cb: Callable) -> void:
+    animation_player.play("frozen")
+    animation_player.animation_finished.connect(
+        _on_animation_finished.bind(cb), CONNECT_ONE_SHOT
+    )
+
+
 func animate_disappear(cb: Callable) -> void:
     animation_player.play("disappear")
     animation_player.animation_finished.connect(

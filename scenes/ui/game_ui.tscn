@@ -144,20 +144,3 @@ expand_mode = 1
 [node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
 position = Vector2(9, 85)
 game_config = SubResource("Resource_x0n6o")
-
-[connection signal="gui_input" from="GameBoard/Tile" to="GameBoard/Tile" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664738" to="GameBoard/@Control@664738" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664739" to="GameBoard/@Control@664739" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664740" to="GameBoard/@Control@664740" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664741" to="GameBoard/@Control@664741" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664742" to="GameBoard/@Control@664742" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664743" to="GameBoard/@Control@664743" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664744" to="GameBoard/@Control@664744" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664745" to="GameBoard/@Control@664745" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664746" to="GameBoard/@Control@664746" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664747" to="GameBoard/@Control@664747" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664748" to="GameBoard/@Control@664748" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664749" to="GameBoard/@Control@664749" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664750" to="GameBoard/@Control@664750" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664751" to="GameBoard/@Control@664751" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@664752" to="GameBoard/@Control@664752" method="_on_gui_input"]
