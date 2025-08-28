@@ -34,6 +34,9 @@ func _set_piece_type(value: PieceType) -> void:
 
 
 func get_piece_type() -> String:
+    if not rules:
+        return ""
+    
     return rules.get_piece_type()
 
 

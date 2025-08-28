@@ -32,6 +32,7 @@ window/size/window_width_override=720
 window/size/window_height_override=1280
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=1
 
 [editor_plugins]
 
@@ -51,3 +52,4 @@ theme/custom_font="uid://cj61mlioxetxc"
 [rendering]
 
 renderer/rendering_method="gl_compatability"
+textures/vram_compression/import_etc2_astc=true
