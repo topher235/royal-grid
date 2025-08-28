@@ -64,3 +64,11 @@ func _on_next_piece_generated(piece_data: PieceSpawnData) -> void:
     piece.data = piece_data
     piece.animate_spawn()
     next_piece_container.add_child(piece)
+
+
+func get_scene_data() -> Dictionary:
+    return {}
+
+
+func set_scene_data(value: Dictionary):
+    pass

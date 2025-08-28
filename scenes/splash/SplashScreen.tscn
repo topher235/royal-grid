@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://rsuqkyruxt44"]
+
+[ext_resource type="Script" uid="uid://c7t3m2lqqtjjy" path="res://scripts/splash_screen.gd" id="1_eijff"]
+[ext_resource type="Texture2D" uid="uid://bigvv4aajdmer" path="res://assets/images/background/splash-background.png" id="1_ssmfp"]
+[ext_resource type="Texture2D" uid="uid://dixkv20bd5gxb" path="res://assets/images/ag-logo.png" id="2_ijck7"]
+
+[node name="SplashScreen" type="Control" node_paths=PackedStringArray("splash_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eijff")
+splash_container = NodePath("SplashContainer")
+
+[node name="SplashContainer" type="Node" parent="."]
+
+[node name="Screen1" type="Control" parent="SplashContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="SplashContainer/Screen1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ssmfp")
+expand_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="SplashContainer/Screen1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AmuletGamesLogo" type="TextureRect" parent="SplashContainer/Screen1/CenterContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("2_ijck7")
+expand_mode = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

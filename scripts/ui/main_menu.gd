@@ -1,5 +1,8 @@
 class_name MainMenu extends Control
 
+signal change_screen
+signal scene_changed(to_path: String)
+
 @export var play_game_button: MainMenuButton
 @export var settings_button: MainMenuButton
 @export var shop_button: MainMenuButton
@@ -21,9 +24,9 @@ func _ready() -> void:
     animation_player.queue("fade_in_menu_box")
 
 
-
 func _on_play_game_button_pressed() -> void:
     print("play game")
+    scene_changed.emit("res://scenes/ui/game_ui.tscn")
 
 
 func _on_settings_button_pressed() -> void:
@@ -32,3 +35,11 @@ func _on_settings_button_pressed() -> void:
 
 func _on_shop_button_pressed() -> void:
     print("shop")
+
+
+func get_scene_data() -> Dictionary:
+    return {}
+
+
+func set_scene_data(value: Dictionary):
+    pass

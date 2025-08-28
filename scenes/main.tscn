@@ -1,3 +1,21 @@
-[gd_scene format=3 uid="uid://d2py1cvj6onlm"]
+[gd_scene load_steps=3 format=3 uid="uid://d2py1cvj6onlm"]
+
+[ext_resource type="Script" uid="uid://b37gqoj6c8wj2" path="res://scripts/scene_manager.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://rsuqkyruxt44" path="res://scenes/splash/SplashScreen.tscn" id="2_0wfyh"]
 
 [node name="Main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="Background" type="Panel" parent="CanvasLayer"]
+custom_minimum_size = Vector2(180, 320)
+offset_right = 180.0
+offset_bottom = 320.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource("1_o5qli")
+
+[node name="SplashScreen" parent="SceneManager" instance=ExtResource("2_0wfyh")]
