@@ -10,27 +10,27 @@ var next_piece_data: PieceSpawnData
 func _ready() -> void:
     rng = RandomNumberGenerator.new()
     rng.randomize()
-    next_piece_data = create_random_piece_data(Vector2(0, 0))
     get_tree().create_timer(0.5).timeout.connect(
         func():
+            next_piece_data = create_random_piece_data(find_random_empty_position())
             Events.next_piece_generated.emit(next_piece_data)
     )
 
 
 func should_spawn_piece(did_capture: bool, override: bool) -> bool:
     if not game_config or not game_config.piece_spawn_rules:
-        print("Missing game config or spawn rules")
+        Log.info(self, "Missing game config or spawn rules")
         return false
     
     var rules = game_config.piece_spawn_rules
 
     if not rules.spawn_pieces_on_empty_turn:
-        print("Do not spawn pieces on empty turn")
+        Log.info(self, "Do not spawn pieces on empty turn")
         return false
     
     var current_piece_count = get_current_piece_count()
     if current_piece_count >= rules.max_pieces_on_board:
-        print("Do not spawn more than max number of pieces")
+        Log.info(self, "Do not spawn more than max number of pieces")
         return false
     
     if override:
@@ -39,7 +39,7 @@ func should_spawn_piece(did_capture: bool, override: bool) -> bool:
     # If player captured a piece then there's a chance a new one does not spawn
     if did_capture:
         var chance = rng.randf()
-        print("Rolled ", chance, " out of ", rules.piece_spawn_chance)
+        Log.info(self, "Rolled " + str(chance) + " out of " + str(rules.piece_spawn_chance))
         return chance < rules.piece_spawn_chance
     
     return true
@@ -47,15 +47,24 @@ func should_spawn_piece(did_capture: bool, override: bool) -> bool:
 
 func spawn_random_piece(did_capture: bool, override: bool = false) -> void:
     if not should_spawn_piece(did_capture, override):
+        Log.error(self, "spawn_random_piece should not spawn piece")
         return
     
     var empty_position = find_random_empty_position()
     if empty_position == Vector2i(-1, -1):
+        Log.error(self, "spawn_random_piece got an empty position of (-1, -1)")
         return
     
     var piece_data = next_piece_data
     if not piece_data:
+        Log.error(self, "spawn_random_piece Expected piece data not available")
         return
+    
+    # We created this data last move, so the position could now be occupied
+    # right before placing, we set the position to the newly calculated empty position
+    # note: this function does create the next piece with this same position,
+    #   but when we get to the next spawn, we'll be re-calculating the empty position
+    piece_data.position = empty_position
     
     Events.next_piece_is_spawning.emit()
     chess_board.spawn_piece(piece_data)
@@ -67,6 +76,7 @@ func spawn_random_piece(did_capture: bool, override: bool = false) -> void:
 func spawn_from_data(piece_data: PieceSpawnData) -> void:
     var empty_position = find_random_empty_position()
     if empty_position == Vector2i(-1, -1):
+        Log.error(self, "spawn_from_data found empty position (-1, -1)")
         return
     
     piece_data.position = empty_position
@@ -93,7 +103,7 @@ func find_random_empty_position() -> Vector2i:
 
 func create_random_piece_data(position: Vector2i) -> PieceSpawnData:
     if not game_config or not game_config.piece_spawn_rules:
-        printerr("PieceSpawner missing game config")
+        Log.error(self, "missing game config")
         return null
     
 

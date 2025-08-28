@@ -22,6 +22,7 @@ Sprites="*res://autoloads/sprites.gd"
 Events="*res://autoloads/events.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 Sounds="*res://autoloads/sounds.gd"
+Log="*res://autoloads/log.gd"
 
 [display]
 
@@ -45,6 +46,7 @@ effects=""
 [gui]
 
 common/snap_controls_to_pixels=false
+theme/custom_font="uid://cj61mlioxetxc"
 
 [rendering]
 

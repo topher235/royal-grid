@@ -61,6 +61,5 @@ func animate_disappear(cb: Callable) -> void:
 
 
 func _on_animation_finished(_animation_name: String, callback: Callable) -> void:
-    print("at animation finished")
     if callback:
         callback.call()

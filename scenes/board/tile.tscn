@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccixrxm3lt7ib"]
+[gd_scene load_steps=9 format=3 uid="uid://ccixrxm3lt7ib"]
 
 [ext_resource type="Script" uid="uid://df4ikyc530lgi" path="res://scripts/core/tile.gd" id="1_bfaab"]
 [ext_resource type="Texture2D" uid="uid://360g3ib0kr2m" path="res://assets/images/button_round/button_rnd_grayscale.png" id="2_kx4x0"]
+[ext_resource type="Texture2D" uid="uid://csep2w25ewide" path="res://assets/images/tiles/tile_white.png" id="2_w7oh7"]
+[ext_resource type="Texture2D" uid="uid://bxw3oiwsrdtda" path="res://assets/images/tiles/tile_mint.png" id="3_abphe"]
 [ext_resource type="Texture2D" uid="uid://cdewkaslvt76b" path="res://assets/images/snow/snowfalke_tiny.png" id="3_vpg4h"]
 
 [sub_resource type="Gradient" id="Gradient_vpg4h"]
@@ -26,20 +28,43 @@ scale_min = 0.0
 scale_max = 0.3
 color_ramp = SubResource("GradientTexture1D_xm3w6")
 
-[node name="Tile" type="Control" node_paths=PackedStringArray("background", "highlight", "selection", "valid_move_indicator", "snow_particles") groups=["tiles"]]
+[node name="Tile" type="Control" node_paths=PackedStringArray("white_sprite", "color_sprite", "background", "highlight", "selection", "valid_move_indicator", "snow_particles") groups=["tiles"]]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 32.0
 offset_bottom = 32.0
 script = ExtResource("1_bfaab")
+white_sprite = NodePath("WhiteTileSprite")
+color_sprite = NodePath("ColorTileSprite")
 background = NodePath("Background")
 highlight = NodePath("Highlight")
 selection = NodePath("Selection")
 valid_move_indicator = NodePath("ValidMoveIndicator")
 snow_particles = NodePath("SnowParticles")
 
+[node name="WhiteTileSprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_w7oh7")
+expand_mode = 1
+
+[node name="ColorTileSprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_abphe")
+expand_mode = 1
+
 [node name="Background" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

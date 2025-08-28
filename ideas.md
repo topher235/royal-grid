@@ -25,6 +25,23 @@
 - Time trial
   - New piece appears after X seconds instead of every move
 
+- Characters
+  - Play as a character that gives special effects
+  - Beggar: makes pawns give 10 points when they take a non-pawn piece
+  - Captain: More likely to spawn knights
+
+
+- Progression
+  - Give a currency when the game is over based on the points scored
+  - Currency can be used to purchase new tile effects and characters
+  - Rewarded ads for currency
+
+- Shop
+  - Buy currency to unlock effects and characters without going through progression system
+  - Buy ad removal
+
+
+
 
 
 
@@ -35,6 +52,14 @@
 - [ ] Make effects have a chance to happen every move, but chance grows each time no effect is spawned
 - [ ] Add frozen animation for user feedback when they try to press a frozen piece
 - [X] Fix bomb effect animating before move indicator is hidden
-- [ ] Fix effects spawning under units
 - [X] Preview upcoming piece
+- [ ] Fix effects spawning under units
+- [ ] FIX - effects and pawns are using the same `is_occupied` flag on Tile, but they are not compatible in the current use. Effects should not spawn where there are units but if a unit is spawned where there is an effect, then the effect should be removed (expired, not executed). Sharing the flag means it's set to null when an effect is removed and a piece is still there. 
 
+
+Todo today:
+
+- [ ] Set up SceneManager and make a Main scene -> MainMenu -> GameUI
+- [ ] Add frozen animation
+- [ ] Add multiplier label to UI
+- [ ] Fix effect/piece `is_occupied` duplication

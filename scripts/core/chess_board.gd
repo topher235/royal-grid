@@ -81,6 +81,8 @@ func spawn_piece(piece_data: PieceSpawnData) -> void:
         piece.data = piece_data
         place_piece(piece, piece_data.position)
         piece.animate_spawn()
+    else:
+        Log.error(self, "failed to instantiate new piece scene")
 
 
 func spawn_effect(effect_data: EffectSpawnData) -> void:
@@ -203,12 +205,15 @@ func is_position_occupied_by_effect(pos: Vector2i) -> bool:
 
 func place_piece(piece: ChessPiece, pos: Vector2i) -> bool:
     if not is_valid_position(pos) or is_position_occupied(pos):
+        Log.error(self, str(pos) + " is not a valid position or it's occupied")
         return false
     
     # Remove from parent so it can be reparented to the tile
     var piece_parent = piece.get_parent()
     if piece_parent:
         piece_parent.remove_child(piece)
+    else:
+        Log.info(self, "piece has no parent")
 
     pieces[pos.x][pos.y] = piece
     var tile = tiles[pos.x][pos.y]

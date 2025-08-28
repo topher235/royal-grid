@@ -12,6 +12,8 @@ var current_score := 0
 
 
 func _ready() -> void:
+    score_label.text = "" + str(current_score)
+
     Events.score_updated.connect(_on_score_updated)
     Events.next_piece_is_spawning.connect(_on_next_piece_is_spawning)
     Events.next_piece_generated.connect(_on_next_piece_generated)
@@ -29,7 +31,7 @@ func update_score_label() -> void:
     var target_score = score_queue.pop_front()
     if target_score <= current_score:
         current_score = target_score
-        score_label.text = "Score: " + str(current_score)
+        score_label.text = "" + str(current_score)
         return
     
     score_tween = create_tween()
@@ -45,7 +47,7 @@ func update_score_label() -> void:
             current_score += 1
             var pitch = min_pitch + (randf() * (max_pitch - min_pitch))
             SoundManager.play_ui_sound_with_pitch(Sounds.TYPING, pitch)
-            score_label.text = "Score: " + str(current_score)
+            score_label.text = "" + str(current_score)
         ).set_delay((step_delay * i))
 
     await score_tween.finished

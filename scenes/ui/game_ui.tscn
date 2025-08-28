@@ -1,11 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://j2grci2ratew"]
+[gd_scene load_steps=18 format=3 uid="uid://j2grci2ratew"]
 
 [ext_resource type="PackedScene" uid="uid://be5nrbdyw7jo3" path="res://scenes/board/game_board.tscn" id="1_qrkc0"]
 [ext_resource type="Script" uid="uid://ckd1v14s6ohpj" path="res://scripts/ui/game_ui.gd" id="1_yvtb5"]
+[ext_resource type="Texture2D" uid="uid://b08r1354feymn" path="res://assets/images/ui_components/button/btn_1_full.png" id="2_k7elv"]
+[ext_resource type="Texture2D" uid="uid://dmee0ai3x6ayn" path="res://assets/images/ui_components/button/btn_4_full.png" id="2_qrkc0"]
 [ext_resource type="Script" uid="uid://bhdb5h87dcags" path="res://resources/game_rules.gd" id="2_yvtb5"]
 [ext_resource type="Script" uid="uid://comwnq0c27il5" path="res://resources/piece_spawn_rules.gd" id="3_k7elv"]
 [ext_resource type="Script" uid="uid://cr8t7wydqjk8f" path="res://resources/game_config.gd" id="4_fftnl"]
+[ext_resource type="Texture2D" uid="uid://chvh7t3an6tij" path="res://assets/images/ui_components/panel/win_1_full_big.png" id="4_k7elv"]
 [ext_resource type="Script" uid="uid://mphr7bciikvs" path="res://resources/piece_spawn_data.gd" id="5_bxde6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qrkc0"]
+texture = ExtResource("2_k7elv")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1bdg"]
+bg_color = Color(0.824274, 0.87515, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v1bdg"]
+texture = ExtResource("2_qrkc0")
+
+[sub_resource type="Theme" id="Theme_qrkc0"]
+NextPieceContainer/base_type = &"PanelContainer"
+NextPieceContainer/styles/panel = SubResource("StyleBoxTexture_qrkc0")
+Panel/styles/panel = SubResource("StyleBoxFlat_v1bdg")
+ScoreContainer/base_type = &"PanelContainer"
+ScoreContainer/styles/panel = SubResource("StyleBoxTexture_v1bdg")
 
 [sub_resource type="Resource" id="Resource_yvtb5"]
 script = ExtResource("2_yvtb5")
@@ -48,40 +67,91 @@ game_rules = SubResource("Resource_yvtb5")
 [node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "score_label", "next_piece_container")]
 script = ExtResource("1_yvtb5")
 game_board = NodePath("GameBoard")
-score_label = NodePath("CanvasLayer/ScoreLabel")
-next_piece_container = NodePath("CanvasLayer/NextPiecePanelContainer")
-
-[node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
-position = Vector2(9, 78)
-game_config = SubResource("Resource_x0n6o")
+score_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/ScoreLabel")
+next_piece_container = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/NextPieceContainer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_qrkc0")
+
+[node name="PanelContainer" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ScoreContainer" type="PanelContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_type_variation = &"ScoreContainer"
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer"]
+layout_mode = 2
 text = "Score:"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="NextPiecePanelContainer" type="PanelContainer" parent="CanvasLayer"]
-offset_left = 90.0
-offset_top = 5.0
-offset_right = 170.0
-offset_bottom = 45.0
-size_flags_horizontal = 8
+[node name="NextPieceContainer" type="PanelContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 2
+theme_type_variation = &"NextPieceContainer"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(200, 225)
+layout_mode = 0
+offset_left = -10.0
+offset_top = 53.0
+offset_right = 190.0
+offset_bottom = 278.0
+texture = ExtResource("4_k7elv")
+expand_mode = 1
+
+[node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
+position = Vector2(9, 85)
+game_config = SubResource("Resource_x0n6o")
 
 [connection signal="gui_input" from="GameBoard/Tile" to="GameBoard/Tile" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91467" to="GameBoard/@Control@91467" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91468" to="GameBoard/@Control@91468" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91469" to="GameBoard/@Control@91469" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91470" to="GameBoard/@Control@91470" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91471" to="GameBoard/@Control@91471" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91472" to="GameBoard/@Control@91472" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91473" to="GameBoard/@Control@91473" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91474" to="GameBoard/@Control@91474" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91475" to="GameBoard/@Control@91475" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91476" to="GameBoard/@Control@91476" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91477" to="GameBoard/@Control@91477" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91478" to="GameBoard/@Control@91478" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91479" to="GameBoard/@Control@91479" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91480" to="GameBoard/@Control@91480" method="_on_gui_input"]
-[connection signal="gui_input" from="GameBoard/@Control@91481" to="GameBoard/@Control@91481" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518174" to="GameBoard/@Control@518174" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518175" to="GameBoard/@Control@518175" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518176" to="GameBoard/@Control@518176" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518177" to="GameBoard/@Control@518177" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518178" to="GameBoard/@Control@518178" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518179" to="GameBoard/@Control@518179" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518180" to="GameBoard/@Control@518180" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518181" to="GameBoard/@Control@518181" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518182" to="GameBoard/@Control@518182" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518183" to="GameBoard/@Control@518183" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518184" to="GameBoard/@Control@518184" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518185" to="GameBoard/@Control@518185" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518186" to="GameBoard/@Control@518186" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518187" to="GameBoard/@Control@518187" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@518188" to="GameBoard/@Control@518188" method="_on_gui_input"]

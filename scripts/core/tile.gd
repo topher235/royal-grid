@@ -11,6 +11,8 @@ var is_occupied := false
 var occupying_piece: ChessPiece = null
 var occupying_effect: Effect = null
 
+@export var white_sprite: TextureRect
+@export var color_sprite: TextureRect
 @export var background: ColorRect
 @export var highlight: ColorRect
 @export var selection: ColorRect
@@ -18,15 +20,20 @@ var occupying_effect: Effect = null
 @export var snow_particles: GPUParticles2D
 
 var freeze_counter := 0
+var is_white_tile: bool
 
 
 func _ready() -> void:
+    is_white_tile = (grid_position.x + grid_position.y) % 2 == 0
     setup_visual_nodes()
     if not Engine.is_editor_hint():
         connect_input_events()
 
 
 func setup_visual_nodes() -> void:
+    white_sprite.visible = is_white_tile
+    color_sprite.visible = not is_white_tile
+    
     background.color = Color.WHITE if (grid_position.x + grid_position.y) % 2 == 0 else Color.GRAY
 
     highlight.color = Color.YELLOW
@@ -85,6 +92,8 @@ func set_occupancy(piece: ChessPiece = null) -> void:
     if piece:
         add_child(piece)
         piece.position = Vector2(0, 0)
+    else:
+        Log.info(self, "piece is null, tile is empty")
 
 
 func remove_piece(piece: ChessPiece) -> void:
