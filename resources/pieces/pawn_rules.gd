@@ -13,7 +13,7 @@ func get_legal_moves(board: ChessBoard, piece: PieceSpawnData) -> Array[Vector2i
 
     # Forward movement
     var forward_pos = piece.position + Vector2i(0, direction)
-    if board.is_valid_position(forward_pos) and board.is_position_empty(forward_pos):
+    if board.is_valid_position(forward_pos) and not board.does_position_have_piece(forward_pos):
         moves.append(forward_pos)
 
     # Diagonal captures

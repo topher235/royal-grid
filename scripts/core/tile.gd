@@ -104,14 +104,12 @@ func remove_piece(piece: ChessPiece) -> void:
 
 
 func add_effect(effect: Effect) -> void:
-    is_occupied = not effect.can_piece_move_to()
     occupying_effect = effect
     add_child(effect)
     effect.effect_ended.connect(_on_effect_ended.bind(effect))
 
 
 func remove_effect() -> Effect:
-    is_occupied = false
     var effect = occupying_effect
     remove_child(occupying_effect)
     occupying_effect = null
@@ -174,3 +172,11 @@ func animate_frozen() -> void:
         return
     
     occupying_piece.animate_frozen()
+
+
+func is_occupied_by_piece() -> bool:
+    return occupying_piece != null
+
+
+func is_occupied_by_effect() -> bool:
+    return occupying_effect != null

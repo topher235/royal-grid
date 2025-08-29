@@ -62,4 +62,5 @@ Todo today:
 - [X] Set up SceneManager and make a Main scene -> MainMenu -> GameUI
 - [X] Add frozen animation
 - [X] Add multiplier label to UI
-- [ ] Fix effect/piece `is_occupied` duplication
+- [X] Fix effect/piece `is_occupied` duplication
+- [ ] Fix spawner effect spawning onto same spot the piece is being moved to

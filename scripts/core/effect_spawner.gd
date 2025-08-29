@@ -31,6 +31,7 @@ func spawn_random_effect(num_moves: int, override: bool = false) -> void:
     
     var empty_position = find_random_empty_position()
     if empty_position == Vector2i(-1, -1):
+        Log.error(self, "could not find an empty position to spawn an effect")
         return
     
     var effect_data: EffectSpawnData = create_random_effect_data(empty_position)

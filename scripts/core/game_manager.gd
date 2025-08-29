@@ -23,6 +23,8 @@ func _on_turn_over(did_capture: bool) -> void:
     get_tree().call_group("tiles", "on_end_turn")
     if score_multiplier_duration > 0:
         score_multiplier_duration -= 1
+        if score_multiplier_duration <= 0:
+            reset_points_multiplier()
     
     # Now spawn new things
     piece_spawner.spawn_random_piece(did_capture)
@@ -36,18 +38,9 @@ func _on_piece_captured(piece_used: ChessPiece, _piece_captured: ChessPiece) -> 
 func score_points(points: int) -> void:
     score += calculate_points(points)
     Events.score_updated.emit(score)
-    # for point in range(calculate_points(points)):
-    #     score += 1
-    #     Events.score_updated.emit(score)
 
 
 func calculate_points(points: int) -> int:
-    if score_multiplier_duration > 0:
-        score_multiplier_duration -= 1
-    
-    if score_multiplier_duration < 0:
-        score_multiplier = 1
-    
     return points * score_multiplier
 
 

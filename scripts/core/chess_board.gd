@@ -79,7 +79,13 @@ func spawn_piece(piece_data: PieceSpawnData) -> void:
     var piece = PIECE_SCENE.instantiate()
     if piece:
         piece.data = piece_data
-        place_piece(piece, piece_data.position)
+        var success = place_piece(piece, piece_data.position)
+        if success:
+            # if the tile had an effect, remove it so that we don't double up on things on the tile
+            var tile = tiles[piece_data.position.x][piece_data.position.y]
+            if tile.is_occupied_by_effect():
+                var effect = tile.remove_effect()
+                effect.queue_free()
         piece.animate_spawn()
     else:
         Log.error(self, "failed to instantiate new piece scene")
@@ -95,8 +101,11 @@ func spawn_effect(effect_data: EffectSpawnData) -> void:
 func clear_board() -> void:
     for x in range(game_config.grid_size.x):
         for y in range(game_config.grid_size.y):
-            if tiles[x][y].is_occupied:
+            var tile = tiles[x][y]
+            if tile.is_occupied:
                 remove_piece(Vector2i(x, y))
+            if tile.is_occupied_by_effect():
+                tile.remove_effect()
 
 
 func _on_tile_clicked(tile: Tile) -> void:
@@ -159,7 +168,7 @@ func attempt_move(from_tile: Tile, to_tile: Tile) -> bool:
     var from_pos = from_tile.grid_position
     var to_pos = to_tile.grid_position
 
-    if not from_tile.is_occupied or not from_tile.occupying_piece:
+    if not from_tile.is_occupied_by_piece():
         print("No piece to move")
         return false
     
@@ -202,12 +211,17 @@ func is_position_occupied_by_opponent(pos: Vector2i, piece: PieceSpawnData) -> b
 
 
 func is_position_occupied_by_effect(pos: Vector2i) -> bool:
-    return tiles[pos.x][pos.y].occupying_effect != null
+    return tiles[pos.x][pos.y].is_occupied_by_effect()
 
 
 func place_piece(piece: ChessPiece, pos: Vector2i) -> bool:
-    if not is_valid_position(pos) or is_position_occupied(pos):
-        Log.error(self, str(pos) + " is not a valid position or it's occupied")
+    if not is_valid_position(pos):
+        Log.error(self, str(pos) + " is not a valid position")
+        return false
+    
+    var tile = tiles[pos.x][pos.y]
+    if tile.is_occupied_by_piece():
+        Log.error(self, str(pos) + " is occupied by a piece")
         return false
     
     # Remove from parent so it can be reparented to the tile
@@ -218,7 +232,6 @@ func place_piece(piece: ChessPiece, pos: Vector2i) -> bool:
         Log.info(self, "piece has no parent")
 
     pieces[pos.x][pos.y] = piece
-    var tile = tiles[pos.x][pos.y]
     tile.set_occupancy(piece)
     return true
 
@@ -302,13 +315,6 @@ func can_piece_move_to(piece: ChessPiece, target_pos: Vector2i) -> bool:
     
     var legal_moves = piece.get_legal_moves()
     return target_pos in legal_moves
-
-
-func is_position_empty(pos: Vector2i) -> bool:
-    if not is_valid_position(pos):
-        return false
-    
-    return not tiles[pos.x][pos.y].is_occupied
 
 
 func does_position_have_piece(pos: Vector2i) -> bool:
