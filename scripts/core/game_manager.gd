@@ -60,8 +60,8 @@ func spawn_new_piece() -> void:
     piece_spawner.spawn_random_piece(false, true)
 
 
-func spawn_new_piece_from_data(piece_data: PieceSpawnData) -> void:
-    piece_spawner.spawn_from_data(piece_data)
+func spawn_new_piece_from_data(piece_data: PieceSpawnData, excluding_positions: Array = []) -> void:
+    piece_spawner.spawn_from_data(piece_data, excluding_positions)
 
 
 func remove_effect(special_effect: SpecialEffect) -> void:

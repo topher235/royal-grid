@@ -63,4 +63,4 @@ Todo today:
 - [X] Add frozen animation
 - [X] Add multiplier label to UI
 - [X] Fix effect/piece `is_occupied` duplication
-- [ ] Fix spawner effect spawning onto same spot the piece is being moved to
+- [X] Fix spawner effect spawning onto same spot the piece is being moved to

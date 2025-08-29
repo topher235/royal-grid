@@ -21,4 +21,4 @@ func execute(gm: GameManager, pos: Vector2i) -> void:
     piece_data.color = randf() < 0.5
     piece_data.piece_type = piece_type
     
-    gm.spawn_new_piece_from_data(piece_data)
+    gm.spawn_new_piece_from_data(piece_data, [pos])

@@ -12,7 +12,7 @@ func _ready() -> void:
     rng.randomize()
     get_tree().create_timer(0.5).timeout.connect(
         func():
-            next_piece_data = create_random_piece_data(find_random_empty_position())
+            next_piece_data = create_random_piece_data(find_random_empty_position([]))
             Events.next_piece_generated.emit(next_piece_data)
     )
 
@@ -50,7 +50,7 @@ func spawn_random_piece(did_capture: bool, override: bool = false) -> void:
         Log.error(self, "spawn_random_piece should not spawn piece")
         return
     
-    var empty_position = find_random_empty_position()
+    var empty_position = find_random_empty_position([])
     if empty_position == Vector2i(-1, -1):
         Log.error(self, "spawn_random_piece got an empty position of (-1, -1)")
         return
@@ -73,8 +73,8 @@ func spawn_random_piece(did_capture: bool, override: bool = false) -> void:
 
 
 
-func spawn_from_data(piece_data: PieceSpawnData) -> void:
-    var empty_position = find_random_empty_position()
+func spawn_from_data(piece_data: PieceSpawnData, excluding_positions: Array = []) -> void:
+    var empty_position = find_random_empty_position(excluding_positions)
     if empty_position == Vector2i(-1, -1):
         Log.error(self, "spawn_from_data found empty position (-1, -1)")
         return
@@ -83,7 +83,7 @@ func spawn_from_data(piece_data: PieceSpawnData) -> void:
     chess_board.spawn_piece(piece_data)
 
 
-func find_random_empty_position() -> Vector2i:
+func find_random_empty_position(excluding_positions: Array) -> Vector2i:
     if not chess_board or not game_config:
         return Vector2i(-1, -1)
     
@@ -92,6 +92,8 @@ func find_random_empty_position() -> Vector2i:
     for x in range(game_config.grid_size.x):
         for y in range(game_config.grid_size.y):
             var pos = Vector2i(x, y)
+            if pos in excluding_positions:
+                continue
             if not chess_board.is_position_occupied(pos):
                 empty_positions.append(pos)
     
