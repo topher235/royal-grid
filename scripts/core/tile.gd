@@ -180,3 +180,14 @@ func is_occupied_by_piece() -> bool:
 
 func is_occupied_by_effect() -> bool:
     return occupying_effect != null
+
+
+func get_active_tile_data() -> ActiveTileData:
+    var td = ActiveTileData.new()
+    td.position = grid_position
+    td.freeze_counter = freeze_counter
+    return td
+
+
+func load_from_active_data(td: ActiveTileData) -> void:
+    freeze(td.freeze_counter)

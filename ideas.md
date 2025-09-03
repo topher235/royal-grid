@@ -13,6 +13,7 @@
 
 - Turn order
   - Instead of ANY legal chess move, the player will have to follow a white-black turn order
+    - ** Don't like this idea
 
 - Power-ups
   - After a piece captures 3 pieces, it upgrades into a more powerful piece, e.g. pawn -> rook
@@ -21,6 +22,7 @@
   - Periodically place effects on tiles that will affect other aspects of the game
   - Example of hazard: if piece is moved to a bomb tile, then the game is over (or just can't go there)
   - Example of reward: if a piece is moved to a reward tile, then the next X turns have 2x point multiplier
+  - How should extra multipliers be applied? Should duration be reset or should each application of multiplier be its own effect even after others are applied? For example, if a player activates a +1 and then the duration is set to last for 5 turns and the player activates a +1 on the next turn, should the duration be 5, 9, or a separate instance of 4 and 5?
 
 - Time trial
   - New piece appears after X seconds instead of every move
@@ -29,6 +31,13 @@
   - Play as a character that gives special effects
   - Beggar: makes pawns give 10 points when they take a non-pawn piece
   - Captain: More likely to spawn knights
+  - Assassin: Gives more points when taking Queens and Kings
+
+
+
+- Maps
+  -  The usual 4x4 grid where positions [(1, 2), (2, 3), (3, 3)] are blacked out (no effects, no pieces, etc. can be placed there)
+  - The background behind the board can change
 
 
 - Progression
@@ -37,11 +46,31 @@
   - Rewarded ads for currency
 
 - Shop
-  - Buy currency to unlock effects and characters without going through progression system
+  - Buy currency to unlock effects, characters, and maps without going through progression system
+  - Buy cosmetics, e.g. new piece sprites, new board design, new animations
   - Buy ad removal
 
 
+- Tutorial explain on first load
+  - Cycle through the basics in a carousel of illustrations
 
+
+- Easy/tutorial mode
+  - Player presses a piece and the game shows valid positions + a preview of points that will be awarded when the player captures the other piece
+
+
+- Statistics
+  - Number of games played
+  - Best score
+  - Average score
+  - Number of pieces captured
+
+
+- Transfer data
+  - User should be given some way to transfer data
+  - Stored on server with a temporary login (24 hours?)
+  - Export/import file with encrypted contents
+  - Google play / apple cloud backup
 
 
 

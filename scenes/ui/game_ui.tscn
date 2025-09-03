@@ -160,3 +160,20 @@ expand_mode = 1
 [node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
 position = Vector2(9, 85)
 game_config = SubResource("Resource_x0n6o")
+
+[connection signal="gui_input" from="GameBoard/Tile" to="GameBoard/Tile" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21796" to="GameBoard/@Control@21796" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21797" to="GameBoard/@Control@21797" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21798" to="GameBoard/@Control@21798" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21799" to="GameBoard/@Control@21799" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21800" to="GameBoard/@Control@21800" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21801" to="GameBoard/@Control@21801" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21802" to="GameBoard/@Control@21802" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21803" to="GameBoard/@Control@21803" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21804" to="GameBoard/@Control@21804" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21805" to="GameBoard/@Control@21805" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21806" to="GameBoard/@Control@21806" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21807" to="GameBoard/@Control@21807" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21808" to="GameBoard/@Control@21808" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21809" to="GameBoard/@Control@21809" method="_on_gui_input"]
+[connection signal="gui_input" from="GameBoard/@Control@21810" to="GameBoard/@Control@21810" method="_on_gui_input"]

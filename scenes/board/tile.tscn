@@ -54,6 +54,7 @@ texture = ExtResource("2_w7oh7")
 expand_mode = 1
 
 [node name="ColorTileSprite" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

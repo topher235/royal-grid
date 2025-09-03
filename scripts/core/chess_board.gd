@@ -1,9 +1,11 @@
 @tool
 class_name ChessBoard extends Node2D
 
+signal new_game
 signal piece_moved(piece: ChessPiece, from_pos: Vector2i, to_pos: Vector2i)
 signal piece_captured(piece_used: ChessPiece, piece_captured: ChessPiece)
 signal turn_over(did_capture: bool)
+signal game_over(final_score: int)
 
 const TILE_SCENE = preload("res://scenes/board/tile.tscn")
 const PIECE_SCENE = preload("res://scenes/pieces/chess_piece.tscn")
@@ -28,10 +30,6 @@ func _ready() -> void:
     if game_config:
         piece_spawner.game_config = game_config
         effect_spawner.game_config = game_config
-    
-    initialize_grid()
-    create_tiles()
-    load_new_game()
 
 
 func initialize_grid() -> void:
@@ -50,6 +48,7 @@ func initialize_grid() -> void:
 
 
 func create_tiles() -> void:
+    # TODO: create from the loaded map resource
     for x in range(game_config.grid_size.x):
         for y in range(game_config.grid_size.y):
             var tile = TILE_SCENE.instantiate() as Tile
@@ -62,6 +61,8 @@ func create_tiles() -> void:
 
 
 func load_new_game() -> void:
+    initialize_grid()
+    create_tiles()
     clear_board()
 
     if not game_config:
@@ -69,6 +70,8 @@ func load_new_game() -> void:
 
     # game_state = GameState.new()
     # game_state.config = game_config
+    
+    new_game.emit()
 
     for piece_data in game_config.starting_pieces:
         spawn_piece(piece_data)
@@ -326,3 +329,101 @@ func does_position_have_piece(pos: Vector2i) -> bool:
 
 func retrieve_tile_at_position(pos: Vector2i) -> Tile:
     return tiles[pos.x][pos.y]
+
+
+func get_game_state() -> ActiveGameData:
+    """
+    Creates an ActiveGameData object from the current board state.
+    """
+    var active_game = ActiveGameData.new()
+
+    # Get current score from game manager
+    if game_manager:
+        active_game.score = game_manager.score
+    
+    # Set default map and character IDs (TODO: implement later)
+    active_game.map_id = 0
+    active_game.character_id = 0
+
+    # Serialize tiles (while tiles are available)
+    active_game.tiles = [] as Array[ActiveTileData]
+    for x in range(game_config.grid_size.x):
+        for y in range(game_config.grid_size.y):
+            var tile = tiles[x][y]
+            active_game.tiles.append(tile.get_active_tile_data())
+    
+    # Serialize pieces on the board
+    active_game.pieces = [] as Array[ActivePieceData]
+    for x in range(game_config.grid_size.x):
+        for y in range(game_config.grid_size.y):
+            var piece = pieces[x][y]
+            if piece:
+                active_game.pieces.append(piece.get_active_piece_data())
+    
+    # Serialize next piece - it's not a ChessPiece scene, so can't do like the above serialization
+    var next_piece: PieceSpawnData = game_manager.retrieve_next_piece()
+    var piece_data = ActivePieceData.new()
+    piece_data.piece_type = next_piece.piece_type
+    piece_data.color = next_piece.color
+    active_game.next_piece = piece_data
+
+    # Serialize effects on the board
+    active_game.effects = [] as Array[ActiveEffectData]
+    for effect in get_tree().get_nodes_in_group("effects"):
+        if effect.has_method("get_active_effect_data"):
+            active_game.effects.append(effect.get_active_effect_data())
+    
+    return active_game
+
+
+func load_game_state(active_game: ActiveGameData) -> void:
+    """
+    Loads a game state from ActiveGameData.
+    """
+    if not active_game:
+        Log.error(self, "Cannot load null game state")
+        return
+    
+    # TODO: this will probably need to change based on the Map resource implementation
+    initialize_grid()
+    create_tiles()
+
+    # Set score in game manager
+    if game_manager:
+        game_manager.score = active_game.score
+        game_manager.score_multiplier = active_game.mult
+        game_manager.score_multiplier_duration = active_game.mult_duration
+        Events.score_updated.emit(active_game.score)
+        # Load next piece
+        var piece_data = active_game.next_piece
+        var spawn_data = PieceSpawnData.new()
+        spawn_data.piece_type = piece_data.piece_type
+        spawn_data.color = piece_data.color
+        game_manager.set_next_piece(spawn_data)
+    
+    # Load tiles
+    for tile_data in active_game.tiles:
+        var tile = tiles[tile_data.position.x][tile_data.position.y]
+        if tile:
+            tile.load_from_active_data(tile_data)
+    
+    # Load pieces
+    for piece_data in active_game.pieces:
+        var spawn_data = PieceSpawnData.new()
+        spawn_data.piece_type = piece_data.piece_type
+        spawn_data.position = piece_data.position
+        spawn_data.color = piece_data.color
+        spawn_piece(spawn_data)
+    
+    # Load effects
+    for effect_data in active_game.effects:
+        if effect_data.effect_id not in SpecialEffectDatabase.DB.keys():
+            Log.error(self, "Did not find " + str(effect_data.effect_id) + " id in effect database.")
+            continue
+        var special_effect_cls = SpecialEffectDatabase.DB[effect_data.effect_id]
+        var special_effect = special_effect_cls.new()
+        special_effect.duration = effect_data.remaining_duration
+        var spawn_data = EffectSpawnData.new(effect_data.position, special_effect)
+        spawn_effect(spawn_data)
+    
+    Log.info(self, "Game state loaded successfully")

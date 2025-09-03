@@ -6,6 +6,7 @@ var duration := -1  # forever
 # Can toggle this to 'false' if we want a "blocking" effect
 var can_piece_move_to := true
 
+var id := 0
 # this field is for prototyping, replace with sprite or something
 var color: Color = Color.WHITE
 var name := "BASE"
@@ -23,7 +24,7 @@ func decrement_duration(gm: GameManager) -> void:
         return
     
     duration -= 1
-    if duration < 0:
+    if duration <= 0:
         expire(gm)
 
 

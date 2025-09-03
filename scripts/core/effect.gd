@@ -64,3 +64,19 @@ func execute() -> void:
     var board: ChessBoard = get_tree().get_first_node_in_group("gameboard")
     special_effect.execute(board.game_manager, grid_position)
     queue_free()
+
+
+func get_remaining_duration() -> int:
+    return special_effect.duration
+
+
+func get_effect_id() -> int:
+    return special_effect.id
+
+
+func get_active_effect_data() -> ActiveEffectData:
+    var ed = ActiveEffectData.new()
+    ed.effect_id = get_effect_id()
+    ed.position = grid_position
+    ed.remaining_duration = get_remaining_duration()
+    return ed

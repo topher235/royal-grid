@@ -2,6 +2,7 @@ class_name BlockingSpecialEffect extends SpecialEffect
 
 
 func _init() -> void:
+    id = 1
     duration = 2
     can_piece_move_to = false
     color = Color.RED

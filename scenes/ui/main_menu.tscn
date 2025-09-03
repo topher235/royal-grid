@@ -21,58 +21,6 @@ TitleLabel/base_type = &"Label"
 TitleLabel/font_sizes/font_size = 18
 TitleLabel/fonts/font = ExtResource("1_btxxm")
 
-[sub_resource type="Animation" id="Animation_7suek"]
-resource_name = "open_title_scroll"
-length = 0.45
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CenterContainer/VBoxContainer/Control/CenterContainer:pivot_offset")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(80, 25)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CenterContainer/VBoxContainer/Control/CenterContainer:scale")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.433333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 1), Vector2(0.1, 1), Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CenterContainer/VBoxContainer/Control/CenterContainer/Label:modulate")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.166667, 0.433333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CenterContainer/VBoxContainer/Control/CenterContainer/Label:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.166667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
 [sub_resource type="Animation" id="Animation_otr3d"]
 length = 0.001
 tracks/0/type = "value"
@@ -231,6 +179,30 @@ tracks/12/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer/ContinueGameButton:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer/ContinueGameButton:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_8ekit"]
 resource_name = "fade_in_menu_box"
@@ -342,6 +314,82 @@ tracks/8/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer/ContinueGameButton:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.318316),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer/ContinueGameButton:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.318316, 0.383945),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7suek"]
+resource_name = "open_title_scroll"
+length = 0.45
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/Control/CenterContainer:pivot_offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(80, 25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/VBoxContainer/Control/CenterContainer:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0.1, 1), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/VBoxContainer/Control/CenterContainer/Label:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.166667, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/VBoxContainer/Control/CenterContainer/Label:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n4uci"]
 _data = {
@@ -350,7 +398,7 @@ _data = {
 &"open_title_scroll": SubResource("Animation_7suek")
 }
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_game_button", "settings_button", "shop_button", "animation_player")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("continue_game_button", "play_game_button", "settings_button", "shop_button", "animation_player")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -359,6 +407,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_1g8jr")
 script = ExtResource("1_sl1te")
+continue_game_button = NodePath("CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer/ContinueGameButton")
 play_game_button = NodePath("CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer/PlayGameButton")
 settings_button = NodePath("CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer/SettingsButton")
 shop_button = NodePath("CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer/ShopButton")
@@ -471,6 +520,12 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer"]
 custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="ContinueGameButton" parent="CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_fe2o3")]
+visible = false
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(90, 30)
 layout_mode = 2
 
 [node name="PlayGameButton" parent="CenterContainer/VBoxContainer/MarginContainer/Control/TextureRect/CenterContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_fe2o3")]

@@ -7,7 +7,7 @@ signal scene_changed(to_path: String)
 @export var reset_save: bool
 @export var in_time := 0.25
 @export var fade_in_time := 0.5
-@export var pause_time := 1.0
+@export var pause_time := 0.2 # 1.0
 @export var fade_out_time := 0.5
 @export var out_time := 0.5
 

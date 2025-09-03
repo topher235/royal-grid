@@ -22,6 +22,45 @@ func _ready() -> void:
     Events.next_piece_is_spawning.connect(_on_next_piece_is_spawning)
     Events.next_piece_generated.connect(_on_next_piece_generated)
 
+    if game_board:
+        game_board.game_over.connect(_on_game_over)
+
+    load_game_state()
+
+
+func load_game_state() -> void:
+    """
+    Loads the game state from SaveManager if available, otherwise starts a new game.
+    """
+    var active_game = SaveManager.retrieve_active_game()
+    if active_game:
+        Log.info(self, "Loading saved game")
+        if game_board:
+            game_board.load_game_state(active_game)
+    else:
+        Log.info(self, "Starting new game")
+        if game_board:
+            game_board.load_new_game()
+        # the game board will automatically load a new game in its _ready() method
+
+
+func save_current_game() -> void:
+    """
+    Saves the current game state to SaveManager.
+    """
+    if game_board:
+        var active_game = game_board.get_game_state()
+        SaveManager.update_active_game(active_game)
+        Log.info(self, "Game saved")
+
+
+func _on_game_over(final_score: int) -> void:
+    """
+    Called when the game ends. Clears the active game and updates stats.
+    """
+    # TODO: open modal
+    pass
+
 
 func _on_score_updated(new_score: int) -> void:
     score_queue.append(new_score)

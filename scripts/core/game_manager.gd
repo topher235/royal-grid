@@ -30,6 +30,14 @@ func _on_turn_over(did_capture: bool) -> void:
     piece_spawner.spawn_random_piece(did_capture)
     effect_spawner.spawn_random_effect(moves, false)
 
+    # Auto-save after each turn
+    if chess_board:
+        # Using call_deferred in case nodes are queued to be freed
+        autosave.call_deferred()
+    
+    if is_game_over():
+        end_game()
+
 
 func _on_piece_captured(piece_used: ChessPiece, _piece_captured: ChessPiece) -> void:
     score_points(piece_used.data.points)
@@ -85,3 +93,43 @@ func destroy_at_position(pos: Vector2i, _perform_scoring: bool) -> void:
 func freeze_tile(pos: Vector2i, duration: int) -> void:
     var tile = chess_board.retrieve_tile_at_position(pos)
     tile.freeze(duration)
+
+
+func spawn_effect_from_data(spawn_data: EffectSpawnData) -> void:
+    effect_spawner.spawn_from_data(spawn_data)
+
+
+func is_game_over() -> bool:
+    """
+    The game is over if any of these conditions are met:
+        - all pieces have no legal moves
+    """
+    Log.error(self, "is_game_over Needs to be implemented")
+    return false
+
+
+func end_game() -> void:
+    """
+    Ends the current game and clears the active game from save data.
+    """
+    SaveManager.clear_active_game()
+    var player_stats = SaveManager.retrieve_stats()
+    player_stats.num_games_played += 1
+    player_stats.calculate_best_score(score)
+    SaveManager.update_stats(player_stats)
+
+    # Emit signal to UI world
+    chess_board.game_over.emit(score)
+
+
+func retrieve_next_piece() -> PieceSpawnData:
+    return piece_spawner.retrieve_next_piece()
+
+
+func set_next_piece(spawn_data: PieceSpawnData) -> void:
+    piece_spawner.set_next_piece(spawn_data)
+
+
+func autosave() -> void:
+    var active_game = chess_board.get_game_state()
+    SaveManager.update_active_game(active_game)

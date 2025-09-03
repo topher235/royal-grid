@@ -10,6 +10,10 @@ var next_piece_data: PieceSpawnData
 func _ready() -> void:
     rng = RandomNumberGenerator.new()
     rng.randomize()
+    chess_board.new_game.connect(_on_new_game)
+
+
+func _on_new_game() -> void:
     get_tree().create_timer(0.5).timeout.connect(
         func():
             next_piece_data = create_random_piece_data(find_random_empty_position([]))
@@ -191,3 +195,12 @@ func spawn_piece_at_position(position: Vector2i, piece_type: int, color: bool) -
     
     # Spawn the piece
     chess_board.spawn_piece(piece_data)
+
+
+func retrieve_next_piece() -> PieceSpawnData:
+    return next_piece_data
+
+
+func set_next_piece(spawn_data: PieceSpawnData) -> void:
+    next_piece_data = spawn_data
+    Events.next_piece_generated.emit(next_piece_data)

@@ -7,6 +7,7 @@ class_name FreezeSpecialEffect extends SpecialEffect
 @export var freeze_duration := 3
 
 func _init() -> void:
+    id = 3
     color = Color.VIOLET
     duration = 2
     name = "FRZ"

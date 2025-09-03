@@ -3,6 +3,7 @@ class_name BombSpecialEffect extends SpecialEffect
 # Pieces around this one are destroyed
 
 func _init() -> void:
+    id = 2
     color = Color.BLUE_VIOLET
     duration = 1
     name = "BOMB"

@@ -123,3 +123,11 @@ func toggle_outline(is_enabled: bool) -> void:
             sprite.material.set_shader_parameter("min_line_width", 10.0)
             sprite.material.set_shader_parameter("speed", 4.0)
             sprite.material.set_shader_parameter("color", Color.BLACK)
+
+
+func get_active_piece_data() -> ActivePieceData:
+    var pd = ActivePieceData.new()
+    pd.piece_type = data.piece_type
+    pd.position = grid_position
+    pd.color = data.color
+    return pd

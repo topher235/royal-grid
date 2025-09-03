@@ -65,3 +65,7 @@ func create_random_effect_data(position: Vector2i) -> EffectSpawnData:
     
     var effect_data = EffectSpawnData.new(position, null)
     return effect_data
+
+
+func spawn_from_data(effect_data: EffectSpawnData) -> void:
+    chess_board.spawn_effect(effect_data)

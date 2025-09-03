@@ -23,6 +23,7 @@ Events="*res://autoloads/events.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 Sounds="*res://autoloads/sounds.gd"
 Log="*res://autoloads/log.gd"
+SaveManager="*res://autoloads/save_manager.gd"
 
 [display]
 

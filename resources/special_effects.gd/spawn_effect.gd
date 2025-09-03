@@ -2,6 +2,7 @@ class_name SpawnSpecialEffect extends SpecialEffect
 
 
 func _init() -> void:
+    id = 5
     color = Color.BLUE
     name = "SPAWN"
     icon = Sprites.SPAWN_ICON

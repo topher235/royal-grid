@@ -5,6 +5,7 @@ class_name MultiplierSpecialEffect extends SpecialEffect
 
 
 func _init() -> void:
+    id = 4
     color = Color.GREEN
     duration = 2
     name = "MULT"
