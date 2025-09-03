@@ -73,6 +73,11 @@
   - Google play / apple cloud backup
 
 
+- Achievements
+  - Apparently achievements are popular
+  - e.g. "Pawn master": Captured 150 pawns
+
+
 
 - [X] Add a small pulse animation to effects
 - [X] Change effect spawn to spawn a king or queen and use the crown icon. then take out the king and queen from the normal weights

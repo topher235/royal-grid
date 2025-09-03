@@ -8,15 +8,19 @@ var moves := 0
 var score : = 0
 var score_multiplier := 1
 var score_multiplier_duration := 0  # forever
+var current_game_stats: PlayerStats
 
 
 func _ready() -> void:
+    current_game_stats = PlayerStats.new()
     chess_board.piece_captured.connect(_on_piece_captured)
     chess_board.turn_over.connect(_on_turn_over)
 
 
 func _on_turn_over(did_capture: bool) -> void:
     moves += 1
+    if current_game_stats:
+        current_game_stats.update_moves(moves)
     
     # Do end of turn effects - could involve effects expiring (duration running out)
     get_tree().call_group("effects", "on_end_turn")
@@ -39,12 +43,16 @@ func _on_turn_over(did_capture: bool) -> void:
         end_game()
 
 
-func _on_piece_captured(piece_used: ChessPiece, _piece_captured: ChessPiece) -> void:
+func _on_piece_captured(piece_used: ChessPiece, piece_captured: ChessPiece) -> void:
+    if current_game_stats:
+        current_game_stats.update_captured(piece_captured)
     score_points(piece_used.data.points)
 
 
 func score_points(points: int) -> void:
     score += calculate_points(points)
+    if current_game_stats:
+        current_game_stats.update_score(score)
     Events.score_updated.emit(score)
 
 
@@ -55,6 +63,8 @@ func calculate_points(points: int) -> int:
 func update_points_multiplier(multiplier: int, duration: int) -> void:
     score_multiplier += multiplier
     score_multiplier_duration += duration
+    if current_game_stats:
+        current_game_stats.update_multiplier(score_multiplier)
     Events.mult_updated.emit(score_multiplier)
 
 
@@ -114,8 +124,8 @@ func end_game() -> void:
     """
     SaveManager.clear_active_game()
     var player_stats = SaveManager.retrieve_stats()
-    player_stats.num_games_played += 1
-    player_stats.calculate_best_score(score)
+    # Merge long-term stats with this game's stats
+    player_stats.end_game(current_game_stats)
     SaveManager.update_stats(player_stats)
 
     # Emit signal to UI world

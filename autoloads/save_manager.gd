@@ -113,15 +113,6 @@ func update_stats(player_stats: PlayerStats) -> void:
     """
     Updates player statistics.
     """
-    # if num_games_played > 0:
-    #     current_state["stats"]["num_games_played"] += num_games_played
-    # if best_score > current_state["stats"]["best_score"]:
-    #     current_state["stats"]["best_score"] = best_score
-    # if avg_score > 0:
-    #     current_state["stats"]["avg_score"] = avg_score
-    # if num_pieces_captured > 0:
-    #     current_state["stats"]["num_pieces_captured"] += num_pieces_captured
-    
     current_state["stats"] = player_stats.serialize()
     save_game()
 

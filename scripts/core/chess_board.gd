@@ -340,6 +340,7 @@ func get_game_state() -> ActiveGameData:
     # Get current score from game manager
     if game_manager:
         active_game.score = game_manager.score
+        active_game.stats = game_manager.current_game_stats
     
     # Set default map and character IDs (TODO: implement later)
     active_game.map_id = 0
@@ -391,9 +392,10 @@ func load_game_state(active_game: ActiveGameData) -> void:
     # Set score in game manager
     if game_manager:
         game_manager.score = active_game.score
+        Events.score_updated.emit(active_game.score)
         game_manager.score_multiplier = active_game.mult
         game_manager.score_multiplier_duration = active_game.mult_duration
-        Events.score_updated.emit(active_game.score)
+        game_manager.current_game_stats = active_game.stats
         # Load next piece
         var piece_data = active_game.next_piece
         var spawn_data = PieceSpawnData.new()

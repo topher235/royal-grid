@@ -9,6 +9,7 @@ class_name ActiveGameData extends Resource
 @export var character_id: int
 @export var mult: int
 @export var mult_duration: int
+@export var stats: PlayerStats
 
 
 func serialize() -> Dictionary:
@@ -34,6 +35,7 @@ func serialize() -> Dictionary:
         "mult_duration": mult_duration,
         "map_id": map_id,
         "character_id": character_id,
+        "stats": stats.serialize(),
     }
 
 
@@ -73,3 +75,8 @@ func deserialize(data: Dictionary) -> void:
         var piece = ActivePieceData.new()
         piece.deserialize(piece_data)
         pieces.append(piece)
+    
+    # Deserialize stats
+    var stats_data = data.get("stats", {})
+    stats = PlayerStats.new()
+    stats.deserialize(stats_data)
