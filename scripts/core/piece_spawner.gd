@@ -49,19 +49,22 @@ func should_spawn_piece(did_capture: bool, override: bool) -> bool:
     return true
 
 
-func spawn_random_piece(did_capture: bool, override: bool = false) -> void:
+func spawn_next_piece(did_capture: bool, override: bool = false) -> void:
+    """
+    Tries to spawn the piece that is currently being previewed, aka. the next piece.
+    """
     if not should_spawn_piece(did_capture, override):
-        Log.error(self, "spawn_random_piece should not spawn piece")
+        Log.info(self, "spawn_next_piece should not spawn piece")
         return
     
     var empty_position = find_random_empty_position([])
     if empty_position == Vector2i(-1, -1):
-        Log.error(self, "spawn_random_piece got an empty position of (-1, -1)")
+        Log.error(self, "spawn_next_piece got an empty position of (-1, -1)")
         return
     
     var piece_data = next_piece_data
     if not piece_data:
-        Log.error(self, "spawn_random_piece Expected piece data not available")
+        Log.error(self, "spawn_next_piece Expected piece data not available")
         return
     
     # We created this data last move, so the position could now be occupied
@@ -76,11 +79,28 @@ func spawn_random_piece(did_capture: bool, override: bool = false) -> void:
     Events.next_piece_generated.emit(next_piece_data)
 
 
+func spawn_new_piece() -> void:
+    """
+    Spawns a random piece on an empty position.
+    """
+    var empty_position = find_random_empty_position([])
+    if empty_position == Vector2i(-1, -1):
+        Log.info(self, "spawn_new_piece: Got an empty position of (-1, -1)")
+        return
+    
+    var piece_data = create_random_piece_data(empty_position)
+    if not piece_data:
+        Log.error(self, "spawn_new_piece: Piece data is null")
+        return
+    
+    chess_board.spawn_piece(piece_data)
+
+
 
 func spawn_from_data(piece_data: PieceSpawnData, excluding_positions: Array = []) -> void:
     var empty_position = find_random_empty_position(excluding_positions)
     if empty_position == Vector2i(-1, -1):
-        Log.error(self, "spawn_from_data found empty position (-1, -1)")
+        Log.info(self, "spawn_from_data found empty position (-1, -1)")
         return
     
     piece_data.position = empty_position
@@ -93,13 +113,12 @@ func find_random_empty_position(excluding_positions: Array) -> Vector2i:
     
     var empty_positions: Array[Vector2i] = []
 
-    for x in range(game_config.grid_size.x):
-        for y in range(game_config.grid_size.y):
-            var pos = Vector2i(x, y)
-            if pos in excluding_positions:
-                continue
-            if not chess_board.is_position_occupied(pos):
-                empty_positions.append(pos)
+    var active_tile_positions: Array[Vector2i] = game_config.get_active_tile_positions()
+    for pos in active_tile_positions:
+        if pos in excluding_positions:
+            continue
+        if not chess_board.is_position_occupied(pos):
+            empty_positions.append(pos)
     
     if empty_positions.is_empty():
         return Vector2i(-1, -1)

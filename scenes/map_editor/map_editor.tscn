@@ -1,0 +1,284 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8x7lam2n3p4q"]
+
+[ext_resource type="Script" uid="uid://bd8l27lqw8amr" path="res://scripts/map_editor/map_editor.gd" id="1_map_editor"]
+
+[sub_resource type="Theme" id="Theme_1"]
+default_font_size = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.2, 0.2, 0.2, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2"]
+bg_color = Color(0.1, 0.1, 0.1, 0.95)
+
+[node name="MapEditor" type="Control" node_paths=PackedStringArray("map_preview", "map_id_spin_box", "map_name_line_edit", "grid_size_x_spin_box", "grid_size_y_spin_box", "background_sprite_button", "load_map_button", "save_map_button", "new_map_button", "close_button", "map_load_modal", "map_list_vbox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1")
+script = ExtResource("1_map_editor")
+map_preview = NodePath("MainContainer/ContentContainer/RightPanel/PreviewContainer/PreviewVBox/PreviewScrollContainer/PreviewCenterContainer/MapPreview")
+map_id_spin_box = NodePath("MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/MapIdContainer/MapIdSpinBox")
+map_name_line_edit = NodePath("MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/MapNameContainer/MapNameLineEdit")
+grid_size_x_spin_box = NodePath("MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/GridSizeContainer/GridSizeXContainer/GridSizeXSpinBox")
+grid_size_y_spin_box = NodePath("MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/GridSizeContainer/GridSizeYContainer/GridSizeYSpinBox")
+background_sprite_button = NodePath("MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/BackgroundSpriteContainer/BackgroundSpriteButton")
+load_map_button = NodePath("MainContainer/ContentContainer/RightPanel/ButtonContainer/LoadMapButton")
+save_map_button = NodePath("MainContainer/ContentContainer/RightPanel/ButtonContainer/SaveMapButton")
+new_map_button = NodePath("MainContainer/ContentContainer/RightPanel/ButtonContainer/NewMapButton")
+close_button = NodePath("MainContainer/Header/CloseButton")
+map_load_modal = NodePath("MapLoadModal")
+map_list_vbox = NodePath("MapLoadModal/MapLoadContainer/MapListScrollContainer/MapListVBox")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15, 0.15, 0.15, 1)
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainContainer/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Map Editor"
+
+[node name="Spacer" type="Control" parent="MainContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseButton" type="Button" parent="MainContainer/Header"]
+layout_mode = 2
+text = "Close"
+
+[node name="HSeparator" type="HSeparator" parent="MainContainer"]
+layout_mode = 2
+
+[node name="ContentContainer" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftPanel" type="VBoxContainer" parent="MainContainer/ContentContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MapInfoContainer" type="PanelContainer" parent="MainContainer/ContentContainer/LeftPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="MapInfoVBox" type="VBoxContainer" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer"]
+layout_mode = 2
+
+[node name="MapInfoLabel" type="Label" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Map Information"
+
+[node name="MapIdContainer" type="HBoxContainer" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox"]
+layout_mode = 2
+
+[node name="MapIdLabel" type="Label" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/MapIdContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Map ID:"
+
+[node name="MapIdSpinBox" type="SpinBox" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/MapIdContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 999.0
+
+[node name="MapNameContainer" type="HBoxContainer" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox"]
+layout_mode = 2
+
+[node name="MapNameLabel" type="Label" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/MapNameContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Map Name:"
+
+[node name="MapNameLineEdit" type="LineEdit" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/MapNameContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter map name"
+
+[node name="GridSizeContainer" type="HBoxContainer" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox"]
+layout_mode = 2
+
+[node name="GridSizeLabel" type="Label" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/GridSizeContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Grid Size:"
+
+[node name="GridSizeXContainer" type="HBoxContainer" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/GridSizeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridSizeXLabel" type="Label" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/GridSizeContainer/GridSizeXContainer"]
+layout_mode = 2
+text = "X:"
+
+[node name="GridSizeXSpinBox" type="SpinBox" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/GridSizeContainer/GridSizeXContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 4.0
+
+[node name="GridSizeYContainer" type="HBoxContainer" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/GridSizeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridSizeYLabel" type="Label" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/GridSizeContainer/GridSizeYContainer"]
+layout_mode = 2
+text = "Y:"
+
+[node name="GridSizeYSpinBox" type="SpinBox" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/GridSizeContainer/GridSizeYContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 4.0
+
+[node name="BackgroundSpriteContainer" type="HBoxContainer" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox"]
+layout_mode = 2
+
+[node name="BackgroundSpriteLabel" type="Label" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/BackgroundSpriteContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Background:"
+
+[node name="BackgroundSpriteButton" type="Button" parent="MainContainer/ContentContainer/LeftPanel/MapInfoContainer/MapInfoVBox/BackgroundSpriteContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Select Background"
+
+[node name="VSeparator" type="VSeparator" parent="MainContainer/ContentContainer"]
+layout_mode = 2
+
+[node name="RightPanel" type="VBoxContainer" parent="MainContainer/ContentContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PreviewContainer" type="PanelContainer" parent="MainContainer/ContentContainer/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+
+[node name="PreviewVBox" type="VBoxContainer" parent="MainContainer/ContentContainer/RightPanel/PreviewContainer"]
+layout_mode = 2
+
+[node name="PreviewLabel" type="Label" parent="MainContainer/ContentContainer/RightPanel/PreviewContainer/PreviewVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Map Preview"
+
+[node name="PreviewScrollContainer" type="ScrollContainer" parent="MainContainer/ContentContainer/RightPanel/PreviewContainer/PreviewVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PreviewCenterContainer" type="CenterContainer" parent="MainContainer/ContentContainer/RightPanel/PreviewContainer/PreviewVBox/PreviewScrollContainer"]
+layout_mode = 2
+
+[node name="MapPreview" type="Control" parent="MainContainer/ContentContainer/RightPanel/PreviewContainer/PreviewVBox/PreviewScrollContainer/PreviewCenterContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MainContainer/ContentContainer/RightPanel"]
+layout_mode = 2
+
+[node name="LoadMapButton" type="Button" parent="MainContainer/ContentContainer/RightPanel/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load Map"
+
+[node name="SaveMapButton" type="Button" parent="MainContainer/ContentContainer/RightPanel/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save Map"
+
+[node name="NewMapButton" type="Button" parent="MainContainer/ContentContainer/RightPanel/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "New Map"
+
+[node name="MainContainer_ContentContainer_LeftPanel_MapInfoContainer_MapSizeContainer_GridSizeContainer#GridSizeYContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MainContainer_ContentContainer_LeftPanel_MapInfoContainer_MapInfoVBox_GridSizeContainer_GridSizeYContainer#GridSizeYLabel" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "Y:"
+
+[node name="MainContainer_ContentContainer_LeftPanel_MapInfoContainer_MapInfoVBox_GridSizeContainer_GridSizeYContainer#GridSizeYSpinBox" type="SpinBox" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 4.0
+
+[node name="MapLoadModal" type="AcceptDialog" parent="."]
+title = "Load Map"
+initial_position = 1
+size = Vector2i(400, 300)
+
+[node name="MapLoadContainer" type="VBoxContainer" parent="MapLoadModal"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -44.0
+
+[node name="MapListLabel" type="Label" parent="MapLoadModal/MapLoadContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Available Maps:"
+
+[node name="MapListScrollContainer" type="ScrollContainer" parent="MapLoadModal/MapLoadContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MapListVBox" type="VBoxContainer" parent="MapLoadModal/MapLoadContainer/MapListScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MapLoadButtons" type="HBoxContainer" parent="MapLoadModal/MapLoadContainer"]
+layout_mode = 2
+
+[node name="LoadSelectedButton" type="Button" parent="MapLoadModal/MapLoadContainer/MapLoadButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load Selected"
+
+[node name="CancelLoadButton" type="Button" parent="MapLoadModal/MapLoadContainer/MapLoadButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"

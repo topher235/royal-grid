@@ -1,10 +1,15 @@
 class_name GameConfig extends Resource
 
-@export var grid_size: Vector2i = Vector2i(4, 4)
+@export var map: Map
 @export var tile_size: int = 48
 @export var starting_pieces: Array[PieceSpawnData] = []
+@export var num_random_pieces: int = 0
 @export var piece_spawn_rules: PieceSpawnRules
 @export var game_rules: GameRules
+
+var grid_size: Vector2i:
+    get:
+        return map.grid_size if map else Vector2i(4, 4)
 
 
 func _init() -> void:
@@ -12,10 +17,13 @@ func _init() -> void:
         piece_spawn_rules = PieceSpawnRules.new()
     if not game_rules:
         game_rules = GameRules.new()
+    if not map:
+        map = Map.create_default_map()
 
 
 static func default_game() -> GameConfig:
     var this = GameConfig.new()
+    this.map = load("res://resources/maps/map_1.tres")
 
     var white_pawn = PieceSpawnData.new()
     white_pawn.piece_type = PieceSpawnData.PieceType.PAWN
@@ -33,3 +41,9 @@ static func default_game() -> GameConfig:
     ]
     this.starting_pieces = test_pieces
     return this
+
+
+func get_active_tile_positions() -> Array[Vector2i]:
+    if not map:
+        return []
+    return map.get_active_tiles()

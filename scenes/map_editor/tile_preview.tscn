@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5d6e7f8hah0i"]
+
+[ext_resource type="Script" uid="uid://b7nf37nvc2tju" path="res://scripts/map_editor/tile_preview.gd" id="1_tile_preview"]
+
+[node name="TilePreview" type="Control" node_paths=PackedStringArray("background", "hover_outline", "active_indicator")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_tile_preview")
+background = NodePath("Background")
+hover_outline = NodePath("HoverOutline")
+active_indicator = NodePath("ActiveIndicator")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="HoverOutline" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.8)
+
+[node name="ActiveIndicator" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.2, 0.8, 0.2, 0.3)
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

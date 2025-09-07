@@ -6,6 +6,7 @@ const CHESS_PIECE = preload("res://scenes/pieces/chess_piece.tscn")
 @export var mult_label: Label
 @export var score_label: Label
 @export var next_piece_container: PanelContainer
+@export var background_sprite: TextureRect
 
 var score_tween: Tween
 var score_queue: Array[int]
@@ -41,7 +42,19 @@ func load_game_state() -> void:
         Log.info(self, "Starting new game")
         if game_board:
             game_board.load_new_game()
-        # the game board will automatically load a new game in its _ready() method
+    
+    load_map_background()
+
+
+func load_map_background() -> void:
+    """
+    Load the background sprite from the current map.
+    """
+    if game_board and game_board.game_config and game_board.game_config.map:
+        var map = game_board.game_config.map
+        if map.background_sprite and background_sprite:
+            background_sprite.texture = map.background_sprite
+            Log.info(self, "Loaded background for map: " + map.map_name)
 
 
 func save_current_game() -> void:
@@ -68,14 +81,14 @@ func _on_score_updated(new_score: int) -> void:
 
 
 func _on_mult_updated(new_mult: int) -> void:
-    if new_mult == current_mult:
-        return
-    
     current_mult = new_mult
     mult_label.text = "x" + str(current_mult)
 
 
 func update_score_label() -> void:
+    if score_queue.is_empty():
+        return
+    
     if score_tween and score_tween.is_running():
         await score_tween.finished
     

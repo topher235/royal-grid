@@ -32,6 +32,7 @@
   - Beggar: makes pawns give 10 points when they take a non-pawn piece
   - Captain: More likely to spawn knights
   - Assassin: Gives more points when taking Queens and Kings
+  - Gains points when no capture; loses points when capture
 
 
 
@@ -49,6 +50,9 @@
   - Buy currency to unlock effects, characters, and maps without going through progression system
   - Buy cosmetics, e.g. new piece sprites, new board design, new animations
   - Buy ad removal
+  - Bundles
+    - One-time beginner bundle that is cheaper, could include coins, diamonds, 1 chess set cosmetic, etc.
+    - Ad removal bundled with coins
 
 
 - Tutorial explain on first load
@@ -91,10 +95,8 @@
 - [ ] FIX - effects and pawns are using the same `is_occupied` flag on Tile, but they are not compatible in the current use. Effects should not spawn where there are units but if a unit is spawned where there is an effect, then the effect should be removed (expired, not executed). Sharing the flag means it's set to null when an effect is removed and a piece is still there. 
 
 
-Todo today:
+Todo:
 
-- [X] Set up SceneManager and make a Main scene -> MainMenu -> GameUI
-- [X] Add frozen animation
-- [X] Add multiplier label to UI
-- [X] Fix effect/piece `is_occupied` duplication
-- [X] Fix spawner effect spawning onto same spot the piece is being moved to
+- [ ] Game continue needs to use map_id instead of the current game config
+- [ ] TileUI and ChessPiece need to scale with grid size. 40px ends up off-screen in a 5x5 grid
+

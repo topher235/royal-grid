@@ -31,7 +31,7 @@ func _on_turn_over(did_capture: bool) -> void:
             reset_points_multiplier()
     
     # Now spawn new things
-    piece_spawner.spawn_random_piece(did_capture)
+    piece_spawner.spawn_next_piece(did_capture)
     effect_spawner.spawn_random_effect(moves, false)
 
     # Auto-save after each turn
@@ -75,7 +75,11 @@ func reset_points_multiplier() -> void:
 
 
 func spawn_new_piece() -> void:
-    piece_spawner.spawn_random_piece(false, true)
+    piece_spawner.spawn_new_piece()
+
+
+func spawn_next_piece() -> void:
+    piece_spawner.spawn_next_piece(false, true)
 
 
 func spawn_new_piece_from_data(piece_data: PieceSpawnData, excluding_positions: Array = []) -> void:

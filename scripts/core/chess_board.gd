@@ -24,40 +24,46 @@ var selected_tile: Tile = null
 
 
 func _ready() -> void:
-    # if not game_config:
-    #     game_config = GameConfig.default_game()
-    
     if game_config:
         piece_spawner.game_config = game_config
         effect_spawner.game_config = game_config
 
 
 func initialize_grid() -> void:
-    tiles.resize(game_config.grid_size.x)
-    pieces.resize(game_config.grid_size.x)
+    var grid_size = game_config.grid_size
+    tiles.resize(grid_size.x)
+    pieces.resize(grid_size.x)
 
-    for x in range(game_config.grid_size.x):
+    for x in range(grid_size.x):
         tiles[x] = []
         pieces[x] = []
-        tiles[x].resize(game_config.grid_size.y)
-        pieces[x].resize(game_config.grid_size.y)
+        tiles[x].resize(grid_size.y)
+        pieces[x].resize(grid_size.y)
 
-        for y in range(game_config.grid_size.y):
+        for y in range(grid_size.y):
             tiles[x][y] = null
             pieces[x][y] = null
 
 
 func create_tiles() -> void:
     # TODO: create from the loaded map resource
-    for x in range(game_config.grid_size.x):
-        for y in range(game_config.grid_size.y):
-            var tile = TILE_SCENE.instantiate() as Tile
-            tile.grid_position = Vector2i(x, y)
-            tile.custom_minimum_size = Vector2(game_config.tile_size, game_config.tile_size)
-            tile.position = Vector2(x * game_config.tile_size, y * game_config.tile_size)
-            tile.tile_clicked.connect(_on_tile_clicked)
-            tiles[x][y] = tile
-            add_child(tile)
+    var grid_size = game_config.grid_size
+
+    for x in range(grid_size.x):
+        for y in range(grid_size.y):
+            var tile_data = game_config.map.get_tile_data(Vector2i(x, y))
+            # Only create tiles for active positions
+            if tile_data and tile_data.is_active:
+                var tile = TILE_SCENE.instantiate() as Tile
+                tile.grid_position = Vector2i(x, y)
+                tile.custom_minimum_size = Vector2(game_config.tile_size, game_config.tile_size)
+                tile.position = Vector2(x * game_config.tile_size, y * game_config.tile_size)
+                tile.tile_clicked.connect(_on_tile_clicked)
+                tiles[x][y] = tile
+                add_child(tile)
+            else:
+                # Set inactive tiles to null
+                tiles[x][y] = null
 
 
 func load_new_game() -> void:
@@ -67,14 +73,14 @@ func load_new_game() -> void:
 
     if not game_config:
         return
-
-    # game_state = GameState.new()
-    # game_state.config = game_config
     
     new_game.emit()
 
     for piece_data in game_config.starting_pieces:
         spawn_piece(piece_data)
+        await get_tree().create_timer(0.2).timeout
+    for i in range(game_config.num_random_pieces):
+        game_manager.spawn_new_piece()
         await get_tree().create_timer(0.2).timeout
 
 
@@ -102,12 +108,13 @@ func spawn_effect(effect_data: EffectSpawnData) -> void:
 
 
 func clear_board() -> void:
-    for x in range(game_config.grid_size.x):
-        for y in range(game_config.grid_size.y):
+    var grid_size = game_config.grid_size
+    for x in range(grid_size.x):
+        for y in range(grid_size.y):
             var tile = tiles[x][y]
-            if tile.is_occupied:
+            if tile and tile.is_occupied:
                 remove_piece(Vector2i(x, y))
-            if tile.is_occupied_by_effect():
+            if tile and tile.is_occupied_by_effect():
                 tile.remove_effect()
 
 
@@ -164,7 +171,9 @@ func show_valid_moves(tile: Tile) -> void:
 
     for move_pos in valid_moves:
         if is_valid_position(move_pos) and move_pos not in blocked_spaces:
-            tiles[move_pos.x][move_pos.y].show_valid_move()
+            var target_tile = tiles[move_pos.x][move_pos.y]
+            if target_tile:  # Only show valid moves on active tiles
+                target_tile.show_valid_move()
 
 
 func attempt_move(from_tile: Tile, to_tile: Tile) -> bool:
@@ -172,39 +181,40 @@ func attempt_move(from_tile: Tile, to_tile: Tile) -> bool:
     var to_pos = to_tile.grid_position
 
     if not from_tile.is_occupied_by_piece():
-        print("No piece to move")
+        Log.error(self, "No piece to move")
         return false
     
     var piece = from_tile.occupying_piece
     if not piece:
-        print("Invalid piece type")
+        Log.error(self, "Invalid piece type")
         return false
     
     if not can_piece_move_to(piece, to_pos):
-        print("Illegal move for piece")
+        Log.error(self, "Illegal move for piece")
         piece.animate_error()
         return false
 
     if await move_piece(from_pos, to_pos):
         # Update piece's internal position
         piece.set_grid_position(to_pos)
-        # piece.move_to(to_pos)
         return true
     else:
-        print("move failed")
+        Log.error(self, "attempt_move: move failed")
         return false
 
 
 func is_valid_position(pos: Vector2i) -> bool:
-    var is_within_x = pos.x >= 0 and pos.x < game_config.grid_size.x
-    var is_within_y = pos.y >= 0 and pos.y < game_config.grid_size.y
-    return is_within_x and is_within_y
+    var grid_size = game_config.grid_size
+    var is_within_x = pos.x >= 0 and pos.x < grid_size.x
+    var is_within_y = pos.y >= 0 and pos.y < grid_size.y
+    return is_within_x and is_within_y and game_config.map.is_tile_active(pos)
 
 
 func is_position_occupied(pos: Vector2i) -> bool:
     if not is_valid_position(pos):
         return false
-    return tiles[pos.x][pos.y].is_occupied
+    var tile = tiles[pos.x][pos.y]
+    return tile and tile.is_occupied
 
 
 func is_position_occupied_by_opponent(pos: Vector2i, piece: PieceSpawnData) -> bool:
@@ -214,7 +224,8 @@ func is_position_occupied_by_opponent(pos: Vector2i, piece: PieceSpawnData) -> b
 
 
 func is_position_occupied_by_effect(pos: Vector2i) -> bool:
-    return tiles[pos.x][pos.y].is_occupied_by_effect()
+    var tile = tiles[pos.x][pos.y]
+    return tile and tile.is_occupied_by_effect()
 
 
 func place_piece(piece: ChessPiece, pos: Vector2i) -> bool:
@@ -223,7 +234,7 @@ func place_piece(piece: ChessPiece, pos: Vector2i) -> bool:
         return false
     
     var tile = tiles[pos.x][pos.y]
-    if tile.is_occupied_by_piece():
+    if not tile or tile.is_occupied_by_piece():
         Log.error(self, str(pos) + " is occupied by a piece")
         return false
     
@@ -258,7 +269,11 @@ func remove_piece(pos: Vector2i) -> ChessPiece:
 func remove_effect(pos: Vector2i) -> Effect:
     if not is_valid_position(pos):
         return null
+    
     var tile = tiles[pos.x][pos.y]
+    if not tile:
+        return null
+    
     var effect = tile.remove_effect()
     return effect
 
@@ -298,6 +313,9 @@ func add_effect(effect: Effect, pos: Vector2i) -> bool:
         return false
     
     var tile = tiles[pos.x][pos.y]
+    if not tile:
+        return false
+    
     tile.add_effect(effect)
     return true
 
@@ -309,7 +327,8 @@ func get_world_to_grid(world_pos: Vector2) -> Vector2i:
 func get_piece_at(pos: Vector2i) -> ChessPiece:
     if not is_valid_position(pos):
         return null
-    return tiles[pos.x][pos.y].occupying_piece as ChessPiece
+    var tile = tiles[pos.x][pos.y]
+    return tile.occupying_piece as ChessPiece if tile else null
 
 
 func can_piece_move_to(piece: ChessPiece, target_pos: Vector2i) -> bool:
@@ -328,6 +347,8 @@ func does_position_have_piece(pos: Vector2i) -> bool:
 
 
 func retrieve_tile_at_position(pos: Vector2i) -> Tile:
+    if not is_valid_position(pos):
+        return null
     return tiles[pos.x][pos.y]
 
 
@@ -343,7 +364,7 @@ func get_game_state() -> ActiveGameData:
         active_game.stats = game_manager.current_game_stats
     
     # Set default map and character IDs (TODO: implement later)
-    active_game.map_id = 0
+    active_game.map_id = game_config.map.map_id
     active_game.character_id = 0
 
     # Serialize tiles (while tiles are available)
@@ -351,7 +372,9 @@ func get_game_state() -> ActiveGameData:
     for x in range(game_config.grid_size.x):
         for y in range(game_config.grid_size.y):
             var tile = tiles[x][y]
-            active_game.tiles.append(tile.get_active_tile_data())
+            if tile:
+                # Only serialize active tiles
+                active_game.tiles.append(tile.get_active_tile_data())
     
     # Serialize pieces on the board
     active_game.pieces = [] as Array[ActivePieceData]
@@ -385,7 +408,7 @@ func load_game_state(active_game: ActiveGameData) -> void:
         Log.error(self, "Cannot load null game state")
         return
     
-    # TODO: this will probably need to change based on the Map resource implementation
+    # TODO: load the correct map based on map_id
     initialize_grid()
     create_tiles()
 
