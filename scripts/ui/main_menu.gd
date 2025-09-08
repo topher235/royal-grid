@@ -8,26 +8,31 @@ signal scene_changed(to_path: String)
 @export var settings_button: MainMenuButton
 @export var shop_button: MainMenuButton
 
+
+@export var settings_piece: Control
+@export var shop_piece: Control
+@export var stats_piece: Control
 @export var animation_player: AnimationPlayer
 
 
 func _ready() -> void:
-    continue_game_button.label.text = "Continue Game"
-    continue_game_button.pressed.connect(_on_continue_game_button_pressed)
+    pass
+    # continue_game_button.label.text = "Continue Game"
+    # continue_game_button.pressed.connect(_on_continue_game_button_pressed)
 
-    play_game_button.label.text = "Play Game"
-    play_game_button.pressed.connect(_on_play_game_button_pressed)
+    # play_game_button.label.text = "Play Game"
+    # play_game_button.pressed.connect(_on_play_game_button_pressed)
     
-    settings_button.label.text = "Settings"
-    settings_button.pressed.connect(_on_settings_button_pressed)
+    # settings_button.label.text = "Settings"
+    # settings_button.pressed.connect(_on_settings_button_pressed)
 
-    shop_button.label.text = "Shop"
-    shop_button.pressed.connect(_on_shop_button_pressed)
+    # shop_button.label.text = "Shop"
+    # shop_button.pressed.connect(_on_shop_button_pressed)
 
-    update_menu_buttons()
+    # update_menu_buttons()
 
-    animation_player.play("open_title_scroll")
-    animation_player.queue("fade_in_menu_box")
+    # animation_player.play("open_title_scroll")
+    # animation_player.queue("fade_in_menu_box")
 
 
 func update_menu_buttons() -> void:
@@ -61,12 +66,28 @@ func _on_continue_game_button_pressed() -> void:
     scene_changed.emit("res://scenes/ui/game_ui.tscn")
 
 
-func _on_settings_button_pressed() -> void:
-    print("settings")
+func _on_settings_gui_input(event: InputEvent) -> void:
+    if event is InputEventMouseButton and event.is_pressed():
+        print("settings")
+        animation_player.play("to_settings")
+        await animation_player.animation_finished
+        animation_player.play_backwards("to_settings")
 
 
-func _on_shop_button_pressed() -> void:
-    print("shop")
+func _on_shop_gui_input(event: InputEvent) -> void:
+    if event is InputEventMouseButton and event.is_pressed():
+        print("shop")
+        animation_player.play("to_shop")
+        await animation_player.animation_finished
+        animation_player.play_backwards("to_shop")
+
+
+func _on_stats_gui_input(event: InputEvent) -> void:
+    if event is InputEventMouseButton and event.is_pressed():
+        print("stats")
+        animation_player.play("to_stats")
+        await animation_player.animation_finished
+        animation_player.play_backwards("to_stats")
 
 
 func get_scene_data() -> Dictionary:

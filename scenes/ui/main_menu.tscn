@@ -1,13 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://1cxtwtrc0755"]
+[gd_scene load_steps=32 format=3 uid="uid://1cxtwtrc0755"]
 
 [ext_resource type="FontFile" uid="uid://cvmlljyjcr0iv" path="res://assets/fonts/Messy.otf" id="1_btxxm"]
 [ext_resource type="Script" uid="uid://6tvjfoxampse" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
-[ext_resource type="Texture2D" uid="uid://7fk38bwgvqnr" path="res://assets/images/checkerboard_noise.png" id="3_q85j6"]
+[ext_resource type="FontFile" uid="uid://rlkmcklv0vdq" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_wb0q5"]
+[ext_resource type="Texture2D" uid="uid://uyo7ktar3opt" path="res://assets/images/background/blackWhite.png" id="3_1g8jr"]
+[ext_resource type="Texture2D" uid="uid://dg4s42vut0rus" path="res://assets/images/background/BottomPatternBG_128x112.png" id="4_m1kxf"]
+[ext_resource type="Texture2D" uid="uid://dtbxjdv0n8cb2" path="res://assets/images/background/PatternMiddleBottomBG_199x48.png" id="5_uhagc"]
+[ext_resource type="Texture2D" uid="uid://b41q3qt7og5h5" path="res://assets/images/background/TopPatternBG_116x67.png" id="6_btxxm"]
+[ext_resource type="Texture2D" uid="uid://pph6sbpc7u8n" path="res://assets/images/background/TopPatternPanel_02_33x15.png" id="8_wb0q5"]
+[ext_resource type="Texture2D" uid="uid://cli1bsj5xq4kh" path="res://assets/images/menu/MenusBox_bigbottom_92x34.png" id="9_7suek"]
+[ext_resource type="Texture2D" uid="uid://c5sirl5m216r2" path="res://assets/images/tiles/2part_wood.png" id="9_8ekit"]
+[ext_resource type="Texture2D" uid="uid://c2tb2es6aim5p" path="res://assets/images/tiles/2part_trim_wood.png" id="10_n4uci"]
+[ext_resource type="Texture2D" uid="uid://cpumw0vdkqqu6" path="res://assets/images/menu/MenusBox_bigbottom_92x35.png" id="10_otr3d"]
+[ext_resource type="Texture2D" uid="uid://bi4v35dt31qym" path="res://assets/images/menu/arrow0.png" id="11_8ekit"]
+[ext_resource type="Texture2D" uid="uid://b5y7pjqtb80iy" path="res://assets/images/menu/pawnFront.png" id="12_otr3d"]
+[ext_resource type="Texture2D" uid="uid://c7dco3e8dgapo" path="res://assets/images/menu/arrow1.png" id="14_qilvv"]
+[ext_resource type="Texture2D" uid="uid://mbxxnnsyt3gd" path="res://assets/images/menu/bishopFront.png" id="15_ayp64"]
+[ext_resource type="Texture2D" uid="uid://boq1j7wksa0xh" path="res://assets/images/menu/shadow.png" id="16_y2j7i"]
+[ext_resource type="Texture2D" uid="uid://caicou3godmwv" path="res://assets/images/menu/queenFront.png" id="17_y1h5l"]
+[ext_resource type="PackedScene" uid="uid://bm335nwx6yjba" path="res://scenes/ui/components/label_dropshadow.tscn" id="18_5dct7"]
+[ext_resource type="Texture2D" uid="uid://dtxrjm113gfo" path="res://assets/images/menu/knightFront.png" id="18_pw24t"]
+[ext_resource type="Texture2D" uid="uid://cvgkdfesn5eye" path="res://assets/images/menu/knightBack.png" id="19_pw24t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fe2o3"]
-bg_color = Color(0.969011, 0.93286, 0.865303, 1)
+bg_color = Color(0.815686, 0.74902, 0.694118, 1)
 
 [sub_resource type="Theme" id="Theme_1g8jr"]
+GameTitle/base_type = &"Label"
+GameTitle/colors/font_color = Color(0.815686, 0.74902, 0.694118, 1)
+GameTitle/colors/font_outline_color = Color(0, 0, 0, 1)
+GameTitle/colors/font_shadow_color = Color(0, 0, 0, 0.490196)
+GameTitle/constants/outline_size = 4
+GameTitle/constants/shadow_offset_x = 2
+GameTitle/constants/shadow_offset_y = 5
+GameTitle/constants/shadow_outline_size = 2
+GameTitle/font_sizes/font_size = 32
+GameTitle/fonts/font = ExtResource("1_wb0q5")
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/font_sizes/font_size = 8
 MainMenuButton/base_type = &"MainMenuButton"
@@ -16,7 +44,322 @@ TitleLabel/base_type = &"Label"
 TitleLabel/font_sizes/font_size = 18
 TitleLabel/fonts/font = ExtResource("1_btxxm")
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("continue_game_button", "play_game_button", "settings_button", "shop_button", "animation_player")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4uci"]
+draw_center = false
+shadow_size = 3
+shadow_offset = Vector2(2.5, 0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5dct7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_8ekit")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_qilvv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_otr3d"]
+font = ExtResource("1_wb0q5")
+font_color = Color(0.980392, 0.941176, 0.886275, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.552941)
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="Animation" id="Animation_5dct7"]
+resource_name = "to_settings"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnightBack:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.298827),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(111, 192), Vector2(28, 150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KnightBack/KnightBackSprite:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.299432, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, -20), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("KnightBack/Shadow:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.299432, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.8, 1.8), Vector2(1.3, 1.3), Vector2(1.3, 1.3), Vector2(1.8, 1.8)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bishop:modulate")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.166667, 0.321209),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("KnightBack:skew")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.0333333, 0.0877124, 0.286124, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.148353, 0.148353, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_qilvv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnightBack:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(111, 192)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KnightBack/KnightBackSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("KnightBack/Shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.8, 1.8)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bishop:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("KnightBack:skew")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Queen:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Knight:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pw24t"]
+resource_name = "to_shop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnightBack:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.300037),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(111, 192), Vector2(70, 110)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KnightBack/KnightBackSprite:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.299432, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, -20), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("KnightBack/Shadow:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.299432, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.8, 1.8), Vector2(1.3, 1.3), Vector2(1.3, 1.3), Vector2(1.8, 1.8)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("KnightBack:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333, 0.0877124, 0.286124, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0698132, 0.0698132, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Queen:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.166667, 0.322419),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jbte4"]
+resource_name = "to_stats"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnightBack:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.298827),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(111, 192), Vector2(153, 110)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KnightBack/KnightBackSprite:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.299432, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, -20), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("KnightBack/Shadow:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.299432, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.8, 1.8), Vector2(1.3, 1.3), Vector2(1.3, 1.3), Vector2(1.8, 1.8)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("KnightBack:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333, 0.0877124, 0.286124, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0698132, -0.0698132, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Knight:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.166956, 0.323629),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jbte4"]
+_data = {
+&"RESET": SubResource("Animation_qilvv"),
+&"to_settings": SubResource("Animation_5dct7"),
+&"to_shop": SubResource("Animation_pw24t"),
+&"to_stats": SubResource("Animation_jbte4")
+}
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("settings_piece", "animation_player")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,11 +368,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_1g8jr")
 script = ExtResource("1_sl1te")
-continue_game_button = NodePath("")
-play_game_button = NodePath("")
-settings_button = NodePath("")
-shop_button = NodePath("")
-animation_player = NodePath("")
+settings_piece = NodePath("Bishop/ClickableAreaSettings")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -39,13 +379,410 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="."]
-self_modulate = Color(1, 1, 1, 0.211765)
+[node name="CheckerBackground" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.0588235)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 121.0
+offset_top = -95.0
+offset_right = 301.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+texture = ExtResource("3_1g8jr")
+
+[node name="DecorationBottomSide" type="TextureRect" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_m1kxf")
+expand_mode = 1
+
+[node name="DecorationBottomMiddle" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -99.5
+offset_top = -48.0
+offset_right = 99.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("5_uhagc")
+
+[node name="DecorationTop" type="TextureRect" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+texture = ExtResource("6_btxxm")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_q85j6")
+theme_override_constants/separation = 0
+
+[node name="Spacing" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_type_variation = &"GameTitle"
+text = "GAMBIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleUnderline" type="TextureRect" parent="VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.392157)
+texture_filter = 1
+custom_minimum_size = Vector2(160, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("8_wb0q5")
 expand_mode = 1
+
+[node name="Spacing2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(82, 41)
+layout_mode = 2
+texture = ExtResource("9_8ekit")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(82, 41)
+layout_mode = 2
+texture = ExtResource("9_8ekit")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+custom_minimum_size = Vector2(82, 41)
+layout_mode = 2
+texture = ExtResource("9_8ekit")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+custom_minimum_size = Vector2(82, 41)
+layout_mode = 2
+texture = ExtResource("9_8ekit")
+flip_h = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+custom_minimum_size = Vector2(82, 41)
+layout_mode = 2
+texture = ExtResource("9_8ekit")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+custom_minimum_size = Vector2(82, 41)
+layout_mode = 2
+texture = ExtResource("9_8ekit")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer4"]
+texture_filter = 1
+custom_minimum_size = Vector2(82, 12)
+layout_mode = 2
+texture = ExtResource("10_n4uci")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer4"]
+texture_filter = 1
+custom_minimum_size = Vector2(82, 10)
+layout_mode = 2
+texture = ExtResource("10_n4uci")
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/Control"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = -1.0
+offset_right = 167.0
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_n4uci")
+
+[node name="Spacing3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="PlayButton" type="TextureButton" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("9_7suek")
+texture_pressed = ExtResource("10_otr3d")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PlayButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Control" type="Control" parent="VBoxContainer/PlayButton/HBoxContainer"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VBoxContainer/PlayButton/HBoxContainer"]
+z_index = 1
+position = Vector2(21.5, 7)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5dct7")
+autoplay = "default"
+frame_progress = 0.940304
+
+[node name="Control3" type="Control" parent="VBoxContainer/PlayButton/HBoxContainer"]
+custom_minimum_size = Vector2(11, 30)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PlayButton/HBoxContainer/Control3"]
+layout_mode = 2
+offset_top = -1.0
+offset_right = 11.0
+offset_bottom = 29.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_otr3d")
+expand_mode = 1
+
+[node name="Control2" type="Control" parent="VBoxContainer/PlayButton/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/PlayButton/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "PLAY"
+label_settings = SubResource("LabelSettings_otr3d")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bishop" type="Node2D" parent="."]
+position = Vector2(28, 141)
+
+[node name="BishopSprite" type="Sprite2D" parent="Bishop"]
+z_index = 1
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("15_ayp64")
+
+[node name="Shadow" type="Sprite2D" parent="Bishop"]
+texture_filter = 1
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("16_y2j7i")
+offset = Vector2(0, 16)
+
+[node name="Control" type="Control" parent="Bishop"]
+custom_minimum_size = Vector2(41, 44)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_right = 21.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SettingsLabel" parent="Bishop/Control" instance=ExtResource("18_5dct7")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ClickableAreaSettings" type="Control" parent="Bishop"]
+custom_minimum_size = Vector2(41, 80)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -30.0
+offset_right = 21.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Queen" type="Node2D" parent="."]
+position = Vector2(70, 99)
+
+[node name="QueenSprite" type="Sprite2D" parent="Queen"]
+z_index = 1
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("17_y1h5l")
+
+[node name="Shadow" type="Sprite2D" parent="Queen"]
+texture_filter = 1
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("16_y2j7i")
+offset = Vector2(0, 16)
+
+[node name="Control2" type="Control" parent="Queen"]
+custom_minimum_size = Vector2(41, 44)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_right = 20.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShopLabel" parent="Queen/Control2" instance=ExtResource("18_5dct7")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "SHOP"
+
+[node name="ClickableAreaShop" type="Control" parent="Queen"]
+custom_minimum_size = Vector2(41, 80)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -30.0
+offset_right = 21.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Knight" type="Node2D" parent="."]
+position = Vector2(152, 99)
+
+[node name="KnightSprite" type="Sprite2D" parent="Knight"]
+z_index = 1
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("18_pw24t")
+
+[node name="Shadow" type="Sprite2D" parent="Knight"]
+texture_filter = 1
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("16_y2j7i")
+offset = Vector2(0, 16)
+
+[node name="Control2" type="Control" parent="Knight"]
+custom_minimum_size = Vector2(41, 44)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -21.0
+offset_right = 20.0
+offset_bottom = 44.0
+
+[node name="StatsLabel" parent="Knight/Control2" instance=ExtResource("18_5dct7")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "STATS"
+
+[node name="ClickableAreaStats" type="Control" parent="Knight"]
+custom_minimum_size = Vector2(41, 80)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -30.0
+offset_right = 21.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KnightBack" type="Node2D" parent="."]
+position = Vector2(111, 192)
+
+[node name="KnightBackSprite" type="Sprite2D" parent="KnightBack"]
+z_index = 1
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("19_pw24t")
+
+[node name="Shadow" type="Sprite2D" parent="KnightBack"]
+texture_filter = 1
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("16_y2j7i")
+offset = Vector2(0, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jbte4")
+}
+
+[connection signal="gui_input" from="Bishop/ClickableAreaSettings" to="." method="_on_settings_gui_input"]
+[connection signal="gui_input" from="Queen/ClickableAreaShop" to="." method="_on_shop_gui_input"]
+[connection signal="gui_input" from="Knight/ClickableAreaStats" to="." method="_on_stats_gui_input"]
