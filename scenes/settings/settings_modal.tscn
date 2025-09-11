@@ -137,7 +137,7 @@ _data = {
 &"open": SubResource("Animation_wi6ey")
 }
 
-[node name="SettingsModal" type="Control" node_paths=PackedStringArray("animation_player")]
+[node name="SettingsModal" type="Control" node_paths=PackedStringArray("sound_toggle", "music_toggle", "language_select", "animation_player")]
 z_index = 5
 layout_mode = 3
 anchors_preset = 15
@@ -147,6 +147,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_hyycs")
 script = ExtResource("1_e4nlu")
+sound_toggle = NodePath("CenterContainer/Panel/MarginContainer/VBoxContainer/SoundToggleContainer/SoundToggleButton")
+music_toggle = NodePath("CenterContainer/Panel/MarginContainer/VBoxContainer/MusicToggleContainer/MusicToggleButton")
+language_select = NodePath("CenterContainer/Panel/MarginContainer/VBoxContainer/LanguageSelectContainer/OptionButton")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="Panel" type="Panel" parent="."]

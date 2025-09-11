@@ -69,12 +69,6 @@ func _on_continue_game_button_pressed() -> void:
 func _on_settings_gui_input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.is_pressed():
         animation_player.play("to_settings")
-        destroy_modal_children()
-        var s = SETTINGS_SCENE.instantiate()
-        await animation_player.animation_finished
-        modal_container.add_child(s)
-        s.open()
-        s.closed.connect(close_modal.bind("to_settings"))
 
 
 func destroy_modal_children() -> void:
@@ -101,6 +95,44 @@ func _on_stats_gui_input(event: InputEvent) -> void:
         animation_player.play("to_stats")
         await animation_player.animation_finished
         animation_player.play_backwards("to_stats")
+
+
+func open_modal(modal_type: String) -> void:
+    """
+    Instantiates a modal scene based on the modal_type provided and adds it as a child
+    to the modal container node. Plays the modal's open animation and connects the backwards
+    animation to its `closed` signal.
+    """
+    # Check if we're playing backwards
+    # a negative speed means playing in reverse
+    # if this becomes hacky, we might want separate "from_X" animations that omit this function call
+    if animation_player.current_animation_position > 0 and animation_player.get_playing_speed() < 0:
+        return  # Don't open modal when reversing
+    
+    Log.info(self, "open_modal opening " + modal_type)
+    destroy_modal_children()
+
+    var scene = null
+    var animation_name = ""
+    match modal_type:
+        "settings":
+            scene = SETTINGS_SCENE.instantiate()
+            animation_name = "to_settings"
+        "shop":
+            # scene = SHOP_SCENE.instantiate()
+            # animation_name = "to_shop"
+            Log.error(self, "open_modal 'shop' branch needs to be implemented")
+        "stats":
+            # scene = STATS_SCENE.instantiate()
+            # animation_name = "to_stats"
+            Log.error(self, "open_modal 'stats' branch needs to be implemented")
+        _:
+            Log.error(self, "open_modal did not match branch " + modal_type)
+    
+    if scene and animation_name:
+        modal_container.add_child(scene)
+        scene.open()
+        scene.closed.connect(close_modal.bind(animation_name))
 
 
 func get_scene_data() -> Dictionary:

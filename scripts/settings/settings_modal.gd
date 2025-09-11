@@ -10,9 +10,8 @@ signal closed
 
 
 func open() -> void:
-    # TODO: using .value is likely wrong for CheckButton
-    sound_toggle.value = UserConfig.get_setting(UserConfig.SOUND)
-    music_toggle.value = UserConfig.get_setting(UserConfig.MUSIC)
+    sound_toggle.button_pressed = UserConfig.get_setting(UserConfig.SOUND)
+    music_toggle.button_pressed = UserConfig.get_setting(UserConfig.MUSIC)
 
     # TODO: initialize language options based on localization implementation
 

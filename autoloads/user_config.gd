@@ -51,4 +51,4 @@ func set_setting(setting_name: String, value: Variant) -> void:
 
 
 func get_setting(setting_name: String) -> Variant:
-    current_user_settings.get(setting_name, default_user_settings[setting_name])
+    return current_user_settings.get(setting_name, default_user_settings[setting_name])
