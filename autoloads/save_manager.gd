@@ -135,7 +135,7 @@ func update_currency(amount: int) -> void:
     save_game()
 
 
-func get_current() -> int:
+func get_currency() -> int:
     """
     Returns the current currency amount.
     """

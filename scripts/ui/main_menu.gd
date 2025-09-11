@@ -4,6 +4,7 @@ signal change_screen
 signal scene_changed(to_path: String)
 
 const SETTINGS_SCENE = preload("res://scenes/settings/settings_modal.tscn")
+const STATS_SCENE = preload("res://scenes/stats/stats_modal.tscn")
 
 @export var continue_game_button: Button
 @export var play_game_button: Button
@@ -83,7 +84,7 @@ func close_modal(animation_name: String) -> void:
 
 func _on_shop_gui_input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.is_pressed():
-        print("shop")
+        Log.error(self, "_on_shop_gui_input modal needs to be implemented")
         animation_player.play("to_shop")
         await animation_player.animation_finished
         animation_player.play_backwards("to_shop")
@@ -91,10 +92,7 @@ func _on_shop_gui_input(event: InputEvent) -> void:
 
 func _on_stats_gui_input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.is_pressed():
-        print("stats")
         animation_player.play("to_stats")
-        await animation_player.animation_finished
-        animation_player.play_backwards("to_stats")
 
 
 func open_modal(modal_type: String) -> void:
@@ -123,9 +121,8 @@ func open_modal(modal_type: String) -> void:
             # animation_name = "to_shop"
             Log.error(self, "open_modal 'shop' branch needs to be implemented")
         "stats":
-            # scene = STATS_SCENE.instantiate()
-            # animation_name = "to_stats"
-            Log.error(self, "open_modal 'stats' branch needs to be implemented")
+            scene = STATS_SCENE.instantiate()
+            animation_name = "to_stats"
         _:
             Log.error(self, "open_modal did not match branch " + modal_type)
     

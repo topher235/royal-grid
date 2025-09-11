@@ -2,10 +2,10 @@
 
 ## To MVP
 
-- [ ] Implement **Settings** modal
-  - [ ] User can enable/disable sound & music
-  - [ ] Modal is opened from Main Menu
-  - [ ] When closed, the reverse animation plays
+- [X] Implement **Settings** modal
+  - [X] User can enable/disable sound & music
+  - [X] Modal is opened from Main Menu
+  - [X] When closed, the reverse animation plays
 - [ ] Implement **Shop** modal
   - [ ] Tabbed shop design for characters, maps, cosmetics, and IAP
   - [ ] Available stock is loaded from Resource files
@@ -35,7 +35,11 @@
   - [ ] Use new pixel art pieces
   - [ ] Add Character portrait
 - [ ] Stats modal
-  - [ ] Display player stats
-  - [ ] When closed, play reverse animation
+  - [X] Display player stats
+  - [X] When closed, play reverse animation
+  - [ ] Finish implementing PlayerStats.get_display_values
+  - [ ] Decide on stats section headers
 - [ ] Localization
   - [ ] Set up localization patterns while there is little text
+  - [ ] Player can select language on first start
+  - [ ] Player can select language from settings menu

@@ -134,3 +134,15 @@ func update_multiplier(new_mult: int) -> void:
     Sets highest multiplier.
     """
     highest_multiplier = max(highest_multiplier, new_mult)
+
+
+func get_display_values() -> Dictionary:
+    """
+    Returns a dictionary where the key is the display label and the value is the display value.
+    """
+    # TODO: affected by localization
+    return {
+        "Games Played": num_games_played,
+        "Best Score": best_score,
+        "Total Score": total_score,
+    }
