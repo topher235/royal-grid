@@ -182,12 +182,13 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Stats"
+text = "STATS_MODAL_TITLE"
 label_settings = SubResource("LabelSettings_hyycs")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Spacing" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 1)
@@ -242,7 +243,7 @@ custom_minimum_size = Vector2(50, 15)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 8
-text = "Close"
+text = "CLOSE"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer"]
 texture_filter = 1

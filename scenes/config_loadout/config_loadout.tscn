@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://hqxsbl1rjplt"]
+[gd_scene load_steps=27 format=3 uid="uid://hqxsbl1rjplt"]
 
 [ext_resource type="Texture2D" uid="uid://uyo7ktar3opt" path="res://assets/images/background/blackWhite.png" id="1_jwmto"]
 [ext_resource type="Texture2D" uid="uid://dg4s42vut0rus" path="res://assets/images/background/BottomPatternBG_128x112.png" id="2_c7k5i"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cpumw0vdkqqu6" path="res://assets/images/menu/MenusBox_bigbottom_92x35.png" id="6_b2pn7"]
 [ext_resource type="PackedScene" uid="uid://bm335nwx6yjba" path="res://scenes/ui/components/label_dropshadow.tscn" id="7_b2pn7"]
 [ext_resource type="Texture2D" uid="uid://ik0i0g1dhhu0" path="res://assets/images/menu/LeftArrowButton_7x10.png" id="7_r8kn0"]
+[ext_resource type="Texture2D" uid="uid://dmq0ppeujigb8" path="res://assets/images/menu/CoinIcon_16x18.png" id="7_y2hp7"]
 [ext_resource type="FontFile" uid="uid://rlkmcklv0vdq" path="res://assets/fonts/PixeloidSans-Bold.otf" id="8_e3ugo"]
 [ext_resource type="Texture2D" uid="uid://7ugxp4vt73kd" path="res://assets/images/menu/RightArrowButton_7x10.png" id="8_y2hp7"]
 
@@ -43,6 +44,9 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_0q2qy"]
+font_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2hp7"]
 bg_color = Color(0.227451, 0.247059, 0.368627, 0.705882)
@@ -218,7 +222,7 @@ vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/HBoxContainer/Control"]
 texture_filter = 1
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(18, 18)
 layout_mode = 0
 texture = ExtResource("6_7ybim")
 expand_mode = 1
@@ -286,9 +290,9 @@ vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/HBoxContainer/Control2"]
 texture_filter = 1
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(16, 18)
 layout_mode = 0
-texture = ExtResource("6_7ybim")
+texture = ExtResource("7_y2hp7")
 expand_mode = 1
 
 [node name="Spacing" type="Control" parent="VBoxContainer"]
@@ -314,6 +318,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_r8kn0")
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOADOUT_CHARACTER_SELECT"
+label_settings = SubResource("LabelSettings_0q2qy")
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -459,11 +470,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_y2hp7")
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="CharacterEffectLabel" type="Label" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(75, 10)
 layout_mode = 2
-text = "No additional effects"
+text = "LOADOUT_MAP_SELECT"
 label_settings = SubResource("LabelSettings_dp540")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -556,7 +567,7 @@ layout_mode = 2
 texture_filter = 1
 custom_minimum_size = Vector2(75, 10)
 layout_mode = 2
-text = "No additional effects"
+text = "LOADOUT_COSMETIC_SELECT"
 label_settings = SubResource("LabelSettings_r8kn0")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -601,7 +612,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "RUSH"
+text = "LOADOUT_RUSH_MODE"
 label_settings = SubResource("LabelSettings_u1s1f")
 shadow_offset = Vector2(1, 1.25)
 
@@ -620,6 +631,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "CLASSIC"
+text = "LOADOUT_CLASSIC_MODE"
 label_settings = SubResource("LabelSettings_7ybim")
 shadow_offset = Vector2(1, 1.25)

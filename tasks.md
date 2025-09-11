@@ -14,9 +14,9 @@
 - [ ] Main Menu
   - [ ] Add sounds to button clicks
   - [ ] Add move sound to chess piece animation
+  - [ ] Call `open_modal` function in `to_shop` animation at 0.3s
   - [ ] Connect New Game to ConfigLoadout scene
   - [ ] Set Continue Game button when there is an active game
-  - [ ] Ensure design works
 - [ ] Config Loadout
   - [ ] Implement the config carousels as a scene
     - [ ] Show all options (even unpurchased)
@@ -42,4 +42,11 @@
 - [ ] Localization
   - [ ] Set up localization patterns while there is little text
   - [ ] Player can select language on first start
-  - [ ] Player can select language from settings menu
+  - [X] Player can select language from settings menu
+  - [ ] Test string length to ensure character's don't overflow their container
+
+
+## Maybe Tasks
+
+- [ ] A node component that resizes a label based on its length. This is for languages that take up more size than English.
+- [ ] Different fonts for other languages, i.e. Chinese characters, Spanish/French accents, etc.

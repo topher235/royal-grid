@@ -676,7 +676,7 @@ mouse_filter = 1
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PlayButton/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-text = "NEW"
+text = "MAIN_MENU_NEW"
 label_settings = SubResource("LabelSettings_otr3d")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -733,7 +733,7 @@ mouse_filter = 1
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/ContinueButton/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-text = "PLAY"
+text = "MAIN_MENU_CONTINUE"
 label_settings = SubResource("LabelSettings_otr3d")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -774,6 +774,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+text = "MAIN_MENU_SETTINGS"
 label_settings = SubResource("LabelSettings_qilvv")
 shadow_offset = Vector2(1, 1)
 
@@ -826,7 +827,7 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "SHOP"
+text = "MAIN_MENU_SHOP"
 label_settings = SubResource("LabelSettings_jbte4")
 shadow_offset = Vector2(1, 1)
 
@@ -875,7 +876,7 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "STATS"
+text = "MAIN_MENU_STATS"
 label_settings = SubResource("LabelSettings_e0hcc")
 shadow_offset = Vector2(1, 1)
 

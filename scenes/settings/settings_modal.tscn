@@ -240,8 +240,9 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/MusicToggleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Music"
+text = "SETTINGS_MODAL_MUSIC"
 label_settings = SubResource("LabelSettings_wi6ey")
+autowrap_mode = 2
 
 [node name="MusicToggleButton" type="CheckButton" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/MusicToggleContainer"]
 layout_mode = 2
@@ -270,8 +271,9 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanguageSelectContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Language"
+text = "SETTINGS_MODAL_LANGUAGE"
 label_settings = SubResource("LabelSettings_e4nlu")
+autowrap_mode = 2
 
 [node name="OptionButton" type="OptionButton" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanguageSelectContainer"]
 layout_mode = 2
@@ -291,7 +293,7 @@ custom_minimum_size = Vector2(50, 15)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 8
-text = "Close"
+text = "CLOSE"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer"]
 texture_filter = 1
