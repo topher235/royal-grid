@@ -12,7 +12,6 @@ var ps: PlayerStats
 func _ready() -> void:
     ps = SaveManager.retrieve_stats()
     initialize_stat_labels()
-    open()
 
 
 func initialize_stat_labels() -> void:
@@ -42,6 +41,8 @@ func initialize_stat_labels() -> void:
         k_label.size_flags_horizontal = SIZE_EXPAND_FILL
 
         var v_label = Label.new()
+        # I think these are always numbers
+        # if they aren't, then they will need to be translated
         v_label.text = str(value)
         v_label.label_settings = ls
         v_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT

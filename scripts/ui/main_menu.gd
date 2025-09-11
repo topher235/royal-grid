@@ -18,6 +18,14 @@ const STATS_SCENE = preload("res://scenes/stats/stats_modal.tscn")
 
 func _ready() -> void:
     pass
+    # TODO: Move to Main script
+    var language = UserConfig.get_preferred_language()
+    if language == "automatic":
+        var preferred_language = OS.get_locale_language()
+        TranslationServer.set_locale(preferred_language)
+    else:
+        TranslationServer.set_locale(language)
+
     # continue_game_button.label.text = "Continue Game"
     # continue_game_button.pressed.connect(_on_continue_game_button_pressed)
 

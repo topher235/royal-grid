@@ -51,6 +51,10 @@ effects=""
 common/snap_controls_to_pixels=false
 theme/custom_font="uid://dpqtkgu5mbhtc"
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization/localization.fr.translation", "res://localization/localization.en.translation", "res://localization/localization.es.translation")
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

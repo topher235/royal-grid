@@ -14,6 +14,16 @@ func open() -> void:
     music_toggle.button_pressed = UserConfig.get_setting(UserConfig.MUSIC)
 
     # TODO: initialize language options based on localization implementation
+    for key in UserConfig.LANGUAGE_OPTIONS:
+        var label = UserConfig.language_choices[key]
+        language_select.add_item(label)
+    var preferred_language = UserConfig.get_preferred_language()
+    var selected_idx = -1
+    if preferred_language == "automatic":
+        selected_idx = 0
+    else:
+        selected_idx = UserConfig.LANGUAGE_OPTIONS.find(preferred_language)
+    language_select.selected = selected_idx
 
     animation_player.play("open")
 
@@ -58,6 +68,10 @@ func _on_music_button_toggled(toggled_on: bool) -> void:
 
 func _on_language_item_selected(index: int) -> void:
     Log.info(self, "Language item selected " + str(index))
-    Log.error(self, "_on_language_item_selected needs to be implemented.")
+    var new_choice = UserConfig.LANGUAGE_OPTIONS[index]
+    var old_choice = UserConfig.get_preferred_language()
+    if new_choice != old_choice:
+        UserConfig.set_setting(UserConfig.LANGUAGE, new_choice)
+        TranslationServer.set_locale(new_choice)
     # Save to file
     UserConfig.save_user_settings()

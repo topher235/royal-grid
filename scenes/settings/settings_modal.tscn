@@ -195,10 +195,11 @@ theme_override_constants/separation = 0
 
 [node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Settings"
+text = "SETTINGS_MODAL_TITLE"
 label_settings = SubResource("LabelSettings_hyycs")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Spacing" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 1)
@@ -223,8 +224,9 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/SoundToggleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Sound"
+text = "SETTINGS_MODAL_SOUND"
 label_settings = SubResource("LabelSettings_7bcww")
+autowrap_mode = 2
 
 [node name="SoundToggleButton" type="CheckButton" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/SoundToggleContainer"]
 layout_mode = 2
@@ -278,13 +280,6 @@ theme_override_font_sizes/font_size = 7
 text_overrun_behavior = 1
 selected = 0
 fit_to_longest_item = false
-item_count = 3
-popup/item_0/text = "English"
-popup/item_0/id = 0
-popup/item_1/text = "Spanish"
-popup/item_1/id = 1
-popup/item_2/text = "French"
-popup/item_2/id = 2
 
 [node name="Spacing5" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 2)

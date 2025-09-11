@@ -140,9 +140,8 @@ func get_display_values() -> Dictionary:
     """
     Returns a dictionary where the key is the display label and the value is the display value.
     """
-    # TODO: affected by localization
     return {
-        "Games Played": num_games_played,
-        "Best Score": best_score,
-        "Total Score": total_score,
+        "STATS_GAMES_PLAYED": num_games_played,
+        "STATS_BEST_SCORE": best_score,
+        "STATS_TOTAL_SCORE": total_score,
     }
