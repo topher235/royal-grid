@@ -1,0 +1,41 @@
+# Tasks
+
+## To MVP
+
+- [ ] Implement **Settings** modal
+  - [ ] User can enable/disable sound & music
+  - [ ] Modal is opened from Main Menu
+  - [ ] When closed, the reverse animation plays
+- [ ] Implement **Shop** modal
+  - [ ] Tabbed shop design for characters, maps, cosmetics, and IAP
+  - [ ] Available stock is loaded from Resource files
+  - [ ] User can purchase item and it is saved in their save file
+  - [ ] When closed, the reverse animation plays
+- [ ] Main Menu
+  - [ ] Add sounds to button clicks
+  - [ ] Add move sound to chess piece animation
+  - [ ] Connect New Game to ConfigLoadout scene
+  - [ ] Set Continue Game button when there is an active game
+  - [ ] Ensure design works
+- [ ] Config Loadout
+  - [ ] Implement the config carousels as a scene
+    - [ ] Show all options (even unpurchased)
+    - [ ] Give player options to unlock at this screen
+  - [ ] Add animation to carousel movement
+  - [ ] Add sound to button clicks
+  - [ ] Connect Rush/Classic buttons to the Game scene with the options set in the GameConfig
+  - [ ] Extract currency bars into separate scene
+  - [ ] Load currency into UI from save file
+  - [ ] Find new icon for the special currency
+- [ ] Gameplay
+  - [ ] Implement special effects from Characters
+  - [ ] Add rotate board special effect
+- [ ] Game Level UI
+  - [ ] Re-design tiles to use the new isometric art
+  - [ ] Use new pixel art pieces
+  - [ ] Add Character portrait
+- [ ] Stats modal
+  - [ ] Display player stats
+  - [ ] When closed, play reverse animation
+- [ ] Localization
+  - [ ] Set up localization patterns while there is little text

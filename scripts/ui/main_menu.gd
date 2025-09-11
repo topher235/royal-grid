@@ -3,12 +3,12 @@ class_name MainMenu extends Control
 signal change_screen
 signal scene_changed(to_path: String)
 
-@export var continue_game_button: MainMenuButton
-@export var play_game_button: MainMenuButton
-@export var settings_button: MainMenuButton
-@export var shop_button: MainMenuButton
+const SETTINGS_SCENE = preload("res://scenes/settings/settings_modal.tscn")
 
+@export var continue_game_button: Button
+@export var play_game_button: Button
 
+@export var modal_container: Node
 @export var settings_piece: Control
 @export var shop_piece: Control
 @export var stats_piece: Control
@@ -50,9 +50,9 @@ func update_menu_buttons() -> void:
     # continue_game_button.visible = has_active_game
 
     if has_active_game:
-        play_game_button.label.text = "New Game"
+        play_game_button.label.text = "NEW"
     else:
-        play_game_button.label.text = "Play Game"
+        play_game_button.label.text = "PLAY"
 
 
 func _on_play_game_button_pressed() -> void:
@@ -68,10 +68,23 @@ func _on_continue_game_button_pressed() -> void:
 
 func _on_settings_gui_input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.is_pressed():
-        print("settings")
         animation_player.play("to_settings")
+        destroy_modal_children()
+        var s = SETTINGS_SCENE.instantiate()
         await animation_player.animation_finished
-        animation_player.play_backwards("to_settings")
+        modal_container.add_child(s)
+        s.open()
+        s.closed.connect(close_modal.bind("to_settings"))
+
+
+func destroy_modal_children() -> void:
+    for child in modal_container.get_children():
+        child.queue_free()
+
+
+func close_modal(animation_name: String) -> void:
+    destroy_modal_children()
+    animation_player.play_backwards(animation_name)
 
 
 func _on_shop_gui_input(event: InputEvent) -> void:

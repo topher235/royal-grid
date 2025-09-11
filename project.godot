@@ -24,6 +24,7 @@ SoundManager="*res://addons/sound_manager/sound_manager.gd"
 Sounds="*res://autoloads/sounds.gd"
 Log="*res://autoloads/log.gd"
 SaveManager="*res://autoloads/save_manager.gd"
+UserConfig="*res://autoloads/user_config.gd"
 
 [display]
 
@@ -52,5 +53,6 @@ theme/custom_font="uid://dpqtkgu5mbhtc"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatability"
 textures/vram_compression/import_etc2_astc=true

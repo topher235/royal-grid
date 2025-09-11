@@ -1,0 +1,317 @@
+[gd_scene load_steps=15 format=3 uid="uid://oyy0gytnw07a"]
+
+[ext_resource type="Texture2D" uid="uid://ojedi507cty4" path="res://assets/images/borders/art-deco-white-1.png" id="1_1dh62"]
+[ext_resource type="FontFile" uid="uid://rlkmcklv0vdq" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_7bcww"]
+[ext_resource type="Script" uid="uid://ib8wsd6bc46o" path="res://scripts/settings/settings_modal.gd" id="1_e4nlu"]
+[ext_resource type="Texture2D" uid="uid://bbb3laai8xdk4" path="res://assets/images/borders/white-separator-1.png" id="1_hyycs"]
+[ext_resource type="Texture2D" uid="uid://8ehx7054vb3o" path="res://assets/images/borders/white-separator-2.png" id="3_wi6ey"]
+
+[sub_resource type="Theme" id="Theme_hyycs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1dh62"]
+bg_color = Color(0.227451, 0.247059, 0.368627, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_hyycs"]
+font = ExtResource("1_7bcww")
+
+[sub_resource type="LabelSettings" id="LabelSettings_7bcww"]
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_wi6ey"]
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_e4nlu"]
+font_size = 8
+
+[sub_resource type="Animation" id="Animation_wi6ey"]
+resource_name = "open"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer:pivot_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(90, 160)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0.1, 0.1), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/Panel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0659355),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/Panel/MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0659355, 0.133686),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_e4nlu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer:pivot_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(90, 160)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/Panel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/Panel/MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1lyqu"]
+_data = {
+&"RESET": SubResource("Animation_e4nlu"),
+&"open": SubResource("Animation_wi6ey")
+}
+
+[node name="SettingsModal" type="Control" node_paths=PackedStringArray("animation_player")]
+z_index = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hyycs")
+script = ExtResource("1_e4nlu")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0.607843)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"ModalBackground"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(90, 160)
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(128, 220)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1dh62")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_hyycs")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacing" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(80, 8)
+layout_mode = 2
+texture = ExtResource("1_hyycs")
+expand_mode = 1
+
+[node name="Spacing2" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="SoundToggleContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/SoundToggleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sound"
+label_settings = SubResource("LabelSettings_7bcww")
+
+[node name="SoundToggleButton" type="CheckButton" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/SoundToggleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+icon_alignment = 2
+
+[node name="MusicToggleContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/MusicToggleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music"
+label_settings = SubResource("LabelSettings_wi6ey")
+
+[node name="MusicToggleButton" type="CheckButton" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/MusicToggleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacing3" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/CenterContainer2"]
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 2
+texture = ExtResource("3_wi6ey")
+expand_mode = 1
+
+[node name="Spacing4" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="LanguageSelectContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanguageSelectContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Language"
+label_settings = SubResource("LabelSettings_e4nlu")
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/LanguageSelectContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text_overrun_behavior = 1
+selected = 0
+fit_to_longest_item = false
+item_count = 3
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Spanish"
+popup/item_1/id = 1
+popup/item_2/text = "French"
+popup/item_2/id = 2
+
+[node name="Spacing5" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CloseButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "Close"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 240)
+layout_mode = 2
+texture = ExtResource("1_1dh62")
+region_rect = Rect2(0, 0, 166, 168)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 34
+patch_margin_bottom = 32
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1lyqu")
+}
+
+[connection signal="toggled" from="CenterContainer/Panel/MarginContainer/VBoxContainer/SoundToggleContainer/SoundToggleButton" to="." method="_on_sound_button_toggled"]
+[connection signal="toggled" from="CenterContainer/Panel/MarginContainer/VBoxContainer/MusicToggleContainer/MusicToggleButton" to="." method="_on_music_button_toggled"]
+[connection signal="item_selected" from="CenterContainer/Panel/MarginContainer/VBoxContainer/LanguageSelectContainer/OptionButton" to="." method="_on_language_item_selected"]
+[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

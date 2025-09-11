@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bcojptny1gno2" path="res://scripts/ui/components/label_dropshadow.gd" id="1_u6byh"]
 [ext_resource type="FontFile" uid="uid://rlkmcklv0vdq" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_xvk2k"]
 [ext_resource type="Shader" uid="uid://h38atn3l2e1s" path="res://shaders/blur.gdshader" id="2_u6byh"]
+[ext_resource type="LabelSettings" uid="uid://boi4a23diur46" path="res://resources/label_dropshadow_settings.tres" id="2_w1ws1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qilvv"]
 font = ExtResource("1_xvk2k")
@@ -15,23 +16,16 @@ shader = ExtResource("2_u6byh")
 shader_parameter/blur_amount = 2.736
 shader_parameter/samples = 25.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_5dct7"]
-font = ExtResource("1_xvk2k")
-font_size = 6
-font_color = Color(0, 0, 0, 1)
-shadow_size = 0
-
-[node name="Control" type="Control" node_paths=PackedStringArray("label", "viewport_container", "subviewport", "label_shadow")]
+[node name="Control" type="Control" node_paths=PackedStringArray("main_label", "shadow_label", "subviewport_container")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 3
 mouse_filter = 2
 script = ExtResource("1_u6byh")
-text = "SETTINGS"
-label = NodePath("Label")
-viewport_container = NodePath("SubViewportContainer")
-subviewport = NodePath("SubViewportContainer/SubViewport")
-label_shadow = NodePath("SubViewportContainer/SubViewport/LabelShadow")
+label_settings = ExtResource("2_w1ws1")
+main_label = NodePath("Label")
+shadow_label = NodePath("SubViewportContainer/SubViewport/LabelShadow")
+subviewport_container = NodePath("SubViewportContainer")
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
@@ -66,6 +60,7 @@ offset_right = 9.5
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 transparent_bg = true
@@ -81,6 +76,4 @@ offset_top = 1.0
 offset_right = 37.5
 offset_bottom = 9.0
 text = "SETTINGS"
-label_settings = SubResource("LabelSettings_5dct7")
-horizontal_alignment = 1
-vertical_alignment = 1
+label_settings = ExtResource("2_w1ws1")
