@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://1cxtwtrc0755"]
+[gd_scene load_steps=37 format=3 uid="uid://1cxtwtrc0755"]
 
 [ext_resource type="FontFile" uid="uid://cvmlljyjcr0iv" path="res://assets/fonts/Messy.otf" id="1_btxxm"]
 [ext_resource type="Script" uid="uid://6tvjfoxampse" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://b5y7pjqtb80iy" path="res://assets/images/menu/pawnFront.png" id="12_otr3d"]
 [ext_resource type="Texture2D" uid="uid://c7dco3e8dgapo" path="res://assets/images/menu/arrow1.png" id="14_qilvv"]
 [ext_resource type="Texture2D" uid="uid://mbxxnnsyt3gd" path="res://assets/images/menu/bishopFront.png" id="15_ayp64"]
+[ext_resource type="Script" uid="uid://dk7fvke57irw8" path="res://scripts/ui/utility/button_sound_player.gd" id="16_jbte4"]
 [ext_resource type="Texture2D" uid="uid://boq1j7wksa0xh" path="res://assets/images/menu/shadow.png" id="16_y2j7i"]
 [ext_resource type="Texture2D" uid="uid://caicou3godmwv" path="res://assets/images/menu/queenFront.png" id="17_y1h5l"]
 [ext_resource type="PackedScene" uid="uid://bm335nwx6yjba" path="res://scenes/ui/components/label_dropshadow.tscn" id="18_5dct7"]
@@ -168,9 +169,12 @@ tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"play_move_sound"
+}, {
 "args": ["settings"],
 "method": &"open_modal"
 }]
@@ -326,6 +330,20 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.133333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_move_sound"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_jbte4"]
 resource_name = "to_stats"
@@ -397,9 +415,12 @@ tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"play_move_sound"
+}, {
 "args": ["stats"],
 "method": &"open_modal"
 }]
@@ -413,7 +434,7 @@ _data = {
 &"to_stats": SubResource("Animation_jbte4")
 }
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("modal_container", "settings_piece", "animation_player")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("modal_container", "settings_piece", "shop_piece", "stats_piece", "animation_player")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -424,6 +445,8 @@ theme = SubResource("Theme_1g8jr")
 script = ExtResource("1_sl1te")
 modal_container = NodePath("ModalContainer")
 settings_piece = NodePath("BlueBishop/ClickableAreaSettings")
+shop_piece = NodePath("BlueQueen/ClickableAreaShop")
+stats_piece = NodePath("BlueKnight/ClickableAreaStats")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="Background" type="Control" parent="."]
@@ -681,6 +704,9 @@ label_settings = SubResource("LabelSettings_otr3d")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PressedSoundPlayer" type="Node" parent="VBoxContainer/HBoxContainer/PlayButton"]
+script = ExtResource("16_jbte4")
+
 [node name="ContinueButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
 visible = false
 texture_filter = 1
@@ -737,6 +763,9 @@ text = "MAIN_MENU_CONTINUE"
 label_settings = SubResource("LabelSettings_otr3d")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PressedSoundPlayer" type="Node" parent="VBoxContainer/HBoxContainer/ContinueButton"]
+script = ExtResource("16_jbte4")
 
 [node name="BlueBishop" type="Node2D" parent="."]
 position = Vector2(28, 141)
@@ -915,7 +944,3 @@ libraries = {
 speed_scale = 1.4
 
 [node name="ModalContainer" type="Node" parent="."]
-
-[connection signal="gui_input" from="BlueBishop/ClickableAreaSettings" to="." method="_on_settings_gui_input"]
-[connection signal="gui_input" from="BlueQueen/ClickableAreaShop" to="." method="_on_shop_gui_input"]
-[connection signal="gui_input" from="BlueKnight/ClickableAreaStats" to="." method="_on_stats_gui_input"]

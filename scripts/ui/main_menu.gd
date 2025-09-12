@@ -17,7 +17,6 @@ const STATS_SCENE = preload("res://scenes/stats/stats_modal.tscn")
 
 
 func _ready() -> void:
-    pass
     # TODO: Move to Main script
     var language = UserConfig.get_preferred_language()
     if language == "automatic":
@@ -25,23 +24,11 @@ func _ready() -> void:
         TranslationServer.set_locale(preferred_language)
     else:
         TranslationServer.set_locale(language)
-
-    # continue_game_button.label.text = "Continue Game"
-    # continue_game_button.pressed.connect(_on_continue_game_button_pressed)
-
-    # play_game_button.label.text = "Play Game"
-    # play_game_button.pressed.connect(_on_play_game_button_pressed)
     
-    # settings_button.label.text = "Settings"
-    # settings_button.pressed.connect(_on_settings_button_pressed)
-
-    # shop_button.label.text = "Shop"
-    # shop_button.pressed.connect(_on_shop_button_pressed)
-
-    # update_menu_buttons()
-
-    # animation_player.play("open_title_scroll")
-    # animation_player.queue("fade_in_menu_box")
+    # Set up menu items `gui_input` signal to play a sound and animation when pressed
+    settings_piece.gui_input.connect(_on_menu_item_gui_input.bind("to_settings"))
+    shop_piece.gui_input.connect(_on_menu_item_gui_input.bind("to_shop"))
+    stats_piece.gui_input.connect(_on_menu_item_gui_input.bind("to_stats"))
 
 
 func update_menu_buttons() -> void:
@@ -75,9 +62,10 @@ func _on_continue_game_button_pressed() -> void:
     scene_changed.emit("res://scenes/ui/game_ui.tscn")
 
 
-func _on_settings_gui_input(event: InputEvent) -> void:
+func _on_menu_item_gui_input(event: InputEvent, animation_name: String) -> void:
     if event is InputEventMouseButton and event.is_pressed():
-        animation_player.play("to_settings")
+        SoundManager.play_ui_sound(Sounds.HOVER)
+        animation_player.play(animation_name)
 
 
 func destroy_modal_children() -> void:
@@ -88,19 +76,6 @@ func destroy_modal_children() -> void:
 func close_modal(animation_name: String) -> void:
     destroy_modal_children()
     animation_player.play_backwards(animation_name)
-
-
-func _on_shop_gui_input(event: InputEvent) -> void:
-    if event is InputEventMouseButton and event.is_pressed():
-        Log.error(self, "_on_shop_gui_input modal needs to be implemented")
-        animation_player.play("to_shop")
-        await animation_player.animation_finished
-        animation_player.play_backwards("to_shop")
-
-
-func _on_stats_gui_input(event: InputEvent) -> void:
-    if event is InputEventMouseButton and event.is_pressed():
-        animation_player.play("to_stats")
 
 
 func open_modal(modal_type: String) -> void:
@@ -138,6 +113,10 @@ func open_modal(modal_type: String) -> void:
         modal_container.add_child(scene)
         scene.open()
         scene.closed.connect(close_modal.bind(animation_name))
+
+
+func play_move_sound() -> void:
+    SoundManager.play_ui_sound(Sounds.MOVE)
 
 
 func get_scene_data() -> Dictionary:

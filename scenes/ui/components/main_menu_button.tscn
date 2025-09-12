@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c7ikgmbyi37ll" path="res://scripts/ui/components/main_menu_button.gd" id="1_6mix8"]
 [ext_resource type="Texture2D" uid="uid://b6twjovpc0p2e" path="res://assets/images/ui_components/button/button_4_full.png" id="1_au5os"]
-[ext_resource type="Script" uid="uid://dk7fvke57irw8" path="res://scripts/ui/utility/sound_player.gd" id="3_v3mnd"]
+[ext_resource type="Script" uid="uid://dk7fvke57irw8" path="res://scripts/ui/utility/button_sound_player.gd" id="3_v3mnd"]
 
 [node name="MainMenuButton" type="TextureButton" node_paths=PackedStringArray("label")]
 custom_minimum_size = Vector2(50, 20)

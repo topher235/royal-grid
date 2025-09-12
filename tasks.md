@@ -12,9 +12,9 @@
   - [ ] User can purchase item and it is saved in their save file
   - [ ] When closed, the reverse animation plays
 - [ ] Main Menu
-  - [ ] Add sounds to button clicks
-  - [ ] Add move sound to chess piece animation
-  - [ ] Call `open_modal` function in `to_shop` animation at 0.3s
+  - [X] Add sounds to button clicks
+  - [X] Add move sound to chess piece animation
+  - [X] Call `open_modal` function in `to_shop` animation at 0.3s
   - [ ] Connect New Game to ConfigLoadout scene
   - [ ] Set Continue Game button when there is an active game
 - [ ] Config Loadout
@@ -44,6 +44,12 @@
   - [ ] Player can select language on first start
   - [X] Player can select language from settings menu
   - [ ] Test string length to ensure character's don't overflow their container
+
+
+## Later
+
+- [ ] Find better UI sounds
+  - [ ] Click, Modal Open, and Modal Close
 
 
 ## Maybe Tasks
