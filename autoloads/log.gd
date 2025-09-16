@@ -13,9 +13,9 @@ const LEVEL = LogLevel.INFO
 
 func info(node, message) -> void:
     if LEVEL <= LogLevel.INFO:
-        print("[", node.name, "]", message)
+        print("[", node.name, "] ", message)
 
 
 func error(node, message) -> void:
     if LEVEL <= LogLevel.ERROR:
-        printerr("[", node.name, "]", message)
+        printerr("[", node.name, "] ", message)

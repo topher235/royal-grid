@@ -15,6 +15,7 @@ var score_queue: Array[int]
 var current_score := 0
 var current_mult := 1
 var game_config: GameConfig
+var continue_game := false
 
 
 func _ready() -> void:
@@ -28,6 +29,8 @@ func _ready() -> void:
 
     if game_board:
         game_board.game_over.connect(_on_game_over)
+        if game_config:
+            game_board.game_config = game_config
 
     load_game_state()
 
@@ -36,8 +39,8 @@ func load_game_state() -> void:
     """
     Loads the game state from SaveManager if available, otherwise starts a new game.
     """
-    var active_game = SaveManager.retrieve_active_game()
-    if active_game:
+    var active_game := SaveManager.retrieve_active_game()
+    if active_game and continue_game:
         Log.info(self, "Loading saved game")
         if game_board:
             game_board.load_game_state(active_game)
@@ -139,3 +142,4 @@ func get_scene_data() -> Dictionary:
 
 func set_scene_data(value: Dictionary):
     game_config = value["game_config"]
+    continue_game = value.get("continue", false)

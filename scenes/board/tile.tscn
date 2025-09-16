@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://df4ikyc530lgi" path="res://scripts/core/tile.gd" id="1_bfaab"]
 [ext_resource type="Texture2D" uid="uid://360g3ib0kr2m" path="res://assets/images/button_round/button_rnd_grayscale.png" id="2_kx4x0"]
-[ext_resource type="Texture2D" uid="uid://csep2w25ewide" path="res://assets/images/tiles/tile_white.png" id="2_w7oh7"]
-[ext_resource type="Texture2D" uid="uid://bxw3oiwsrdtda" path="res://assets/images/tiles/tile_mint.png" id="3_abphe"]
+[ext_resource type="Texture2D" uid="uid://dhxau3t2lw4y6" path="res://assets/images/tiles/1part_wood_light.png" id="2_w7oh7"]
 [ext_resource type="Texture2D" uid="uid://cdewkaslvt76b" path="res://assets/images/snow/snowfalke_tiny.png" id="3_vpg4h"]
+[ext_resource type="Texture2D" uid="uid://bty6tap0w0mi0" path="res://assets/images/tiles/1part_wood_dark.png" id="3_w7oh7"]
 
 [sub_resource type="Gradient" id="Gradient_vpg4h"]
 offsets = PackedFloat32Array(0, 0.0018797, 0.975564)
@@ -61,7 +61,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_abphe")
+texture = ExtResource("3_w7oh7")
 expand_mode = 1
 
 [node name="Background" type="ColorRect" parent="."]

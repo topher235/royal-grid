@@ -39,18 +39,18 @@ func _on_play_classic_button_pressed() -> void:
 func create_game_config(spawn_rules: PieceSpawnRules) -> void:
     var gc = GameConfig.new()
 
-    gc.character = character_selector.selected_character
     gc.map = map_selector.selected_map
     gc.cosmetic = cosmetic_selector.selected_cosmetic
     gc.piece_spawn_rules = spawn_rules
+    gc.character = character_selector.selected_character
     
     active_game_config = gc
-    
     
 
 func get_scene_data() -> Dictionary:
     return {
-        "game_config": active_game_config
+        "game_config": active_game_config,
+        "continue": false,
     }
     
     

@@ -28,17 +28,19 @@ piece_type_weights = {
 "bishop": 0.15,
 "king": 0.05,
 "knight": 0.15,
-"pawn": 1.0,
+"pawn": 0.3,
 "queen": 0.1,
 "rook": 0.15
 }
+spawn_on_timer = false
+spawn_frequency = 5
 
 [sub_resource type="Resource" id="Resource_u734o"]
 script = ExtResource("4_l0rtg")
 map = ExtResource("3_l0rtg")
 tile_size = 40
 starting_pieces = Array[ExtResource("5_jrjqq")]([])
-num_random_pieces = 0
+num_random_pieces = 3
 piece_spawn_rules = SubResource("Resource_avcb0")
 game_rules = SubResource("Resource_ddl7t")
 

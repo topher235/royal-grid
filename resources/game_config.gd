@@ -1,9 +1,9 @@
 class_name GameConfig extends Resource
 
 @export var map: Map
-@export var tile_size: int = 48
+@export var tile_size: int = 40
 @export var starting_pieces: Array[PieceSpawnData] = []
-@export var num_random_pieces: int = 0
+@export var num_random_pieces: int = 3
 @export var piece_spawn_rules: PieceSpawnRules
 @export var game_rules: GameRules
 @export var character: BaseCharacter
@@ -49,3 +49,11 @@ func get_active_tile_positions() -> Array[Vector2i]:
     if not map:
         return []
     return map.get_active_tiles()
+    
+    
+func get_piece_type_weights() -> Dictionary:
+    """
+    Retrieve the modified piece type weights, applying all available modifiers.
+    """
+    var modifiers := character.modifiers
+    return piece_spawn_rules.get_piece_type_weights(modifiers)

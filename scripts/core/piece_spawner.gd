@@ -130,8 +130,7 @@ func create_random_piece_data(position: Vector2i) -> PieceSpawnData:
     if not game_config or not game_config.piece_spawn_rules:
         Log.error(self, "missing game config")
         return null
-    
-
+        
     var rules = game_config.piece_spawn_rules
     var piece_data = PieceSpawnData.new()
 
@@ -142,7 +141,8 @@ func create_random_piece_data(position: Vector2i) -> PieceSpawnData:
     #   for the player to play
     piece_data.color = rng.randi() % 2 == 0
 
-    var piece_type = select_random_piece_type(rules.piece_type_weights)
+    var piece_type_weights := game_config.get_piece_type_weights()
+    var piece_type := select_random_piece_type(piece_type_weights)
     piece_data.piece_type = piece_type
 
     piece_data._init_rules()

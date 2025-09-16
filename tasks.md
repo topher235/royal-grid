@@ -15,17 +15,17 @@
   - [X] Add sounds to button clicks
   - [X] Add move sound to chess piece animation
   - [X] Call `open_modal` function in `to_shop` animation at 0.3s
-  - [ ] Connect New Game to ConfigLoadout scene
+  - [X] Connect New Game to ConfigLoadout scene
   - [ ] Set Continue Game button when there is an active game
 - [ ] Config Loadout
-  - [ ] Implement the config carousels as a scene
+  - [X] Implement the config carousels as a scene
     - [ ] Show all options (even unpurchased)
     - [ ] Give player options to unlock at this screen
   - [ ] Add animation to carousel movement
   - [ ] Add sound to button clicks
   - [ ] Connect Rush/Classic buttons to the Game scene with the options set in the GameConfig
-  - [ ] Extract currency bars into separate scene
-  - [ ] Load currency into UI from save file
+  - [X] Extract currency bars into separate scene
+  - [X] Load currency into UI from save file
   - [ ] Find new icon for the special currency
 - [ ] Gameplay
   - [ ] Implement special effects from Characters

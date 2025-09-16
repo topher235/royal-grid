@@ -12,7 +12,8 @@ const PIECE_SCENE = preload("res://scenes/pieces/chess_piece.tscn")
 const EFFECT_SCENE = preload("res://scenes/board/effect.tscn")
 
 @export var piece_spawner: PieceSpawner
-@export var game_config: GameConfig
+@export var game_config: GameConfig:
+    set = _set_game_config
 @export var game_manager: GameManager
 @export var effect_spawner: EffectSpawner
 @export var animator: ChessBoardAnimator
@@ -27,7 +28,17 @@ func _ready() -> void:
     if game_config:
         piece_spawner.game_config = game_config
         effect_spawner.game_config = game_config
-
+        
+    
+func _set_game_config(value: GameConfig) -> void:
+    game_config = value
+    
+    if piece_spawner:
+        piece_spawner.game_config = game_config
+        
+    if effect_spawner:
+        effect_spawner.game_config = game_config
+    
 
 func initialize_grid() -> void:
     var grid_size = game_config.grid_size
@@ -46,17 +57,15 @@ func initialize_grid() -> void:
 
 
 func create_tiles() -> void:
-    # TODO: create from the loaded map resource
-    var grid_size = game_config.grid_size
-
+    var grid_size := game_config.grid_size
     for x in range(grid_size.x):
         for y in range(grid_size.y):
-            var tile_data = game_config.map.get_tile_data(Vector2i(x, y))
+            var tile_data := game_config.map.get_tile_data(Vector2i(x, y))
             # Only create tiles for active positions
             if tile_data and tile_data.is_active:
-                var tile = TILE_SCENE.instantiate() as Tile
+                var tile := TILE_SCENE.instantiate() as Tile
                 tile.grid_position = Vector2i(x, y)
-                tile.custom_minimum_size = Vector2(game_config.tile_size, game_config.tile_size)
+                tile.custom_minimum_size = Vector2(game_config.tile_size, game_config.tile_size + (game_config.tile_size * 0.25))
                 tile.position = Vector2(x * game_config.tile_size, y * game_config.tile_size)
                 tile.tile_clicked.connect(_on_tile_clicked)
                 tiles[x][y] = tile
@@ -170,7 +179,7 @@ func show_valid_moves(tile: Tile) -> void:
             blocked_spaces.append(effect.grid_position)
 
     for move_pos in valid_moves:
-        if is_valid_position(move_pos) and move_pos not in blocked_spaces:
+        if is_valid_position(move_pos) and not move_pos in blocked_spaces:
             var target_tile = tiles[move_pos.x][move_pos.y]
             if target_tile:  # Only show valid moves on active tiles
                 target_tile.show_valid_move()
@@ -442,7 +451,7 @@ func load_game_state(active_game: ActiveGameData) -> void:
     
     # Load effects
     for effect_data in active_game.effects:
-        if effect_data.effect_id not in SpecialEffectDatabase.DB.keys():
+        if not effect_data.effect_id in SpecialEffectDatabase.DB.keys():
             Log.error(self, "Did not find " + str(effect_data.effect_id) + " id in effect database.")
             continue
         var special_effect_cls = SpecialEffectDatabase.DB[effect_data.effect_id]
