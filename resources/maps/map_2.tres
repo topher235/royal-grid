@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Map" load_steps=28 format=3 uid="uid://cwdafgpy3rqpu"]
+[gd_resource type="Resource" script_class="Map" load_steps=29 format=3 uid="uid://cwdafgpy3rqpu"]
 
+[ext_resource type="Texture2D" uid="uid://dfl47my13qk4l" path="res://assets/images/placeholder_48x48.png" id="1_8t76q"]
 [ext_resource type="Script" uid="uid://c5b3gi3sdgepg" path="res://resources/maps/map.gd" id="1_87fuf"]
 [ext_resource type="Script" uid="uid://c1qua3uxo32a0" path="res://resources/maps/map_tile.gd" id="2_8t76q"]
 
@@ -131,6 +132,7 @@ is_active = true
 [resource]
 script = ExtResource("1_87fuf")
 map_id = 2
-map_name = "no-center"
+map_name = "No center"
+preview = ExtResource("1_8t76q")
 tile_data = Array[Array]([[SubResource("Resource_ba2mp"), SubResource("Resource_aopcg"), SubResource("Resource_6e7is"), SubResource("Resource_y0505"), SubResource("Resource_al8ba")], [SubResource("Resource_7f2n1"), SubResource("Resource_q3xj6"), SubResource("Resource_4un0a"), SubResource("Resource_b0po8"), SubResource("Resource_6pqvi")], [SubResource("Resource_ekiyt"), SubResource("Resource_or1er"), SubResource("Resource_gsqjs"), SubResource("Resource_66ifh"), SubResource("Resource_i31go")], [SubResource("Resource_nlwsq"), SubResource("Resource_btbhg"), SubResource("Resource_ko55k"), SubResource("Resource_j1t3b"), SubResource("Resource_mn7kc")], [SubResource("Resource_n473d"), SubResource("Resource_5vlt7"), SubResource("Resource_oxcjf"), SubResource("Resource_nh0k0"), SubResource("Resource_xldwx")]])
 grid_size = Vector2i(5, 5)

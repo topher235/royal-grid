@@ -6,6 +6,8 @@ class_name GameConfig extends Resource
 @export var num_random_pieces: int = 0
 @export var piece_spawn_rules: PieceSpawnRules
 @export var game_rules: GameRules
+@export var character: BaseCharacter
+@export var cosmetic: BaseCosmetic
 
 var grid_size: Vector2i:
     get:

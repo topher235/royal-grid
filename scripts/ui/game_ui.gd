@@ -1,5 +1,7 @@
 class_name GameUI extends Node2D
 
+signal scene_changed(to_path: String)
+
 const CHESS_PIECE = preload("res://scenes/pieces/chess_piece.tscn")
 
 @export var game_board: ChessBoard
@@ -12,6 +14,7 @@ var score_tween: Tween
 var score_queue: Array[int]
 var current_score := 0
 var current_mult := 1
+var game_config: GameConfig
 
 
 func _ready() -> void:
@@ -100,18 +103,18 @@ func update_score_label() -> void:
     
     score_tween = create_tween()
     
-
     var steps = target_score - current_score
-    var total_time = 0.3
-    var step_delay = float(total_time / steps)  # 0.1
-    var min_pitch = 0.9
-    var max_pitch = 1.1
+    var total_time := 0.3
+    var step_delay := float(total_time / steps)  # 0.1
+    var min_pitch := 0.9
+    var max_pitch := 1.1
     for i in range(1, steps + 1):
-        score_tween.parallel().tween_callback(func():
-            current_score += 1
-            var pitch = min_pitch + (randf() * (max_pitch - min_pitch))
-            SoundManager.play_ui_sound_with_pitch(Sounds.TYPING, pitch)
-            score_label.text = "" + str(current_score)
+        score_tween.parallel().tween_callback(
+            func():
+                current_score += 1
+                var pitch := min_pitch + (randf() * (max_pitch - min_pitch))
+                SoundManager.play_ui_sound_with_pitch(Sounds.TYPING, pitch)
+                score_label.text = "" + str(current_score)
         ).set_delay((step_delay * i))
 
     await score_tween.finished
@@ -135,4 +138,4 @@ func get_scene_data() -> Dictionary:
 
 
 func set_scene_data(value: Dictionary):
-    pass
+    game_config = value["game_config"]

@@ -13,7 +13,9 @@ func _on_scene_changed(to_path: String) -> void:
 
     var fade_duration = 0.25
     var tween = create_tween()
-    tween.parallel().tween_property(current_scene, "modulate:a", 0.0, fade_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+    tween.parallel().tween_property(
+        current_scene, "modulate:a", 0.0, fade_duration
+    ).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
     var next_scene = load(to_path).instantiate()
     next_scene.set_scene_data(data)

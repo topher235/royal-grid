@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuo02d8hi64jo"]
+
+[ext_resource type="Texture2D" uid="uid://ik0i0g1dhhu0" path="res://assets/images/menu/LeftArrowButton_7x10.png" id="1_4lik0"]
+[ext_resource type="Script" uid="uid://ded4mwxd6a25o" path="res://scripts/config_loadout/cosmetic_selector.gd" id="1_t2ksv"]
+[ext_resource type="Texture2D" uid="uid://7ugxp4vt73kd" path="res://assets/images/menu/RightArrowButton_7x10.png" id="2_t2ksv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8kn0"]
+bg_color = Color(0.227451, 0.247059, 0.368627, 0.196078)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2hp7"]
+bg_color = Color(0.227451, 0.247059, 0.368627, 0.705882)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_r8kn0"]
+font_size = 6
+
+[node name="CosmeticSelector" type="Control" node_paths=PackedStringArray("previous_button", "next_button", "avatar_preview", "name_label")]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_t2ksv")
+previous_button = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/PreviousCosmeticButton")
+next_button = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/NextCosmeticButton")
+avatar_preview = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/TextureRect")
+name_label = NodePath("CenterContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/NameLabel")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r8kn0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PreviousCosmeticButton" type="TextureButton" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(7, 10)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture_normal = ExtResource("1_4lik0")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NextCosmeticButton" type="TextureButton" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(7, 10)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture_normal = ExtResource("2_t2ksv")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(75, 10)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_y2hp7")
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(75, 10)
+layout_mode = 2
+text = "LOADOUT_COSMETIC_SELECT"
+label_settings = SubResource("LabelSettings_r8kn0")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Shadow" type="Control" parent="CenterContainer"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Shadow" type="Panel" parent="CenterContainer/Shadow"]
+modulate = Color(1, 1, 1, 0.25098)
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/PreviousCosmeticButton" to="." method="_on_previous_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/NextCosmeticButton" to="." method="_on_next_button_pressed"]

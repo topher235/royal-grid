@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BaseCosmetic" load_steps=3 format=3 uid="uid://wh80fguwo7u7"]
+
+[ext_resource type="Script" uid="uid://co1gh8c1tggiv" path="res://resources/cosmetics/base_cosmetic.gd" id="1_4s1fl"]
+[ext_resource type="Texture2D" uid="uid://co5ekoe3v7m01" path="res://assets/images/cartoon/chess-knight-black.png" id="1_7rmtn"]
+
+[resource]
+script = ExtResource("1_4s1fl")
+chess_set_name = "Cartoon"
+avatar = ExtResource("1_7rmtn")
+metadata/_custom_type_script = "uid://co1gh8c1tggiv"

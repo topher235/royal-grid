@@ -1,13 +1,12 @@
 class_name MainMenu extends Control
 
-signal change_screen
 signal scene_changed(to_path: String)
 
 const SETTINGS_SCENE = preload("res://scenes/settings/settings_modal.tscn")
 const STATS_SCENE = preload("res://scenes/stats/stats_modal.tscn")
 
-@export var continue_game_button: Button
-@export var play_game_button: Button
+@export var continue_game_button: TextureButton
+@export var play_game_button: TextureButton
 
 @export var modal_container: Node
 @export var settings_piece: Control
@@ -17,14 +16,7 @@ const STATS_SCENE = preload("res://scenes/stats/stats_modal.tscn")
 
 
 func _ready() -> void:
-    # TODO: Move to Main script
-    var language = UserConfig.get_preferred_language()
-    if language == "automatic":
-        var preferred_language = OS.get_locale_language()
-        TranslationServer.set_locale(preferred_language)
-    else:
-        TranslationServer.set_locale(language)
-    
+    update_menu_buttons()
     # Set up menu items `gui_input` signal to play a sound and animation when pressed
     settings_piece.gui_input.connect(_on_menu_item_gui_input.bind("to_settings"))
     shop_piece.gui_input.connect(_on_menu_item_gui_input.bind("to_shop"))
@@ -45,19 +37,14 @@ func update_menu_buttons() -> void:
         continue_game_button.queue_free()
     # continue_game_button.visible = has_active_game
 
-    if has_active_game:
-        play_game_button.label.text = "NEW"
-    else:
-        play_game_button.label.text = "PLAY"
 
-
-func _on_play_game_button_pressed() -> void:
+func _on_play_button_pressed() -> void:
     Log.info(self, "Start a new game")
     SaveManager.clear_active_game()
-    scene_changed.emit("res://scenes/ui/game_ui.tscn")
+    scene_changed.emit("res://scenes/config_loadout/config_loadout.tscn")
 
 
-func _on_continue_game_button_pressed() -> void:
+func _on_continue_button_pressed() -> void:
     Log.info(self, "Continue active game")
     scene_changed.emit("res://scenes/ui/game_ui.tscn")
 

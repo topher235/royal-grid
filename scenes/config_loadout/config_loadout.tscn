@@ -1,73 +1,23 @@
-[gd_scene load_steps=27 format=3 uid="uid://hqxsbl1rjplt"]
+[gd_scene load_steps=19 format=3 uid="uid://hqxsbl1rjplt"]
 
+[ext_resource type="Script" uid="uid://crhhlxt1a1ihp" path="res://scripts/config_loadout/config_loadout.gd" id="1_dp540"]
 [ext_resource type="Texture2D" uid="uid://uyo7ktar3opt" path="res://assets/images/background/blackWhite.png" id="1_jwmto"]
 [ext_resource type="Texture2D" uid="uid://dg4s42vut0rus" path="res://assets/images/background/BottomPatternBG_128x112.png" id="2_c7k5i"]
 [ext_resource type="Texture2D" uid="uid://dtbxjdv0n8cb2" path="res://assets/images/background/PatternMiddleBottomBG_199x48.png" id="3_l0oti"]
 [ext_resource type="Texture2D" uid="uid://b41q3qt7og5h5" path="res://assets/images/background/TopPatternBG_116x67.png" id="4_b2pn7"]
 [ext_resource type="Texture2D" uid="uid://cli1bsj5xq4kh" path="res://assets/images/menu/MenusBox_bigbottom_92x34.png" id="5_l0oti"]
 [ext_resource type="Texture2D" uid="uid://40534l65utyo" path="res://assets/images/menu/MenusBox_Quit.png" id="5_u1s1f"]
-[ext_resource type="Texture2D" uid="uid://bv21xar6uyerx" path="res://assets/images/menu/HeartIcons_32x32.png" id="6_7ybim"]
 [ext_resource type="Texture2D" uid="uid://cpumw0vdkqqu6" path="res://assets/images/menu/MenusBox_bigbottom_92x35.png" id="6_b2pn7"]
+[ext_resource type="PackedScene" uid="uid://q5pyrxh4usoc" path="res://scenes/currency/gem_bar.tscn" id="6_y2hp7"]
+[ext_resource type="PackedScene" uid="uid://cf2611epmyxmk" path="res://scenes/currency/coin_bar.tscn" id="7_0q2qy"]
 [ext_resource type="PackedScene" uid="uid://bm335nwx6yjba" path="res://scenes/ui/components/label_dropshadow.tscn" id="7_b2pn7"]
-[ext_resource type="Texture2D" uid="uid://ik0i0g1dhhu0" path="res://assets/images/menu/LeftArrowButton_7x10.png" id="7_r8kn0"]
-[ext_resource type="Texture2D" uid="uid://dmq0ppeujigb8" path="res://assets/images/menu/CoinIcon_16x18.png" id="7_y2hp7"]
+[ext_resource type="PackedScene" uid="uid://bbldnlblqmwhi" path="res://scenes/config_loadout/character_selector.tscn" id="8_0q2qy"]
 [ext_resource type="FontFile" uid="uid://rlkmcklv0vdq" path="res://assets/fonts/PixeloidSans-Bold.otf" id="8_e3ugo"]
-[ext_resource type="Texture2D" uid="uid://7ugxp4vt73kd" path="res://assets/images/menu/RightArrowButton_7x10.png" id="8_y2hp7"]
+[ext_resource type="PackedScene" uid="uid://dr05lvny28bcl" path="res://scenes/config_loadout/map_selector.tscn" id="9_dp540"]
+[ext_resource type="PackedScene" uid="uid://cuo02d8hi64jo" path="res://scenes/config_loadout/cosmetic_selector.tscn" id="10_a8dex"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3ugo"]
 bg_color = Color(0.815686, 0.74902, 0.694118, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ybim"]
-bg_color = Color(0.227451, 0.247059, 0.368627, 0.705882)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.960784, 0.941176, 0.862745, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-shadow_color = Color(0, 0, 0, 0.294118)
-shadow_size = 1
-shadow_offset = Vector2(1, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_hr44c"]
-font_size = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hr44c"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8kn0"]
-bg_color = Color(0.227451, 0.247059, 0.368627, 0.196078)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="LabelSettings" id="LabelSettings_0q2qy"]
-font_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2hp7"]
-bg_color = Color(0.227451, 0.247059, 0.368627, 0.705882)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-
-[sub_resource type="LabelSettings" id="LabelSettings_r8kn0"]
-font_size = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q2qy"]
-bg_color = Color(0.227451, 0.247059, 0.368627, 0.196078)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="LabelSettings" id="LabelSettings_dp540"]
-font_size = 6
-
-[sub_resource type="LabelSettings" id="LabelSettings_y2hp7"]
-font_size = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_u1s1f"]
 resource_local_to_scene = true
@@ -83,13 +33,20 @@ font_size = 10
 font_color = Color(0.168627, 0.168627, 0.270588, 1)
 shadow_size = 0
 
-[node name="ConfigLoadout" type="Control"]
+[node name="ConfigLoadout" type="Control" node_paths=PackedStringArray("back_button", "character_selector", "map_selector", "cosmetic_selector", "rush_button", "classic_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_dp540")
+back_button = NodePath("VBoxContainer/MarginContainer/HBoxContainer/BackButtonTexture")
+character_selector = NodePath("VBoxContainer/CharacterSelector")
+map_selector = NodePath("VBoxContainer/MapCosmeticSelectorSection/MapSelector")
+cosmetic_selector = NodePath("VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector")
+rush_button = NodePath("VBoxContainer/HBoxContainer3/PlayRushButton")
+classic_button = NodePath("VBoxContainer/HBoxContainer3/PlayClassicButton")
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -182,216 +139,30 @@ theme_override_constants/margin_right = 5
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="BackButtonTexture" type="TextureButton" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 size_flags_horizontal = 2
-texture = ExtResource("5_u1s1f")
-expand_mode = 1
+texture_normal = ExtResource("5_u1s1f")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="Control" type="Control" parent="VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+[node name="GemBar" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("6_y2hp7")]
 layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer/HBoxContainer/Control"]
-custom_minimum_size = Vector2(40, 10)
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 5.0
-offset_top = -7.0
-offset_right = 45.0
-offset_bottom = 3.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7ybim")
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/HBoxContainer/Control/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_right = 3
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer/Control/PanelContainer/MarginContainer"]
-texture_filter = 1
-layout_mode = 2
-text = "243"
-label_settings = SubResource("LabelSettings_hr44c")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/HBoxContainer/Control"]
-texture_filter = 1
-custom_minimum_size = Vector2(18, 18)
-layout_mode = 0
-texture = ExtResource("6_7ybim")
-expand_mode = 1
 
 [node name="Spacing" type="Control" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="Control2" type="Control" parent="VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+[node name="CoinBar" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_0q2qy")]
 layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer/HBoxContainer/Control2"]
-custom_minimum_size = Vector2(40, 10)
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 5.0
-offset_top = -7.0
-offset_right = 45.0
-offset_bottom = 3.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7ybim")
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/HBoxContainer/Control2/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_right = 3
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer/Control2/PanelContainer/MarginContainer"]
-texture_filter = 1
-layout_mode = 2
-text = "243"
-label_settings = SubResource("LabelSettings_hr44c")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/MarginContainer/HBoxContainer/Control2"]
-visible = false
-modulate = Color(1, 1, 1, 0.0862745)
-custom_minimum_size = Vector2(40, 10)
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 5.0
-offset_top = -4.0
-offset_right = 45.0
-offset_bottom = 6.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hr44c")
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/HBoxContainer/Control2/PanelContainer2"]
-layout_mode = 2
-theme_override_constants/margin_right = 3
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer/Control2/PanelContainer2/MarginContainer"]
-texture_filter = 1
-layout_mode = 2
-text = "243"
-label_settings = SubResource("LabelSettings_hr44c")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/HBoxContainer/Control2"]
-texture_filter = 1
-custom_minimum_size = Vector2(16, 18)
-layout_mode = 0
-texture = ExtResource("7_y2hp7")
-expand_mode = 1
 
 [node name="Spacing" type="Control" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="CharacterSelector" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+[node name="CharacterSelector" parent="VBoxContainer" instance=ExtResource("8_0q2qy")]
 layout_mode = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/CharacterSelector"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/CharacterSelector/CenterContainer"]
-custom_minimum_size = Vector2(140, 100)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r8kn0")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Label" type="Label" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "LOADOUT_CHARACTER_SELECT"
-label_settings = SubResource("LabelSettings_0q2qy")
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PreviousCharacterButton" type="TextureRect" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(7, 10)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = ExtResource("7_r8kn0")
-expand_mode = 1
-
-[node name="CharacterLabel" type="Label" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 6
-text = "Citizen"
-
-[node name="NextCharacterButton" type="TextureRect" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(7, 10)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-texture = ExtResource("8_y2hp7")
-expand_mode = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxFlat_y2hp7")
-
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="CharacterEffectLabel" type="Label" parent="VBoxContainer/CharacterSelector/CenterContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(140, 20)
-layout_mode = 2
-text = "No additional effects"
-label_settings = SubResource("LabelSettings_r8kn0")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="Control" type="Control" parent="VBoxContainer/CharacterSelector/CenterContainer"]
-custom_minimum_size = Vector2(140, 100)
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="VBoxContainer/CharacterSelector/CenterContainer/Control"]
-modulate = Color(1, 1, 1, 0.25098)
-custom_minimum_size = Vector2(0, 2)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
 
 [node name="Spacing2" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
@@ -403,191 +174,11 @@ layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="MapSelector" type="Control" parent="VBoxContainer/MapCosmeticSelectorSection"]
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.5
-offset_top = -12.5
-offset_right = 32.5
-offset_bottom = 12.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0q2qy")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_right = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PreviousMapButton" type="TextureRect" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(7, 10)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = ExtResource("7_r8kn0")
-expand_mode = 1
-
-[node name="MapLabel" type="Label" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 6
-text = "Map"
-
-[node name="NextMapButton" type="TextureRect" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(7, 10)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-texture = ExtResource("8_y2hp7")
-expand_mode = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxFlat_y2hp7")
-
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="MapSelector" parent="VBoxContainer/MapCosmeticSelectorSection" instance=ExtResource("9_dp540")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(75, 10)
+[node name="CosmeticSelector" parent="VBoxContainer/MapCosmeticSelectorSection" instance=ExtResource("10_a8dex")]
 layout_mode = 2
-text = "LOADOUT_MAP_SELECT"
-label_settings = SubResource("LabelSettings_dp540")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="Shadow" type="Control" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer"]
-custom_minimum_size = Vector2(75, 50)
-layout_mode = 2
-
-[node name="Shadow" type="Panel" parent="VBoxContainer/MapCosmeticSelectorSection/MapSelector/CenterContainer/Shadow"]
-modulate = Color(1, 1, 1, 0.25098)
-custom_minimum_size = Vector2(0, 2)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="CosmeticSelector" type="Control" parent="VBoxContainer/MapCosmeticSelectorSection"]
-custom_minimum_size = Vector2(75, 50)
-layout_mode = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.5
-offset_top = -10.0
-offset_right = 32.5
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer"]
-custom_minimum_size = Vector2(75, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r8kn0")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_right = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PreviousCosmeticButton" type="TextureRect" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(7, 10)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = ExtResource("7_r8kn0")
-expand_mode = 1
-
-[node name="CosmeticLabel" type="Label" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 6
-text = "Default"
-label_settings = SubResource("LabelSettings_y2hp7")
-
-[node name="NextCosmeticButton" type="TextureRect" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(7, 10)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-texture = ExtResource("8_y2hp7")
-expand_mode = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(75, 10)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxFlat_y2hp7")
-
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="CharacterEffectLabel" type="Label" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(75, 10)
-layout_mode = 2
-text = "LOADOUT_COSMETIC_SELECT"
-label_settings = SubResource("LabelSettings_r8kn0")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="Shadow" type="Control" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer"]
-custom_minimum_size = Vector2(75, 50)
-layout_mode = 2
-
-[node name="Shadow" type="Panel" parent="VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector/CenterContainer/Shadow"]
-modulate = Color(1, 1, 1, 0.25098)
-custom_minimum_size = Vector2(0, 2)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
 
 [node name="Spacing3" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
@@ -634,3 +225,7 @@ grow_vertical = 2
 text = "LOADOUT_CLASSIC_MODE"
 label_settings = SubResource("LabelSettings_7ybim")
 shadow_offset = Vector2(1, 1.25)
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/BackButtonTexture" to="." method="_on_back_button_texture_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/PlayRushButton" to="." method="_on_play_rush_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/PlayClassicButton" to="." method="_on_play_classic_button_pressed"]

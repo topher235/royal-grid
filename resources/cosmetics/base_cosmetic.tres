@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BaseCosmetic" load_steps=2 format=3 uid="uid://jrh1ubnto5st"]
+
+[ext_resource type="Script" uid="uid://co1gh8c1tggiv" path="res://resources/cosmetics/base_cosmetic.gd" id="1_t3itt"]
+
+[resource]
+script = ExtResource("1_t3itt")
+chess_set_name = ""

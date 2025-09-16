@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BaseCosmetic" load_steps=3 format=3 uid="uid://fofw25lpn8pr"]
+
+[ext_resource type="Texture2D" uid="uid://btud3dou8hg86" path="res://assets/images/cartoon/chess-bishop-white.png" id="1_84c8h"]
+[ext_resource type="Script" uid="uid://co1gh8c1tggiv" path="res://resources/cosmetics/base_cosmetic.gd" id="1_gockl"]
+
+[resource]
+script = ExtResource("1_gockl")
+chess_set_name = "Default"
+avatar = ExtResource("1_84c8h")
+metadata/_custom_type_script = "uid://co1gh8c1tggiv"

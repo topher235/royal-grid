@@ -12,3 +12,6 @@ class_name PieceSpawnRules extends Resource
     "queen": 0.1,
     "king": 0.05,
 }
+# for the RUSH game mode where pieces are spawned every X seconds
+@export var spawn_on_timer := false
+@export var spawn_frequency := 5

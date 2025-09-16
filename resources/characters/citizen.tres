@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BaseCharacter" load_steps=3 format=3 uid="uid://d0x3krxabsm26"]
+
+[ext_resource type="Texture2D" uid="uid://mvtfj57fsmlp" path="res://assets/images/portraits/citizen.png" id="1_7opn3"]
+[ext_resource type="Script" uid="uid://bu68lymvd1ne6" path="res://resources/characters/base_character.gd" id="1_v13gf"]
+
+[resource]
+script = ExtResource("1_v13gf")
+name = "Citizen"
+effect_description = "No additional effects"
+avatar = ExtResource("1_7opn3")
+priority = 10
+metadata/_custom_type_script = "uid://bu68lymvd1ne6"

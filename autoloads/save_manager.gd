@@ -7,7 +7,8 @@ const DEFAULT_SAVE_DATA := {
         "num_games_played": 0,
         "best_score": 0,
     },
-    "currency": 0,
+    "coins": 0,
+    "gems": 0,
     "purchases": [],
     "should_show_ads": true,
 }
@@ -127,16 +128,32 @@ func retrieve_stats() -> PlayerStats:
     return player_stats
 
 
-func update_currency(amount: int) -> void:
+func update_coins(amount: int) -> void:
     """
-    Updates the player's currency.
+    Updates the player's coins.
     """
-    current_state["currency"] += amount
+    current_state["coins"] += amount
     save_game()
 
 
-func get_currency() -> int:
+func get_coins() -> int:
     """
-    Returns the current currency amount.
+    Returns the current coin amount.
     """
-    return current_state["currency"]
+    return current_state["coins"]
+    
+    
+func update_gems(amount: int) -> void:
+    """
+    Updates the player's gems.
+    """
+    current_state["gems"] += amount
+    save_game()
+    
+    
+func get_gems() -> int:
+    """
+    Returns the current gem amount.
+    """
+    return current_state["gems"]
+    

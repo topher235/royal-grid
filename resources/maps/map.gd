@@ -2,9 +2,11 @@ class_name Map extends Resource
 
 @export var map_id := 0
 @export var map_name := "Default Map"
+@export var preview: Texture2D
 @export var background_sprite: Texture2D
 @export var tile_data: Array[Array] = []  # 2D array of MapTiles
 @export var grid_size: Vector2i = Vector2i(4, 4)
+@export var priority := 0  # Used to order in config selection, higher priority will be closer to front of list
 
 
 func _init(id: int = 0, name: String = "Classic", size: Vector2i = Vector2i(4, 4)) -> void:

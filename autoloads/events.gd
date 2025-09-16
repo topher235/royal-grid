@@ -7,4 +7,7 @@ signal mult_updated(new_mult: int)
 signal next_piece_is_spawning
 signal next_piece_generated(piece_data: PieceSpawnData)
 
+signal coin_amount_updated
+signal gem_amount_updated
+
 @warning_ignore_restore("unused_signal")
