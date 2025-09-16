@@ -28,7 +28,7 @@ func _ready() -> void:
     if game_config:
         piece_spawner.game_config = game_config
         effect_spawner.game_config = game_config
-        
+    piece_spawner.game_over.connect(_on_piece_spawner_game_over)
     
 func _set_game_config(value: GameConfig) -> void:
     game_config = value
@@ -461,3 +461,8 @@ func load_game_state(active_game: ActiveGameData) -> void:
         spawn_effect(spawn_data)
     
     Log.info(self, "Game state loaded successfully")
+
+    
+func _on_piece_spawner_game_over() -> void:
+    get_tree().set_pause(true)
+    game_manager.end_game()

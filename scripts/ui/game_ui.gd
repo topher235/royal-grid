@@ -78,7 +78,7 @@ func _on_game_over(final_score: int) -> void:
     Called when the game ends. Clears the active game and updates stats.
     """
     # TODO: open modal
-    pass
+    Log.error(self, "_on_game_over needs to be implemented")
 
 
 func _on_score_updated(new_score: int) -> void:

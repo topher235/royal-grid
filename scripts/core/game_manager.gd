@@ -119,8 +119,23 @@ func is_game_over() -> bool:
     The game is over if any of these conditions are met:
         - all pieces have no legal moves
     """
-    Log.error(self, "is_game_over Needs to be implemented")
-    return false
+    var legal_move_exists := false
+    for row in chess_board.pieces:
+        for piece in row:
+            if not piece is ChessPiece:
+                continue
+            # we only need to find 1 piece with legal moves, so exit once we find one
+            if piece.get_legal_moves().size() > 0:
+                legal_move_exists = true
+                break
+        if legal_move_exists:
+            break
+    
+    var all_conditions: Array[bool] = [
+        not legal_move_exists,  # semantically, our lose condition is "no" legal moves
+    ]
+    # if ANY condition is true then the game is over
+    return true in all_conditions
 
 
 func end_game() -> void:

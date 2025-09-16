@@ -14,7 +14,7 @@ class_name PieceSpawnRules extends Resource
 }
 # for the RUSH game mode where pieces are spawned every X seconds
 @export var spawn_on_timer := false
-@export var spawn_frequency := 2
+@export var spawn_frequency := 1
 
 
 func get_piece_type_weights(modifiers: Array[BaseModifier]) -> Dictionary:

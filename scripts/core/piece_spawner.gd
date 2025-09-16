@@ -1,5 +1,7 @@
 class_name PieceSpawner extends Node
 
+signal game_over
+
 @export var chess_board: ChessBoard
 @export var game_config: GameConfig
 
@@ -51,6 +53,7 @@ func should_spawn_piece(did_capture: bool, override: bool) -> bool:
     var current_piece_count = get_current_piece_count()
     if current_piece_count >= rules.max_pieces_on_board:
         Log.info(self, "Do not spawn more than max number of pieces")
+        game_over.emit()
         return false
     
     if override:
@@ -76,6 +79,7 @@ func spawn_next_piece(did_capture: bool, override: bool = false) -> void:
     var empty_position = find_random_empty_position([])
     if empty_position == Vector2i(-1, -1):
         Log.error(self, "spawn_next_piece got an empty position of (-1, -1)")
+        game_over.emit()
         return
     
     var piece_data = next_piece_data
@@ -102,6 +106,7 @@ func spawn_new_piece() -> void:
     var empty_position = find_random_empty_position([])
     if empty_position == Vector2i(-1, -1):
         Log.info(self, "spawn_new_piece: Got an empty position of (-1, -1)")
+        game_over.emit()
         return
     
     var piece_data = create_random_piece_data(empty_position)
@@ -110,7 +115,6 @@ func spawn_new_piece() -> void:
         return
     
     chess_board.spawn_piece(piece_data)
-
 
 
 func spawn_from_data(piece_data: PieceSpawnData, excluding_positions: Array = []) -> void:
