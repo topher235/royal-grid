@@ -23,17 +23,24 @@
     - [ ] Give player options to unlock at this screen
   - [ ] Add animation to carousel movement
   - [ ] Add sound to button clicks
-  - [ ] Connect Rush/Classic buttons to the Game scene with the options set in the GameConfig
+  - [X] Connect Rush/Classic buttons to the Game scene with the options set in the GameConfig
   - [X] Extract currency bars into separate scene
   - [X] Load currency into UI from save file
   - [ ] Find new icon for the special currency
 - [ ] Gameplay
-  - [ ] Implement special effects from Characters
+  - [X] Implement special effects from Characters
+  - [ ] Implement RUSH mode with spawn on a timer
+    - [ ] Fix race condition bug where a piece can spawn where a player wants to go, overwriting the movement. Might want some form of transaction lock on the tile.
   - [ ] Add rotate board special effect
+  - [ ] Implement game over logic for both CLASSIC and RUSH modes
 - [ ] Game Level UI
-  - [ ] Re-design tiles to use the new isometric art
+  - [X] Re-design tiles to use the new isometric art
+  - [ ] Add shadow to tile scene for 3d effect
   - [ ] Use new pixel art pieces
   - [ ] Add Character portrait
+  - [ ] Add modal for game over
+  - [ ] Add pause menu
+    - [ ] Ensure RUSH mode pauses its spawning when the pause menu is opened
 - [ ] Stats modal
   - [X] Display player stats
   - [X] When closed, play reverse animation
@@ -43,7 +50,7 @@
   - [ ] Set up localization patterns while there is little text
   - [ ] Player can select language on first start
   - [X] Player can select language from settings menu
-  - [ ] Test string length to ensure character's don't overflow their container
+  - [ ] Test string length to ensure characters don't overflow their container
 
 
 ## Later

@@ -33,7 +33,7 @@ piece_type_weights = {
 "rook": 0.15
 }
 spawn_on_timer = false
-spawn_frequency = 5
+spawn_frequency = 2
 
 [sub_resource type="Resource" id="Resource_u734o"]
 script = ExtResource("4_l0rtg")

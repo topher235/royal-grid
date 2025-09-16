@@ -5,10 +5,11 @@ class_name GameManager extends Node
 @export var effect_spawner: EffectSpawner
 
 var moves := 0
-var score : = 0
+var score := 0
 var score_multiplier := 1
 var score_multiplier_duration := 0  # forever
 var current_game_stats: PlayerStats
+var game_config: GameConfig
 
 
 func _ready() -> void:
@@ -31,7 +32,7 @@ func _on_turn_over(did_capture: bool) -> void:
             reset_points_multiplier()
     
     # Now spawn new things
-    piece_spawner.spawn_next_piece(did_capture)
+    piece_spawner.end_turn(did_capture)
     effect_spawner.spawn_random_effect(moves, false)
 
     # Auto-save after each turn

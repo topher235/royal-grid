@@ -5,6 +5,7 @@ class_name PieceSpawner extends Node
 
 var rng: RandomNumberGenerator
 var next_piece_data: PieceSpawnData
+var timer: Timer
 
 
 func _ready() -> void:
@@ -14,11 +15,26 @@ func _ready() -> void:
 
 
 func _on_new_game() -> void:
-    get_tree().create_timer(0.5).timeout.connect(
-        func():
-            next_piece_data = create_random_piece_data(find_random_empty_position([]))
-            Events.next_piece_generated.emit(next_piece_data)
-    )
+    get_tree().create_timer(0.5).timeout.connect(_debounced_new_game_setup)
+    
+    
+func _debounced_new_game_setup() -> void:
+    """
+    Sets up this node for a new game. If the spawn rules state that pieces spawn on a timer, aka RUSH mode,
+    then we dynamically create a timer here and add it as a child. Otherwise, the GameManager
+    will tell this node when the turn is over and the piece will spawn then.
+    
+    The other steps are to create the first upcoming piece and connect signals.
+    """
+    if game_config and game_config.piece_spawn_rules.spawn_on_timer:
+        timer = Timer.new()
+        timer.wait_time = game_config.piece_spawn_rules.spawn_frequency
+        timer.one_shot = false  # keep going forever
+        timer.autostart = true
+        timer.timeout.connect(spawn_next_piece.bind(false))
+        add_child(timer)
+    next_piece_data = create_random_piece_data(find_random_empty_position([]))
+    Events.next_piece_generated.emit(next_piece_data)
 
 
 func should_spawn_piece(did_capture: bool, override: bool) -> bool:
@@ -223,3 +239,20 @@ func retrieve_next_piece() -> PieceSpawnData:
 func set_next_piece(spawn_data: PieceSpawnData) -> void:
     next_piece_data = spawn_data
     Events.next_piece_generated.emit(next_piece_data)
+
+    
+func end_turn(did_capture: bool) -> void:
+    """
+    An entry point for the GameManager to interact with this at turn's end, so that
+    we can keep the `spawn_next_piece` function more general to the actual logic for
+    spawning the next piece.
+    
+    Using this `end_turn` nomenclature allows us to early exit if the rules say we
+    should be spawning on a timer instead.
+    """
+    if game_config.piece_spawn_rules.spawn_on_timer:
+        return
+
+    # not on a timer, spawn every turn
+    spawn_next_piece(did_capture)
+    
