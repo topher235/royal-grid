@@ -3,6 +3,7 @@ class_name EffectSpawnData extends Resource
 @export var position: Vector2i
 @export var effect: SpecialEffect
 @export var weights: Dictionary = {
+    "rotate": 1.0,
     "blocking": 0.4,
     "multiplier": 0.1,
     "spawn": 0.2,
@@ -57,6 +58,9 @@ func init_random_effect() -> void:
                     break
                 "bomb":
                     effect = BombSpecialEffect.new()
+                    break
+                "rotate":
+                    effect = RotateSpecialEffect.new()
                     break
 
     # Fallback to blocking effect    

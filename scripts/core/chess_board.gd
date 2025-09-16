@@ -18,6 +18,7 @@ const EFFECT_SCENE = preload("res://scenes/board/effect.tscn")
 @export var effect_spawner: EffectSpawner
 @export var animator: ChessBoardAnimator
 
+var original_position: Vector2i
 var game_state: GameState
 var tiles: Array[Array] = []
 var pieces: Array[Array] = []
@@ -25,10 +26,15 @@ var selected_tile: Tile = null
 
 
 func _ready() -> void:
+    original_position = position
     if game_config:
         piece_spawner.game_config = game_config
         effect_spawner.game_config = game_config
     piece_spawner.game_over.connect(_on_piece_spawner_game_over)
+
+    # TODO: take out
+#    get_tree().create_timer(2).timeout.connect(rotate_board.bind(RotateSpecialEffect.RotationDirection.CLOCKWISE))
+
     
 func _set_game_config(value: GameConfig) -> void:
     game_config = value
@@ -66,7 +72,7 @@ func create_tiles() -> void:
                 var tile := TILE_SCENE.instantiate() as Tile
                 tile.grid_position = Vector2i(x, y)
                 tile.custom_minimum_size = Vector2(game_config.tile_size, game_config.tile_size + (game_config.tile_size * 0.25))
-                tile.position = Vector2(x * game_config.tile_size, y * game_config.tile_size)
+                tile.position = Vector2(y * game_config.tile_size, x * game_config.tile_size)
                 tile.tile_clicked.connect(_on_tile_clicked)
                 tiles[x][y] = tile
                 add_child(tile)
@@ -305,14 +311,18 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
         var captured_piece = remove_piece(to_pos)
         captured_piece.animate_capture()
         piece_captured.emit(piece, captured_piece)
+    var captured_effect = null
     if is_position_occupied_by_effect(to_pos):
-        var captured_effect = remove_effect(to_pos)
-        if captured_effect:
-            captured_effect.execute()
+        captured_effect = remove_effect(to_pos)
+        captured_effect.hide()
 
     await animator.animate_piece_move(piece, from_pos, to_pos)
     place_piece(piece, to_pos)
     piece_moved.emit(piece, from_pos, to_pos)
+    
+    if captured_effect:
+        await captured_effect.execute()
+    
     turn_over.emit(did_capture)
     return true
 
@@ -461,6 +471,71 @@ func load_game_state(active_game: ActiveGameData) -> void:
         spawn_effect(spawn_data)
     
     Log.info(self, "Game state loaded successfully")
+
+    
+func rotate_board(direction: RotateSpecialEffect.RotationDirection) -> void:
+    """
+    Rotates the entire board 90 degrees in the specified direction.
+    Updates both the tiles and pieces arrays, and animates the direction.
+    """
+    var grid_size = game_config.grid_size
+    
+    # create temporary arrays to store the rotated state
+    var new_tiles: Array[Array] = []
+    var new_pieces: Array[Array] = []
+    
+     # initialize new arrays
+    new_tiles.resize(grid_size.x)
+    new_pieces.resize(grid_size.x)
+    for x in range(grid_size.x):
+        new_tiles[x] = []
+        new_pieces[x] = []
+        new_tiles[x].resize(grid_size.y)
+        new_pieces[x].resize(grid_size.y)
+        for y in range(grid_size.y):
+            new_tiles[x][y] = null
+            new_pieces[x][y] = null
+    
+    # rotate the tiles and pieces
+    for x in range(grid_size.x):
+        for y in range(grid_size.y):
+            var new_pos = rotate_position(Vector2i(x, y), direction, grid_size)
+            
+            # Update tile and piece position
+            if tiles[x][y]:
+                tiles[x][y].grid_position = new_pos
+            
+            if pieces[x][y]:
+                pieces[x][y].set_grid_position(new_pos)
+            
+            new_tiles[new_pos.x][new_pos.y] = tiles[x][y]
+            new_pieces[new_pos.x][new_pos.y] = pieces[x][y]
+    
+    # update the arrays
+    tiles = new_tiles
+    pieces = new_pieces
+    
+    # animate the rotation
+    await animator.animate_board_rotation(direction)
+    
+    # clear any selected tiles since positions have changed
+    deselect_current_tile()
+
+    
+func rotate_position(pos: Vector2i, direction: RotateSpecialEffect.RotationDirection, grid_size: Vector2i) -> Vector2i:
+    """
+    Calculates the new position after rotating 90 degrees.
+    For a 4x4 grid:
+    - Clockwise: (x, y) -> (y, 3-x)
+    - Counter-clockwise: (x, y) -> (3-y, x)
+    """
+    match direction:
+        RotateSpecialEffect.RotationDirection.CLOCKWISE:
+            return Vector2i(pos.y, grid_size.x - 1 - pos.x)
+        RotateSpecialEffect.RotationDirection.COUNTER_CLOCKWISE:
+            return Vector2i(grid_size.y - 1 - pos.y, pos.x)
+        _:
+            return pos
 
     
 func _on_piece_spawner_game_over() -> void:

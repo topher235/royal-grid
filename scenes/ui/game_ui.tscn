@@ -240,5 +240,5 @@ texture = ExtResource("4_k7elv")
 expand_mode = 1
 
 [node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
-position = Vector2(9, 85)
+position = Vector2(9, 80)
 game_config = SubResource("Resource_x0n6o")

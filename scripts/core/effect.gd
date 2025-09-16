@@ -62,7 +62,7 @@ func _get_grid_position() -> Vector2i:
 
 func execute() -> void:
     var board: ChessBoard = get_tree().get_first_node_in_group("gameboard")
-    special_effect.execute(board.game_manager, grid_position)
+    await special_effect.execute(board.game_manager, grid_position)
     queue_free()
 
 

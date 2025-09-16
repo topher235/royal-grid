@@ -7,4 +7,5 @@ static var DB = {
     3: FreezeSpecialEffect,
     4: MultiplierSpecialEffect,
     5: SpawnSpecialEffect,
+    6: RotateSpecialEffect,
 }

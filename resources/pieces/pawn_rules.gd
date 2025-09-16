@@ -12,12 +12,12 @@ func get_legal_moves(board: ChessBoard, piece: PieceSpawnData) -> Array[Vector2i
     var direction = -1 if piece.color else 1  # white moves up (-1), Black moves down (1)
 
     # Forward movement
-    var forward_pos = piece.position + Vector2i(0, direction)
+    var forward_pos = piece.position + Vector2i(direction, 0)
     if board.is_valid_position(forward_pos) and not board.does_position_have_piece(forward_pos):
         moves.append(forward_pos)
 
     # Diagonal captures
-    var capture_directions = [Vector2i(-1, direction), Vector2i(1, direction)]
+    var capture_directions = [Vector2i(direction, -1), Vector2i(direction, 1)]
     for capture_dir in capture_directions:
         var capture_pos = piece.position + capture_dir
         if board.is_valid_position(capture_pos) and board.is_position_occupied_by_opponent(capture_pos, piece):

@@ -5,7 +5,8 @@ signal tile_clicked(tile: Tile)
 
 enum TileState {NORMAL, HIGHLIGHTED, SELECTED, VALID_MOVE, INVALID_MOVE}
 
-var grid_position: Vector2i = Vector2i.ZERO
+var grid_position: Vector2i = Vector2i.ZERO:
+    set = _set_grid_position
 var current_state: TileState = TileState.NORMAL
 var is_occupied := false
 var occupying_piece: ChessPiece = null
@@ -66,6 +67,11 @@ func _on_mouse_exited() -> void:
 func _on_gui_input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.is_pressed():
         tile_clicked.emit(self)
+    
+
+func _set_grid_position(value: Vector2i) -> void:
+    grid_position = value
+    z_index = grid_position.x
 
 
 func set_state(new_state: TileState) -> void:
