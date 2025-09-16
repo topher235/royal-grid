@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccixrxm3lt7ib"]
+[gd_scene load_steps=10 format=3 uid="uid://ccixrxm3lt7ib"]
 
 [ext_resource type="Script" uid="uid://df4ikyc530lgi" path="res://scripts/core/tile.gd" id="1_bfaab"]
 [ext_resource type="Texture2D" uid="uid://360g3ib0kr2m" path="res://assets/images/button_round/button_rnd_grayscale.png" id="2_kx4x0"]
 [ext_resource type="Texture2D" uid="uid://dhxau3t2lw4y6" path="res://assets/images/tiles/1part_wood_light.png" id="2_w7oh7"]
 [ext_resource type="Texture2D" uid="uid://cdewkaslvt76b" path="res://assets/images/snow/snowfalke_tiny.png" id="3_vpg4h"]
 [ext_resource type="Texture2D" uid="uid://bty6tap0w0mi0" path="res://assets/images/tiles/1part_wood_dark.png" id="3_w7oh7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7oh7"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 0.533333)
 
 [sub_resource type="Gradient" id="Gradient_vpg4h"]
 offsets = PackedFloat32Array(0, 0.0018797, 0.975564)
@@ -42,6 +45,17 @@ highlight = NodePath("Highlight")
 selection = NodePath("Selection")
 valid_move_indicator = NodePath("ValidMoveIndicator")
 snow_particles = NodePath("SnowParticles")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.5
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w7oh7")
 
 [node name="WhiteTileSprite" type="TextureRect" parent="."]
 layout_mode = 1

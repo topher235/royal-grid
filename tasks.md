@@ -31,11 +31,11 @@
   - [X] Implement special effects from Characters
   - [X] Implement RUSH mode with spawn on a timer
   - [ ] Fix race condition bug where a piece can spawn where a player wants to go, overwriting the movement. Might want some form of transaction lock on the tile.
-  - [ ] Add rotate board special effect
+  - [X] Add rotate board special effect
   - [X] Implement game over logic for both CLASSIC and RUSH modes
 - [ ] Game Level UI
   - [X] Re-design tiles to use the new isometric art
-  - [ ] Add shadow to tile scene for 3d effect
+  - [X] Add shadow to tile scene for 3d effect
   - [ ] Use new pixel art pieces
   - [ ] Add Character portrait
   - [ ] Add modal for game over

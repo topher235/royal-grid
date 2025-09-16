@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://be5nrbdyw7jo3"]
+[gd_scene load_steps=14 format=3 uid="uid://be5nrbdyw7jo3"]
 
 [ext_resource type="Script" uid="uid://bcq3wyntgcumb" path="res://scripts/core/chess_board.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://c47sos0nlvq5q" path="res://scripts/core/game_manager.gd" id="2_0jtfi"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://cr8t7wydqjk8f" path="res://resources/game_config.gd" id="4_l0rtg"]
 [ext_resource type="Script" uid="uid://mphr7bciikvs" path="res://resources/piece_spawn_data.gd" id="5_jrjqq"]
 [ext_resource type="Script" uid="uid://cx3rtn3wemtwt" path="res://scripts/core/effect_spawner.gd" id="10_503no"]
-[ext_resource type="PackedScene" uid="uid://ccixrxm3lt7ib" path="res://scenes/board/tile.tscn" id="11_jrjqq"]
 [ext_resource type="Script" uid="uid://gg0r47tjbyoq" path="res://scripts/core/board_animator.gd" id="11_l0rtg"]
 
 [sub_resource type="Resource" id="Resource_ddl7t"]
@@ -72,50 +71,3 @@ game_config = SubResource("Resource_u734o")
 [node name="BoardAnimator" type="Node" parent="." node_paths=PackedStringArray("chess_board")]
 script = ExtResource("11_l0rtg")
 chess_board = NodePath("..")
-
-[node name="Node" type="Node2D" parent="."]
-visible = false
-
-[node name="Node" type="Node2D" parent="Node"]
-
-[node name="Tile" parent="Node/Node" instance=ExtResource("11_jrjqq")]
-
-[node name="Tile2" parent="Node/Node" instance=ExtResource("11_jrjqq")]
-offset_left = 32.0
-offset_top = 32.0
-offset_right = 64.0
-offset_bottom = 64.0
-
-[node name="Tile3" parent="Node/Node" instance=ExtResource("11_jrjqq")]
-offset_left = 64.0
-offset_right = 96.0
-
-[node name="Tile4" parent="Node/Node" instance=ExtResource("11_jrjqq")]
-offset_left = 96.0
-offset_top = 32.0
-offset_right = 128.0
-offset_bottom = 64.0
-
-[node name="Node2" type="Node2D" parent="Node"]
-
-[node name="Tile" parent="Node/Node2" instance=ExtResource("11_jrjqq")]
-offset_top = 64.0
-offset_bottom = 96.0
-
-[node name="Tile2" parent="Node/Node2" instance=ExtResource("11_jrjqq")]
-offset_left = 32.0
-offset_top = 96.0
-offset_right = 64.0
-offset_bottom = 128.0
-
-[node name="Tile3" parent="Node/Node2" instance=ExtResource("11_jrjqq")]
-offset_left = 64.0
-offset_top = 64.0
-offset_right = 96.0
-offset_bottom = 96.0
-
-[node name="Tile4" parent="Node/Node2" instance=ExtResource("11_jrjqq")]
-offset_left = 96.0
-offset_top = 96.0
-offset_right = 128.0
-offset_bottom = 128.0
