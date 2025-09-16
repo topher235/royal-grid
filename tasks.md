@@ -21,7 +21,7 @@
   - [X] Implement the config carousels as a scene
     - [ ] Show all options (even unpurchased)
     - [ ] Give player options to unlock at this screen
-  - [ ] Add animation to carousel movement
+  - [X] Add animation to carousel movement
   - [ ] Add sound to button clicks
   - [X] Connect Rush/Classic buttons to the Game scene with the options set in the GameConfig
   - [X] Extract currency bars into separate scene
