@@ -7,10 +7,7 @@
   - [X] Modal is opened from Main Menu
   - [X] When closed, the reverse animation plays
 - [ ] Implement **Shop** modal
-  - [ ] Tabbed shop design for characters, maps, cosmetics, and IAP
-  - [ ] Available stock is loaded from Resource files
-  - [ ] User can purchase item and it is saved in their save file
-  - [ ] When closed, the reverse animation plays
+  - [ ] Says "Under Construction"
 - [ ] Main Menu
   - [X] Add sounds to button clicks
   - [X] Add move sound to chess piece animation
@@ -34,10 +31,10 @@
   - [X] Add rotate board special effect
   - [X] Implement game over logic for both CLASSIC and RUSH modes
   - [X] Fix bomb effect not showing destroy particle animation. It was a z-index bug.
-  - [ ] New icon for rotate special effect
-  - [ ] Add way to rotate counter-clockwise
+  - [X] New icon for rotate special effect
   - [X] Fix bomb effect when piece spawn in bomb radius. Looks like it's capturing an empty space.
   - [X] Fix piece grid_position after moving onto a rotate effect. Piece still has old pre-rotated position
+  - [ ] Add difficulty progression within a single game
 - [ ] Game Level UI
   - [X] Re-design tiles to use the new isometric art
   - [X] Add shadow to tile scene for 3d effect
@@ -62,6 +59,12 @@
 
 - [ ] Find better UI sounds
   - [ ] Click, Modal Open, and Modal Close
+- [ ] Implement **Shop** modal
+  - [ ] Tabbed shop design for characters, maps, cosmetics, and IAP
+  - [ ] Available stock is loaded from Resource files
+  - [ ] User can purchase item and it is saved in their save file
+  - [ ] When closed, the reverse animation plays
+- [ ] Add way to rotate counter-clockwise
 
 
 ## Maybe Tasks

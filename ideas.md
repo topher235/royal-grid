@@ -35,6 +35,13 @@
   - Gains points when no capture; loses points when capture
 
 
+- Increasing difficulty
+  - Chess timer: timer starts at 25s and capturing a piece adds 5s to the timer. Game over when time runs out.
+  - Spawning multiple pieces: After X moves, the spawner will start spawning 2 or 3 pieces at a time to clog up the board.
+  - Event system: random events, i.e. piece spawns, board shuffle, negative score multiplier
+  - Changing effect/piece spawn weights
+
+
 
 - Maps
   -  The usual 4x4 grid where positions [(1, 2), (2, 3), (3, 3)] are blacked out (no effects, no pieces, etc. can be placed there)

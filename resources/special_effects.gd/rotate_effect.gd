@@ -13,7 +13,7 @@ func _init() -> void:
     color = Color.ORANGE
     duration = 1
     name = "ROT"
-    icon = Sprites.MULT_ICON
+    icon = Sprites.ROTATE_CLOCKWISE_ICON
 
 
 func execute(gm: GameManager, pos: Vector2i) -> void:
