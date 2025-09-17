@@ -33,6 +33,8 @@
   - [ ] Fix race condition bug where a piece can spawn where a player wants to go, overwriting the movement. Might want some form of transaction lock on the tile.
   - [X] Add rotate board special effect
   - [X] Implement game over logic for both CLASSIC and RUSH modes
+  - [ ] Fix bomb effect not showing destroy particle animation
+  - [X] Fix piece grid_position after moving onto a rotate effect. Piece still has old pre-rotated position
 - [ ] Game Level UI
   - [X] Re-design tiles to use the new isometric art
   - [X] Add shadow to tile scene for 3d effect

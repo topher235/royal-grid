@@ -23,6 +23,7 @@ var game_state: GameState
 var tiles: Array[Array] = []
 var pieces: Array[Array] = []
 var selected_tile: Tile = null
+var effect_queue: Array[Effect] = []
 
 
 func _ready() -> void:
@@ -144,7 +145,9 @@ func _on_tile_clicked(tile: Tile) -> void:
     else:
         # Second click - attempt move
         if tile != selected_tile:
-            attempt_move(selected_tile, tile)
+            var success := await attempt_move(selected_tile, tile)
+            if success:
+                execute_effects()
             deselect_current_tile()
         else:
             # Deselect current tile
@@ -163,6 +166,16 @@ func deselect_current_tile() -> void:
         selected_tile.deselect()
         selected_tile = null
         clear_all_indicators()
+
+        
+func execute_effects() -> void:
+    """
+    Execute effects, 1 by 1.
+    """
+    while not effect_queue.is_empty():
+        # pop, so that the queue gets emptied eventually
+        var effect = effect_queue.pop_front()
+        await effect.execute()
 
 
 func clear_all_indicators() -> void:
@@ -315,13 +328,12 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
     if is_position_occupied_by_effect(to_pos):
         captured_effect = remove_effect(to_pos)
         captured_effect.hide()
+        # we will execute these later
+        effect_queue.append(captured_effect)
 
     await animator.animate_piece_move(piece, from_pos, to_pos)
     place_piece(piece, to_pos)
     piece_moved.emit(piece, from_pos, to_pos)
-    
-    if captured_effect:
-        await captured_effect.execute()
     
     turn_over.emit(did_capture)
     return true
