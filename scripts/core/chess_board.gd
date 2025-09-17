@@ -24,6 +24,7 @@ var tiles: Array[Array] = []
 var pieces: Array[Array] = []
 var selected_tile: Tile = null
 var effect_queue: Array[Effect] = []
+var did_capture := false
 
 
 func _ready() -> void:
@@ -32,9 +33,6 @@ func _ready() -> void:
         piece_spawner.game_config = game_config
         effect_spawner.game_config = game_config
     piece_spawner.game_over.connect(_on_piece_spawner_game_over)
-
-    # TODO: take out
-#    get_tree().create_timer(2).timeout.connect(rotate_board.bind(RotateSpecialEffect.RotationDirection.CLOCKWISE))
 
     
 func _set_game_config(value: GameConfig) -> void:
@@ -108,6 +106,7 @@ func spawn_piece(piece_data: PieceSpawnData) -> void:
         if success:
             # if the tile had an effect, remove it so that we don't double up on things on the tile
             var tile = tiles[piece_data.position.x][piece_data.position.y]
+            Log.info(self, "placed at " + str(piece_data.position))
             if tile.is_occupied_by_effect():
                 var effect = tile.remove_effect()
                 effect.queue_free()
@@ -148,7 +147,9 @@ func _on_tile_clicked(tile: Tile) -> void:
             var success := await attempt_move(selected_tile, tile)
             if success:
                 execute_effects()
+                turn_over.emit(did_capture)
             deselect_current_tile()
+            did_capture = false
         else:
             # Deselect current tile
             deselect_current_tile()
@@ -175,7 +176,7 @@ func execute_effects() -> void:
     while not effect_queue.is_empty():
         # pop, so that the queue gets emptied eventually
         var effect = effect_queue.pop_front()
-        await effect.execute()
+        effect.execute()
 
 
 func clear_all_indicators() -> void:
@@ -284,7 +285,7 @@ func remove_piece(pos: Vector2i) -> ChessPiece:
     
     var piece = pieces[pos.x][pos.y]
     pieces[pos.x][pos.y] = null
-    var tile = tiles[pos.x][pos.y]
+    var tile: Tile = tiles[pos.x][pos.y]
     tile.remove_piece(piece)
 
     # temporarily reparent to the board
@@ -318,7 +319,6 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
         return false
     
     remove_piece(from_pos)
-    var did_capture = false
     if is_position_occupied_by_opponent(to_pos, piece.data):
         did_capture = true
         var captured_piece = remove_piece(to_pos)
@@ -335,7 +335,6 @@ func move_piece(from_pos: Vector2i, to_pos: Vector2i) -> bool:
     place_piece(piece, to_pos)
     piece_moved.emit(piece, from_pos, to_pos)
     
-    turn_over.emit(did_capture)
     return true
 
 

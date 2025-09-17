@@ -300,6 +300,7 @@ _data = {
 }
 
 [node name="ChessPiece" type="Node2D" node_paths=PackedStringArray("animator", "label", "sprite")]
+z_index = 4
 script = ExtResource("1_mw4x2")
 animator = NodePath("PieceAnimator")
 label = NodePath("CenterContainer/Label")

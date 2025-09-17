@@ -3,12 +3,12 @@ class_name EffectSpawnData extends Resource
 @export var position: Vector2i
 @export var effect: SpecialEffect
 @export var weights: Dictionary = {
-    "rotate": 1.0,
+    "bomb": 1.0,
+    "rotate": 0.2,
     "blocking": 0.4,
     "multiplier": 0.1,
     "spawn": 0.2,
     "freeze": 0.3,
-    "bomb": 0.3,
 }
 
 var rng: RandomNumberGenerator

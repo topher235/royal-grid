@@ -100,8 +100,8 @@ func destroy_at_position(pos: Vector2i, _perform_scoring: bool) -> void:
     
     var piece = chess_board.remove_piece(pos)
     if piece:
+        Log.info(self, "found " + str(piece.data.piece_type) + " at " + str(pos))
         piece.animate_capture()
-        # TODO: might want a slight delay here?
         score_points(piece.data.points)
 
 

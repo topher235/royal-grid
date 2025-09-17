@@ -38,7 +38,9 @@ func animate_move_to(target_world_pos: Vector2) -> void:
 func animate_capture() -> void:
     animation_player.play("capture")
     var cb = piece.queue_free
-    animation_player.animation_finished.connect(_on_animation_finished.bind(cb), CONNECT_ONE_SHOT)
+    animation_player.animation_finished.connect(
+        _on_animation_finished.bind(cb), CONNECT_ONE_SHOT
+    )
 
 
 func animate_spawn() -> void:

@@ -72,6 +72,10 @@ func _on_gui_input(event: InputEvent) -> void:
 func _set_grid_position(value: Vector2i) -> void:
     grid_position = value
     z_index = grid_position.x
+    if occupying_piece:
+        occupying_piece.set_grid_position(value)
+    if occupying_effect:
+        occupying_effect.grid_position = value
 
 
 func set_state(new_state: TileState) -> void:
