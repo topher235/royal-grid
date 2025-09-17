@@ -79,8 +79,8 @@ func play_carousel(direction: float) -> void:
 
     var base_x := avatar_preview.position.x
     var distance := 32.0
-    var dur_out := 0.18
-    var dur_in := 0.22
+    var dur_out := 0.25
+    var dur_in := 0.3
     var new_idx := wrapi(selected_cosmetic_idx + direction, 0, cosmetics.size())
 
     var tween := create_tween()

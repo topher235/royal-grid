@@ -3,6 +3,7 @@ class_name MainMenu extends Control
 signal scene_changed(to_path: String)
 
 const SETTINGS_SCENE = preload("res://scenes/settings/settings_modal.tscn")
+const SHOP_SCENE = preload("res://scenes/shop/shop_modal.tscn")
 const STATS_SCENE = preload("res://scenes/stats/stats_modal.tscn")
 
 @export var continue_game_button: TextureButton
@@ -52,6 +53,7 @@ func _on_continue_button_pressed() -> void:
 func _on_menu_item_gui_input(event: InputEvent, animation_name: String) -> void:
     if event is InputEventMouseButton and event.is_pressed():
         SoundManager.play_ui_sound(Sounds.HOVER)
+        # Inside this animation, we call the `open_modal` function
         animation_player.play(animation_name)
 
 
@@ -87,9 +89,8 @@ func open_modal(modal_type: String) -> void:
             scene = SETTINGS_SCENE.instantiate()
             animation_name = "to_settings"
         "shop":
-            # scene = SHOP_SCENE.instantiate()
-            # animation_name = "to_shop"
-            Log.error(self, "open_modal 'shop' branch needs to be implemented")
+            scene = SHOP_SCENE.instantiate()
+            animation_name = "to_shop"
         "stats":
             scene = STATS_SCENE.instantiate()
             animation_name = "to_stats"

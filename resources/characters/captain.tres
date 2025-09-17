@@ -10,5 +10,5 @@ name = "Captain"
 effect_description = "More likely to spawn knights"
 avatar = ExtResource("1_l6600")
 priority = 1
-modifiers = Array[ExtResource("2_ncou5")]([null])
+modifiers = Array[ExtResource("2_ncou5")]([])
 metadata/_custom_type_script = "uid://bu68lymvd1ne6"

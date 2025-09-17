@@ -120,7 +120,9 @@ func add_effect(effect: Effect) -> void:
 
 
 func remove_effect() -> Effect:
-    var effect = occupying_effect
+    if occupying_effect == null:
+        return null
+    var effect := occupying_effect
     remove_child(occupying_effect)
     occupying_effect = null
     # have to keep this in the tree somewhere...
