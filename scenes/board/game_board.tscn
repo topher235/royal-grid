@@ -43,6 +43,8 @@ starting_pieces = Array[ExtResource("5_jrjqq")]([])
 num_random_pieces = 3
 piece_spawn_rules = SubResource("Resource_avcb0")
 game_rules = SubResource("Resource_ddl7t")
+use_chess_timer = false
+chess_timer_start_seconds = 25
 
 [node name="GameBoard" type="Node2D" node_paths=PackedStringArray("piece_spawner", "game_manager", "effect_spawner", "animator") groups=["gameboard"]]
 script = ExtResource("1_3wu0g")

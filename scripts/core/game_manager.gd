@@ -11,11 +11,44 @@ var score_multiplier_duration := 0  # forever
 var current_game_stats: PlayerStats
 var game_config: GameConfig
 
+var chess_timer_time_left: int
+var timer: Timer
+
 
 func _ready() -> void:
     current_game_stats = PlayerStats.new()
     chess_board.piece_captured.connect(_on_piece_captured)
     chess_board.turn_over.connect(_on_turn_over)
+    chess_board.new_game.connect(_on_new_game)
+
+    
+func _on_new_game() -> void:
+    get_tree().create_timer(0.5).timeout.connect(_debounced_new_game_setup)
+
+    
+func _debounced_new_game_setup() -> void:
+    """
+    Create a chess timer if necessary.
+    """
+    if game_config and game_config.use_chess_timer:
+        chess_timer_time_left = game_config.chess_timer_start_seconds
+        timer = Timer.new()
+        timer.wait_time = 1
+        timer.one_shot = false  # run forever
+        timer.autostart = true
+        timer.timeout.connect(_on_chess_timer_timeout)
+        add_child(timer)
+        Events.chess_timer_updated.emit(chess_timer_time_left)
+
+        
+func _on_chess_timer_timeout() -> void:
+    """
+    Decrement the time left and if the time left is 0 then the game is over.
+    """
+    chess_timer_time_left -= 1
+    Events.chess_timer_updated.emit(chess_timer_time_left)
+    if chess_timer_time_left <= 0:
+        end_game()
 
 
 func _on_turn_over(did_capture: bool) -> void:
@@ -45,8 +78,16 @@ func _on_turn_over(did_capture: bool) -> void:
 
 
 func _on_piece_captured(piece_used: ChessPiece, piece_captured: ChessPiece) -> void:
+    # update the PlayerStats, tracking what piece was just captured
     if current_game_stats:
         current_game_stats.update_captured(piece_captured)
+    
+    # if we're configured to have a chess timer, then add time to it and let UI components know it's updated
+    if game_config and game_config.use_chess_timer:
+        chess_timer_time_left += 5
+        Events.chess_timer_updated.emit(chess_timer_time_left)
+    
+    # update the player's score
     score_points(piece_used.data.points)
 
 

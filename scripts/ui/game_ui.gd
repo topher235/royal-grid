@@ -9,6 +9,8 @@ const CHESS_PIECE = preload("res://scenes/pieces/chess_piece.tscn")
 @export var score_label: Label
 @export var next_piece_container: PanelContainer
 @export var background_sprite: TextureRect
+@export var timer_container: Control
+@export var time_left_label: Label
 
 var score_tween: Tween
 var score_queue: Array[int]
@@ -26,6 +28,10 @@ func _ready() -> void:
     Events.mult_updated.connect(_on_mult_updated)
     Events.next_piece_is_spawning.connect(_on_next_piece_is_spawning)
     Events.next_piece_generated.connect(_on_next_piece_generated)
+    if game_config.use_chess_timer:
+        Events.chess_timer_updated.connect(_on_chess_timer_updated)
+    else:
+        timer_container.hide()
 
     if game_board:
         game_board.game_over.connect(_on_game_over)
@@ -134,6 +140,10 @@ func _on_next_piece_generated(piece_data: PieceSpawnData) -> void:
     piece.data = piece_data
     piece.animate_spawn()
     next_piece_container.add_child(piece)
+
+    
+func _on_chess_timer_updated(time_left: int) -> void:
+    time_left_label.text = str(time_left)
 
 
 func get_scene_data() -> Dictionary:

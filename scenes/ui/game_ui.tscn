@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://j2grci2ratew"]
+[gd_scene load_steps=27 format=3 uid="uid://j2grci2ratew"]
 
 [ext_resource type="PackedScene" uid="uid://be5nrbdyw7jo3" path="res://scenes/board/game_board.tscn" id="1_qrkc0"]
 [ext_resource type="Script" uid="uid://ckd1v14s6ohpj" path="res://scripts/ui/game_ui.gd" id="1_yvtb5"]
@@ -31,6 +31,12 @@ NextPieceContainer/styles/panel = SubResource("StyleBoxTexture_qrkc0")
 Panel/styles/panel = SubResource("StyleBoxFlat_5bpyr")
 ScoreContainer/base_type = &"PanelContainer"
 ScoreContainer/styles/panel = SubResource("StyleBoxTexture_v1bdg")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aq72h"]
+bg_color = Color(0.168627, 0.168627, 0.270588, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oqj4c"]
+font_size = 10
 
 [sub_resource type="Resource" id="Resource_yvtb5"]
 script = ExtResource("2_yvtb5")
@@ -77,13 +83,17 @@ starting_pieces = Array[ExtResource("5_bxde6")]([SubResource("Resource_v1bdg")])
 num_random_pieces = 3
 piece_spawn_rules = SubResource("Resource_k7elv")
 game_rules = SubResource("Resource_yvtb5")
+use_chess_timer = false
+chess_timer_start_seconds = 25
 
-[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "mult_label", "score_label", "next_piece_container")]
+[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "mult_label", "score_label", "next_piece_container", "timer_container", "time_left_label")]
 script = ExtResource("1_yvtb5")
 game_board = NodePath("GameBoard")
 mult_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/MarginContainer/MultLabel")
 score_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/ScoreLabel")
 next_piece_container = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/NextPieceContainer")
+timer_container = NodePath("CanvasLayer/Control/TimerContainer")
+time_left_label = NodePath("CanvasLayer/Control/TimerContainer/PanelContainer/TimeLeftLabel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -228,16 +238,41 @@ custom_minimum_size = Vector2(60, 20)
 layout_mode = 2
 theme_type_variation = &"NextPieceContainer"
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/CenterContainer"]
 visible = false
 custom_minimum_size = Vector2(200, 225)
-layout_mode = 0
-offset_left = -10.0
-offset_top = 53.0
-offset_right = 190.0
-offset_bottom = 278.0
+layout_mode = 2
 texture = ExtResource("4_k7elv")
 expand_mode = 1
+
+[node name="TimerContainer" type="Control" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/TimerContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_aq72h")
+
+[node name="TimeLeftLabel" type="Label" parent="CanvasLayer/Control/TimerContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "13"
+label_settings = SubResource("LabelSettings_oqj4c")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
 position = Vector2(9, 80)

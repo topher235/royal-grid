@@ -30,6 +30,7 @@ var did_capture := false
 func _ready() -> void:
     original_position = position
     if game_config:
+        game_manager.game_config = game_config
         piece_spawner.game_config = game_config
         effect_spawner.game_config = game_config
     piece_spawner.game_over.connect(_on_piece_spawner_game_over)
@@ -43,6 +44,9 @@ func _set_game_config(value: GameConfig) -> void:
         
     if effect_spawner:
         effect_spawner.game_config = game_config
+    
+    if game_manager:
+        game_manager.game_config = game_config
     
 
 func initialize_grid() -> void:
