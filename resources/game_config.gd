@@ -9,6 +9,12 @@ class_name GameConfig extends Resource
 @export var character: BaseCharacter
 @export var cosmetic: BaseCosmetic
 
+# Whether or not to add a chess timer
+# game is lost when it reaches 0
+@export var use_chess_timer := false
+# The number of seconds the chess timer starts with
+@export var chess_timer_start_seconds := 25
+
 var grid_size: Vector2i:
     get:
         return map.grid_size if map else Vector2i(4, 4)
@@ -21,6 +27,16 @@ func _init() -> void:
         game_rules = GameRules.new()
     if not map:
         map = Map.create_default_map()
+        
+        
+func apply_modifiers() -> void:
+    """
+    Applies general modifiers to PieceSpawnRules.
+    """
+    if piece_spawn_rules and character:
+        piece_spawn_rules.apply_rules_modifiers(character.modifiers)
+    else:
+        Log.error(self, "Missing piece_spawn_rules or character")
 
 
 static func default_game() -> GameConfig:

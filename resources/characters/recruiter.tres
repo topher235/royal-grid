@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="BaseCharacter" load_steps=6 format=3 uid="uid://co10tfbmgvtke"]
+
+[ext_resource type="Texture2D" uid="uid://dfl47my13qk4l" path="res://assets/images/placeholder_48x48.png" id="1_llbnh"]
+[ext_resource type="Script" uid="uid://cl6s05m51i031" path="res://resources/modifiers/base_modifier.gd" id="1_s6qqa"]
+[ext_resource type="Script" uid="uid://bu68lymvd1ne6" path="res://resources/characters/base_character.gd" id="2_llbnh"]
+[ext_resource type="Script" uid="uid://dwdvse14im5px" path="res://resources/modifiers/spawn_on_timer_modifier.gd" id="3_4soo6"]
+
+[sub_resource type="Resource" id="Resource_6c2qa"]
+script = ExtResource("3_4soo6")
+spawn_on_timer = true
+spawn_frequency_in_seconds = 1
+modifier_type = 1
+value = 0.0
+operation = 0
+metadata/_custom_type_script = "uid://dwdvse14im5px"
+
+[resource]
+script = ExtResource("2_llbnh")
+name = "Recruiter"
+effect_description = "Spawns pieces on a timer"
+avatar = ExtResource("1_llbnh")
+priority = 0
+modifiers = Array[ExtResource("1_s6qqa")]([SubResource("Resource_6c2qa")])
+metadata/_custom_type_script = "uid://bu68lymvd1ne6"

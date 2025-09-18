@@ -6,8 +6,8 @@
   - [X] User can enable/disable sound & music
   - [X] Modal is opened from Main Menu
   - [X] When closed, the reverse animation plays
-- [ ] Implement **Shop** modal
-  - [ ] Says "Under Construction"
+- [X] Implement **Shop** modal
+  - [X] Says "Under Construction"
 - [ ] Main Menu
   - [X] Add sounds to button clicks
   - [X] Add move sound to chess piece animation
@@ -35,6 +35,9 @@
   - [X] Fix bomb effect when piece spawn in bomb radius. Looks like it's capturing an empty space.
   - [X] Fix piece grid_position after moving onto a rotate effect. Piece still has old pre-rotated position
   - [ ] Add difficulty progression within a single game
+    - [ ] Chance of spawning multiple pieces after X moves. Need to update logic and UI to handle multiple pieces.
+    - [ ] Change effect/piece spawn weights based on number of moves
+  - [ ] Change RUSH mode to use a chess timer and make a character that spawns on a timer
 - [ ] Game Level UI
   - [X] Re-design tiles to use the new isometric art
   - [X] Add shadow to tile scene for 3d effect

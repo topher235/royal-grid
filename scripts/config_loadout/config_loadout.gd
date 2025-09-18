@@ -21,28 +21,25 @@ func _on_back_button_texture_pressed() -> void:
 
     
 func _on_play_rush_button_pressed() -> void:
-    var spawn_rules := PieceSpawnRules.new()
-    spawn_rules.spawn_on_timer = true
-    create_game_config(spawn_rules)
+    create_game_config(true)
     if active_game_config:
         scene_changed.emit("res://scenes/ui/game_ui.tscn")
 
     
 func _on_play_classic_button_pressed() -> void:
-    var spawn_rules := PieceSpawnRules.new()
-    spawn_rules.spawn_on_timer = false
-    create_game_config(spawn_rules)
+    create_game_config(false)
     if active_game_config:
         scene_changed.emit("res://scenes/ui/game_ui.tscn")
     
 
-func create_game_config(spawn_rules: PieceSpawnRules) -> void:
-    var gc = GameConfig.new()
+func create_game_config(use_chess_timer: bool) -> void:
+    var gc: GameConfig = GameConfig.new()
 
+    gc.use_chess_timer = use_chess_timer
     gc.map = map_selector.selected_map
     gc.cosmetic = cosmetic_selector.selected_cosmetic
-    gc.piece_spawn_rules = spawn_rules
     gc.character = character_selector.selected_character
+    gc.apply_modifiers()
     
     active_game_config = gc
     

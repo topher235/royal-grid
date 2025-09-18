@@ -2,6 +2,7 @@ class_name BaseModifier extends Resource
 
 enum Type {
     SPAWN_RATE,
+    SPAWN_ON_TIMER,
 }
 
 enum Operation {
