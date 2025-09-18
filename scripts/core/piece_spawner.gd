@@ -8,6 +8,7 @@ signal game_over
 var rng: RandomNumberGenerator
 var next_piece_data: PieceSpawnData
 var timer: Timer
+var num_moves := 0
 
 
 func _ready() -> void:
@@ -161,7 +162,7 @@ func create_random_piece_data(position: Vector2i) -> PieceSpawnData:
     #   for the player to play
     piece_data.color = rng.randi() % 2 == 0
 
-    var piece_type_weights := game_config.get_piece_type_weights()
+    var piece_type_weights := game_config.get_piece_type_weights(num_moves)
     var piece_type := select_random_piece_type(piece_type_weights)
     piece_data.piece_type = piece_type
 
@@ -254,6 +255,7 @@ func end_turn(did_capture: bool) -> void:
     Using this `end_turn` nomenclature allows us to early exit if the rules say we
     should be spawning on a timer instead.
     """
+    num_moves += 1
     if game_config.piece_spawn_rules.spawn_on_timer:
         return
 
