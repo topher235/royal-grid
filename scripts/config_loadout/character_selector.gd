@@ -44,17 +44,9 @@ func _custom_character_sort(a: BaseCharacter, b: BaseCharacter) -> bool:
 func _load_characters() -> void:
     characters.clear()
     
-    var dir := DirAccess.open(characters_directory)
-    if dir:
-        dir.list_dir_begin()
-        var file_name := dir.get_next()
-        
-        while file_name != "":
-            if file_name.ends_with(".tres") and not file_name.begins_with("base"):
-                var full_path := characters_directory + file_name
-                var character := load(full_path) as BaseCharacter
-                characters.append(character)
-            file_name = dir.get_next()
+    for path in CharacterDatabase.PATHS:
+        var character := load(path) as BaseCharacter
+        characters.append(character)
         
     if characters.size() > 0:
         characters.sort_custom(_custom_character_sort)

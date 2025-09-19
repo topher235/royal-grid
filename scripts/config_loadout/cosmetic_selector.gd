@@ -43,17 +43,10 @@ func _custom_cosmetic_sort(a: BaseCosmetic, b: BaseCosmetic) -> bool:
 func _load_cosmetics() -> void:
     cosmetics.clear()
 
-    var dir := DirAccess.open(cosmetics_directory)
-    if dir:
-        dir.list_dir_begin()
-        var file_name := dir.get_next()
-
-        while file_name != "":
-            if file_name.ends_with(".tres") and not file_name.begins_with("base"):
-                var full_path := cosmetics_directory + file_name
-                var cosmetic := load(full_path) as BaseCosmetic
-                cosmetics.append(cosmetic)
-            file_name = dir.get_next()
+    for path in CosmeticsDatabase.PATHS:
+        Log.info(self, path)
+        var cosmetic := load(path) as BaseCosmetic
+        cosmetics.append(cosmetic)
 
     if cosmetics.size() > 0:
         cosmetics.sort_custom(_custom_cosmetic_sort)

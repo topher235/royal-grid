@@ -43,17 +43,9 @@ func _custom_map_sort(a: Map, b: Map) -> bool:
 func _load_maps() -> void:
     maps.clear()
 
-    var dir := DirAccess.open(maps_directory)
-    if dir:
-        dir.list_dir_begin()
-        var file_name := dir.get_next()
-
-        while file_name != "":
-            if file_name.ends_with(".tres"):
-                var full_path := maps_directory + file_name
-                var map := load(full_path) as Map
-                maps.append(map)
-            file_name = dir.get_next()
+    for path in MapDatabase.PATHS:
+        var map := load(path) as Map
+        maps.append(map)
 
     if maps.size() > 0:
         maps.sort_custom(_custom_map_sort)
