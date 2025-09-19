@@ -2,12 +2,9 @@ class_name GameUI extends Node2D
 
 signal scene_changed(to_path: String)
 
-const CHESS_PIECE = preload("res://scenes/pieces/chess_piece.tscn")
-
 @export var game_board: ChessBoard
 @export var mult_label: Label
 @export var score_label: Label
-@export var next_piece_container: PanelContainer
 @export var background_sprite: TextureRect
 @export var timer_container: Control
 @export var time_left_label: Label
@@ -26,9 +23,7 @@ func _ready() -> void:
 
     Events.score_updated.connect(_on_score_updated)
     Events.mult_updated.connect(_on_mult_updated)
-    Events.next_piece_is_spawning.connect(_on_next_piece_is_spawning)
-    Events.next_piece_generated.connect(_on_next_piece_generated)
-    if game_config.use_chess_timer:
+    if game_config and game_config.use_chess_timer:
         Events.chess_timer_updated.connect(_on_chess_timer_updated)
     else:
         timer_container.hide()
@@ -128,18 +123,6 @@ func update_score_label() -> void:
 
     await score_tween.finished
     current_score = target_score
-
-
-func _on_next_piece_is_spawning() -> void:
-    var piece: ChessPiece = next_piece_container.get_child(0)
-    piece.fadeout()
-
-
-func _on_next_piece_generated(piece_data: PieceSpawnData) -> void:
-    var piece: ChessPiece = CHESS_PIECE.instantiate() as ChessPiece
-    piece.data = piece_data
-    piece.animate_spawn()
-    next_piece_container.add_child(piece)
 
     
 func _on_chess_timer_updated(time_left: int) -> void:

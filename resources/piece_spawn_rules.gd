@@ -33,6 +33,9 @@ func get_progressive_weights(moves: int) -> Dictionary:
     less flexible pieces, e.g. Pawns, become more common and more flexible pieces, e.g. Rooks,
     become more rare.
     
+    Core equation:
+    weight(moves, piece_type) = base_weight(piece_type) × difficulty_multiplier(moves) × piece_difficulty_factor(piece_type)
+    
     Example weight progression:
     Moves	Pawn	Rook	Knight	Bishop	Queen	King
     0	    0.30	0.15	0.15	0.15	0.10	0.05

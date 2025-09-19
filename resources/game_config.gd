@@ -71,5 +71,7 @@ func get_piece_type_weights(moves: int) -> Dictionary:
     """
     Retrieve the modified piece type weights, applying all available modifiers.
     """
-    var modifiers := character.modifiers
+    var modifiers: Array[BaseModifier] = []
+    if character:
+        modifiers.append_array(character.modifiers)
     return piece_spawn_rules.get_piece_type_weights(moves, modifiers)

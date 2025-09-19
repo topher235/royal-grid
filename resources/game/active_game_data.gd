@@ -3,7 +3,7 @@ class_name ActiveGameData extends Resource
 @export var tiles: Array[ActiveTileData]
 @export var effects: Array[ActiveEffectData]
 @export var pieces: Array[ActivePieceData]
-@export var next_piece: ActivePieceData
+@export var next_pieces: Array[ActivePieceData]
 @export var score: int
 @export var map_id: int
 @export var character_id: int
@@ -25,11 +25,15 @@ func serialize() -> Dictionary:
     for piece in pieces:
         active_pieces.append(piece.serialize())
     
+    var upcoming_pieces = []
+    for piece in next_pieces:
+        upcoming_pieces.append(piece.serialize())
+    
     return {
         "tiles": active_tiles,
         "effects": active_effects,
         "pieces": active_pieces,
-        "next_piece": next_piece.serialize(),
+        "upcoming_pieces": upcoming_pieces,
         "score": score,
         "mult": mult,
         "mult_duration": mult_duration,
@@ -48,9 +52,6 @@ func deserialize(data: Dictionary) -> void:
     mult_duration = data.get("mult_duration", 0)
     map_id = data.get("map_id", 0)
     character_id = data.get("character_id", 0)
-
-    next_piece = ActivePieceData.new()
-    next_piece.deserialize(data.get("next_piece", {}))
 
     # Deserialize tiles
     tiles = []
@@ -75,6 +76,14 @@ func deserialize(data: Dictionary) -> void:
         var piece = ActivePieceData.new()
         piece.deserialize(piece_data)
         pieces.append(piece)
+    
+    # Deserialize upcoming pieces
+    next_pieces = []
+    var upcoming_pieces_data = data.get("upcoming_pieces", [])
+    for piece_data in upcoming_pieces_data:
+        var piece = ActivePieceData.new()
+        piece.deserialize(piece_data)
+        next_pieces.append(piece)
     
     # Deserialize stats
     var stats_data = data.get("stats", {})

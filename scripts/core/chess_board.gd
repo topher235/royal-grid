@@ -390,7 +390,7 @@ func get_game_state() -> ActiveGameData:
     """
     Creates an ActiveGameData object from the current board state.
     """
-    var active_game = ActiveGameData.new()
+    var active_game: ActiveGameData = ActiveGameData.new()
 
     # Get current score from game manager
     if game_manager:
@@ -419,11 +419,14 @@ func get_game_state() -> ActiveGameData:
                 active_game.pieces.append(piece.get_active_piece_data())
     
     # Serialize next piece - it's not a ChessPiece scene, so can't do like the above serialization
-    var next_piece: PieceSpawnData = game_manager.retrieve_next_piece()
-    var piece_data = ActivePieceData.new()
-    piece_data.piece_type = next_piece.piece_type
-    piece_data.color = next_piece.color
-    active_game.next_piece = piece_data
+    var upcoming_spawn_data: Array[PieceSpawnData] = game_manager.retrieve_next_pieces()
+    var next_pieces: Array[ActivePieceData] = []
+    for spawn_data in upcoming_spawn_data:
+        var piece_data = ActivePieceData.new()
+        piece_data.piece_type = spawn_data.piece_type
+        piece_data.color = spawn_data.color
+        next_pieces.append(piece_data)
+    active_game.next_pieces = next_pieces
 
     # Serialize effects on the board
     active_game.effects = [] as Array[ActiveEffectData]
@@ -453,12 +456,15 @@ func load_game_state(active_game: ActiveGameData) -> void:
         game_manager.score_multiplier = active_game.mult
         game_manager.score_multiplier_duration = active_game.mult_duration
         game_manager.current_game_stats = active_game.stats
-        # Load next piece
-        var piece_data = active_game.next_piece
-        var spawn_data = PieceSpawnData.new()
-        spawn_data.piece_type = piece_data.piece_type
-        spawn_data.color = piece_data.color
-        game_manager.set_next_piece(spawn_data)
+        # Load every upcoming piece
+        var next_pieces: Array[PieceSpawnData] = []
+        for next_piece in active_game.next_pieces:
+            var piece_data = next_piece
+            var spawn_data = PieceSpawnData.new()
+            spawn_data.piece_type = piece_data.piece_type
+            spawn_data.color = piece_data.color
+            next_pieces.append(spawn_data)
+        game_manager.set_next_pieces(next_pieces)
     
     # Load tiles
     for tile_data in active_game.tiles:

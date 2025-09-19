@@ -6,7 +6,7 @@ signal game_over
 @export var game_config: GameConfig
 
 var rng: RandomNumberGenerator
-var next_piece_data: PieceSpawnData
+var next_piece_data: Array[PieceSpawnData]
 var timer: Timer
 var num_moves := 0
 
@@ -36,8 +36,9 @@ func _debounced_new_game_setup() -> void:
         timer.autostart = true
         timer.timeout.connect(spawn_next_piece.bind(false))
         add_child(timer)
-    next_piece_data = create_random_piece_data(find_random_empty_position([]))
-    Events.next_piece_generated.emit(next_piece_data)
+    var upcoming_piece := create_random_piece_data(find_random_empty_position([]))
+    next_piece_data.append(upcoming_piece)
+    Events.next_piece_generated.emit(upcoming_piece)
 
 
 func should_spawn_piece(did_capture: bool, override: bool) -> bool:
@@ -77,27 +78,37 @@ func spawn_next_piece(did_capture: bool, override: bool = false) -> void:
         Log.info(self, "spawn_next_piece should not spawn piece")
         return
     
-    var empty_position = find_random_empty_position([])
-    if empty_position == Vector2i(-1, -1):
-        Log.error(self, "spawn_next_piece got an empty position of (-1, -1)")
-        game_over.emit()
-        return
+    # if we have next pieces, then tell the UI they are spawning so we fadeout previews
+    if not next_piece_data.is_empty():
+        Events.next_piece_is_spawning.emit()
     
-    var piece_data = next_piece_data
-    if not piece_data:
-        Log.error(self, "spawn_next_piece Expected piece data not available")
-        return
+    # spawn each upcoming piece
+    while not next_piece_data.is_empty():
+        var next_piece = next_piece_data.pop_front()
+        
+        var empty_position = find_random_empty_position([])
+        if empty_position == Vector2i(-1, -1):
+            Log.error(self, "spawn_next_piece got an empty position of (-1, -1)")
+            game_over.emit()
+            return
+
+        # We created this data last move, so the position could now be occupied
+        # right before placing, we set the position to the newly calculated empty position
+        # note: this function does create the next piece with this same position,
+        #   but when we get to the next spawn, we'll be re-calculating the empty position
+        next_piece.position = empty_position
+        
+        chess_board.spawn_piece(next_piece)
     
-    # We created this data last move, so the position could now be occupied
-    # right before placing, we set the position to the newly calculated empty position
-    # note: this function does create the next piece with this same position,
-    #   but when we get to the next spawn, we'll be re-calculating the empty position
-    piece_data.position = empty_position
-    
-    Events.next_piece_is_spawning.emit()
-    chess_board.spawn_piece(piece_data)
-    next_piece_data = create_random_piece_data(empty_position)
-    Events.next_piece_generated.emit(next_piece_data)
+    # generate new upcoming pieces
+    # TODO: replace with a better equation
+    var num_to_generate := 1
+    if num_moves > 20:
+        num_to_generate = 2 if num_moves % 2 == 0 else 1
+    for i in range(num_to_generate):
+        var upcoming_piece = create_random_piece_data(Vector2i(0, 0))
+        next_piece_data.append(upcoming_piece)
+        Events.next_piece_generated.emit(upcoming_piece)
 
 
 func spawn_new_piece() -> void:
@@ -237,13 +248,14 @@ func spawn_piece_at_position(position: Vector2i, piece_type: int, color: bool) -
     chess_board.spawn_piece(piece_data)
 
 
-func retrieve_next_piece() -> PieceSpawnData:
+func retrieve_next_pieces() -> Array[PieceSpawnData]:
     return next_piece_data
 
 
-func set_next_piece(spawn_data: PieceSpawnData) -> void:
+func set_next_pieces(spawn_data: Array[PieceSpawnData]) -> void:
     next_piece_data = spawn_data
-    Events.next_piece_generated.emit(next_piece_data)
+    for upcoming_piece in spawn_data:
+        Events.next_piece_generated.emit(upcoming_piece)
 
     
 func end_turn(did_capture: bool) -> void:

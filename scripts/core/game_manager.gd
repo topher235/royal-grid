@@ -193,12 +193,12 @@ func end_game() -> void:
     chess_board.game_over.emit(score)
 
 
-func retrieve_next_piece() -> PieceSpawnData:
-    return piece_spawner.retrieve_next_piece()
+func retrieve_next_pieces() -> Array[PieceSpawnData]:
+    return piece_spawner.retrieve_next_pieces()
 
 
-func set_next_piece(spawn_data: PieceSpawnData) -> void:
-    piece_spawner.set_next_piece(spawn_data)
+func set_next_pieces(spawn_data: Array[PieceSpawnData]) -> void:
+    piece_spawner.set_next_pieces(spawn_data)
 
 
 func autosave() -> void:
