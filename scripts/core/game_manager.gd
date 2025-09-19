@@ -183,6 +183,10 @@ func end_game() -> void:
     """
     Ends the current game and clears the active game from save data.
     """
+    # Other managers should handle their own end of game logic
+    # like stopping timers
+    piece_spawner.end_game()
+    
     SaveManager.clear_active_game()
     var player_stats = SaveManager.retrieve_stats()
     # Merge long-term stats with this game's stats

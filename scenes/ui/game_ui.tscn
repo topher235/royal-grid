@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://j2grci2ratew"]
+[gd_scene load_steps=34 format=3 uid="uid://j2grci2ratew"]
 
 [ext_resource type="PackedScene" uid="uid://be5nrbdyw7jo3" path="res://scenes/board/game_board.tscn" id="1_qrkc0"]
 [ext_resource type="Script" uid="uid://ckd1v14s6ohpj" path="res://scripts/ui/game_ui.gd" id="1_yvtb5"]
@@ -81,19 +81,154 @@ script = ExtResource("4_fftnl")
 map = ExtResource("11_aq72h")
 tile_size = 40
 starting_pieces = Array[ExtResource("5_bxde6")]([SubResource("Resource_v1bdg")])
-num_random_pieces = 3
+num_random_pieces = 13
 piece_spawn_rules = SubResource("Resource_k7elv")
 game_rules = SubResource("Resource_yvtb5")
 use_chess_timer = false
 chess_timer_start_seconds = 25
 
-[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "mult_label", "score_label", "timer_container", "time_left_label")]
+[sub_resource type="Animation" id="Animation_oqj4c"]
+resource_name = "game_over"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EndGameOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EndGameOverlay/PanelContainer:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(180, 110), Vector2(180, 110), Vector2(0, 110)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EndGameOverlay/PanelContainer/PanelContainer/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EndGameOverlay/PanelContainer/FinalScoreLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.266667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"p_go"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pbku6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EndGameOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EndGameOverlay/PanelContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(180, 110)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EndGameOverlay/PanelContainer/PanelContainer/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EndGameOverlay/PanelContainer/FinalScoreLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i3ans"]
+_data = {
+&"RESET": SubResource("Animation_pbku6"),
+&"game_over": SubResource("Animation_oqj4c")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqj4c"]
+bg_color = Color(0.84104, 0.84104, 0.84104, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbku6"]
+bg_color = Color(0.181798, 0.181798, 0.181798, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pbku6"]
+font_size = 12
+font_color = Color(0.149475, 0.149475, 0.149475, 1)
+
+[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "mult_label", "score_label", "timer_container", "time_left_label", "final_score_label", "animation_player")]
 script = ExtResource("1_yvtb5")
 game_board = NodePath("GameBoard")
 mult_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/MarginContainer/MultLabel")
 score_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/ScoreLabel")
 timer_container = NodePath("CanvasLayer/Control/TimerContainer")
 time_left_label = NodePath("CanvasLayer/Control/TimerContainer/PanelContainer/TimeLeftLabel")
+final_score_label = NodePath("EndGameOverlay/PanelContainer/FinalScoreLabel")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -281,3 +416,68 @@ vertical_alignment = 1
 [node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
 position = Vector2(9, 80)
 game_config = SubResource("Resource_x0n6o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_i3ans")
+}
+
+[node name="EndGameOverlay" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 50
+custom_minimum_size = Vector2(180, 320)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 180.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="EndGameOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="EndGameOverlay"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 180.0
+offset_top = -50.0
+offset_right = 180.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oqj4c")
+
+[node name="PanelContainer" type="PanelContainer" parent="EndGameOverlay/PanelContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_pbku6")
+
+[node name="Label" type="Label" parent="EndGameOverlay/PanelContainer/PanelContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FinalScoreLabel" type="Label" parent="EndGameOverlay/PanelContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 8
+text = "Final Score: "
+label_settings = SubResource("LabelSettings_pbku6")
+horizontal_alignment = 1

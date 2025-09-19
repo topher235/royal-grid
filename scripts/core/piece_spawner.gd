@@ -273,4 +273,8 @@ func end_turn(did_capture: bool) -> void:
 
     # not on a timer, spawn every turn
     spawn_next_piece(did_capture)
-    
+
+
+func end_game() -> void:
+    if timer:
+        timer.stop()

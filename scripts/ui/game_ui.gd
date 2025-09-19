@@ -8,6 +8,8 @@ signal scene_changed(to_path: String)
 @export var background_sprite: TextureRect
 @export var timer_container: Control
 @export var time_left_label: Label
+@export var final_score_label: Label
+@export var animation_player: AnimationPlayer
 
 var score_tween: Tween
 var score_queue: Array[int]
@@ -78,8 +80,13 @@ func _on_game_over(final_score: int) -> void:
     """
     Called when the game ends. Clears the active game and updates stats.
     """
-    # TODO: open modal
-    Log.error(self, "_on_game_over needs to be implemented")
+    final_score_label.text = final_score_label.text + str(final_score)
+    Log.info(self, final_score_label.text)
+    animation_player.play("game_over")
+    Log.info(self, "playing animation")
+
+func p_go():
+    Log.info(self, "game over func")
 
 
 func _on_score_updated(new_score: int) -> void:
