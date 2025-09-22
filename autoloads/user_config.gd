@@ -1,7 +1,7 @@
 extends Node
 
 # TODO: change 'res:' to 'user:'
-const SETTINGS_CONFIG_FILE = "res://user-settings.cfg"
+const SETTINGS_CONFIG_FILE = "user://user-settings.cfg"
 
 const SOUND = "sound"
 const MUSIC = "music"

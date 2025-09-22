@@ -15,6 +15,8 @@ const STATS_SCENE = preload("res://scenes/stats/stats_modal.tscn")
 @export var stats_piece: Control
 @export var animation_player: AnimationPlayer
 
+var thread: Thread
+
 
 func _ready() -> void:
     update_menu_buttons()
@@ -81,7 +83,15 @@ func open_modal(modal_type: String) -> void:
     
     Log.info(self, "open_modal opening " + modal_type)
     destroy_modal_children()
+    
+    if thread and thread.is_alive():
+        thread.wait_to_finish()
+    
+    thread = Thread.new()
+    thread.start(_instantiate_modal.bind(modal_type))
 
+    
+func _instantiate_modal(modal_type: String):
     var scene = null
     var animation_name = ""
     match modal_type:
@@ -98,9 +108,15 @@ func open_modal(modal_type: String) -> void:
             Log.error(self, "open_modal did not match branch " + modal_type)
     
     if scene and animation_name:
-        modal_container.add_child(scene)
+        modal_container.add_child.call_deferred(scene)
+        animate_modal_open.call_deferred(scene, animation_name)
+    
+
+        
+func animate_modal_open(scene: Node, animation_name: String) -> void:
+    if scene and animation_name:
         scene.open()
-        scene.closed.connect(close_modal.bind(animation_name))
+        scene.closed.connect(close_modal.bind(animation_name), CONNECT_ONE_SHOT)
 
 
 func play_move_sound() -> void:
