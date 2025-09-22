@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://j2grci2ratew"]
+[gd_scene load_steps=36 format=3 uid="uid://j2grci2ratew"]
 
 [ext_resource type="PackedScene" uid="uid://be5nrbdyw7jo3" path="res://scenes/board/game_board.tscn" id="1_qrkc0"]
 [ext_resource type="Script" uid="uid://ckd1v14s6ohpj" path="res://scripts/ui/game_ui.gd" id="1_yvtb5"]
@@ -8,12 +8,13 @@
 [ext_resource type="Script" uid="uid://comwnq0c27il5" path="res://resources/piece_spawn_rules.gd" id="3_k7elv"]
 [ext_resource type="Texture2D" uid="uid://uyo7ktar3opt" path="res://assets/images/background/blackWhite.png" id="4_aq72h"]
 [ext_resource type="Script" uid="uid://cr8t7wydqjk8f" path="res://resources/game_config.gd" id="4_fftnl"]
-[ext_resource type="Texture2D" uid="uid://chvh7t3an6tij" path="res://assets/images/ui_components/panel/win_1_full_big.png" id="4_k7elv"]
 [ext_resource type="Script" uid="uid://mphr7bciikvs" path="res://resources/piece_spawn_data.gd" id="5_bxde6"]
 [ext_resource type="Texture2D" uid="uid://dg4s42vut0rus" path="res://assets/images/background/BottomPatternBG_128x112.png" id="5_oqj4c"]
 [ext_resource type="Texture2D" uid="uid://dtbxjdv0n8cb2" path="res://assets/images/background/PatternMiddleBottomBG_199x48.png" id="6_pbku6"]
 [ext_resource type="Texture2D" uid="uid://b41q3qt7og5h5" path="res://assets/images/background/TopPatternBG_116x67.png" id="7_i3ans"]
 [ext_resource type="Script" uid="uid://chptnk2m0mchi" path="res://scripts/ui/next_piece_container.gd" id="8_oqj4c"]
+[ext_resource type="Script" uid="uid://p87g6jrm61qp" path="res://scripts/safe_area.gd" id="8_pbku6"]
+[ext_resource type="Texture2D" uid="uid://mvtfj57fsmlp" path="res://assets/images/portraits/citizen.png" id="9_oqj4c"]
 [ext_resource type="Script" uid="uid://occ5x85heb6x" path="res://resources/pieces/pawn_rules.gd" id="10_fftnl"]
 [ext_resource type="Resource" uid="uid://cbpgej5m702xt" path="res://resources/maps/map_1.tres" id="11_aq72h"]
 
@@ -38,6 +39,21 @@ bg_color = Color(0.168627, 0.168627, 0.270588, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_oqj4c"]
 font_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3ans"]
+bg_color = Color(0.168627, 0.168627, 0.270588, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.201228, 0.163054, 0.130985, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_size = 1
+shadow_offset = Vector2(0.5, 1)
 
 [sub_resource type="Resource" id="Resource_yvtb5"]
 script = ExtResource("2_yvtb5")
@@ -223,10 +239,10 @@ font_color = Color(0.149475, 0.149475, 0.149475, 1)
 [node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "mult_label", "score_label", "timer_container", "time_left_label", "final_score_label", "animation_player")]
 script = ExtResource("1_yvtb5")
 game_board = NodePath("GameBoard")
-mult_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/MarginContainer/MultLabel")
-score_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/ScoreLabel")
-timer_container = NodePath("CanvasLayer/Control/TimerContainer")
-time_left_label = NodePath("CanvasLayer/Control/TimerContainer/PanelContainer/TimeLeftLabel")
+mult_label = NodePath("CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/MarginContainer/MultLabel")
+score_label = NodePath("CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/ScoreLabel")
+timer_container = NodePath("CanvasLayer/Control/SafeArea/CenterContainer/TimerContainer")
+time_left_label = NodePath("CanvasLayer/Control/SafeArea/CenterContainer/TimerContainer/PanelContainer/TimeLeftLabel")
 final_score_label = NodePath("EndGameOverlay/PanelContainer/FinalScoreLabel")
 animation_player = NodePath("AnimationPlayer")
 
@@ -314,98 +330,31 @@ grow_horizontal = 2
 texture = ExtResource("7_i3ans")
 expand_mode = 1
 
-[node name="PanelContainer" type="Panel" parent="CanvasLayer/Control"]
-visible = false
+[node name="SafeArea" type="MarginContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+script = ExtResource("8_pbku6")
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 50.0
-grow_horizontal = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer"]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-theme_override_constants/margin_top = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="ScoreContainer" type="PanelContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-theme_type_variation = &"ScoreContainer"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="ScoreLabel" type="Label" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer"]
-layout_mode = 2
-text = "Score:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_right = 7
-theme_override_constants/margin_bottom = 3
-
-[node name="MultLabel" type="Label" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-text = "x1"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="NextPieceContainer" type="PanelContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(60, 20)
-layout_mode = 2
-theme_type_variation = &"NextPieceContainer"
-script = ExtResource("8_oqj4c")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/HBoxContainer/NextPieceContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/CenterContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/SafeArea"]
 visible = false
-custom_minimum_size = Vector2(200, 225)
 layout_mode = 2
-texture = ExtResource("4_k7elv")
-expand_mode = 1
 
-[node name="TimerContainer" type="Control" parent="CanvasLayer/Control"]
+[node name="TimerContainer" type="Control" parent="CanvasLayer/Control/SafeArea/CenterContainer"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -80.0
-offset_right = 20.0
-offset_bottom = -40.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/TimerContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/CenterContainer/TimerContainer"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_aq72h")
 
-[node name="TimeLeftLabel" type="Label" parent="CanvasLayer/Control/TimerContainer/PanelContainer"]
+[node name="TimeLeftLabel" type="Label" parent="CanvasLayer/Control/SafeArea/CenterContainer/TimerContainer/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "13"
@@ -413,8 +362,160 @@ label_settings = SubResource("LabelSettings_oqj4c")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SafeArea/CenterContainer"]
+visible = false
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i3ans")
+
+[node name="ScoreContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_type_variation = &"ScoreContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer"]
+layout_mode = 2
+text = "Score:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 3
+
+[node name="MultLabel" type="Label" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer/ScoreContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "x1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="NextPieceContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 2
+theme_type_variation = &"NextPieceContainer"
+script = ExtResource("8_oqj4c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/SafeArea/CenterContainer/MarginContainer/HBoxContainer/NextPieceContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SafeArea"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("9_oqj4c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Control2" type="Control" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+text = "X"
+
+[node name="Control2" type="Control" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
 [node name="GameBoard" parent="." instance=ExtResource("1_qrkc0")]
-position = Vector2(9, 80)
+position = Vector2(9, 120)
 game_config = SubResource("Resource_x0n6o")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

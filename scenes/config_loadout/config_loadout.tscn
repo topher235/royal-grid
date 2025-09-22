@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://hqxsbl1rjplt"]
+[gd_scene load_steps=20 format=3 uid="uid://hqxsbl1rjplt"]
 
 [ext_resource type="Script" uid="uid://crhhlxt1a1ihp" path="res://scripts/config_loadout/config_loadout.gd" id="1_dp540"]
 [ext_resource type="Texture2D" uid="uid://uyo7ktar3opt" path="res://assets/images/background/blackWhite.png" id="1_jwmto"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b41q3qt7og5h5" path="res://assets/images/background/TopPatternBG_116x67.png" id="4_b2pn7"]
 [ext_resource type="Texture2D" uid="uid://cli1bsj5xq4kh" path="res://assets/images/menu/MenusBox_bigbottom_92x34.png" id="5_l0oti"]
 [ext_resource type="Texture2D" uid="uid://40534l65utyo" path="res://assets/images/menu/MenusBox_Quit.png" id="5_u1s1f"]
+[ext_resource type="Script" uid="uid://p87g6jrm61qp" path="res://scripts/safe_area.gd" id="6_a8dex"]
 [ext_resource type="Texture2D" uid="uid://cpumw0vdkqqu6" path="res://assets/images/menu/MenusBox_bigbottom_92x35.png" id="6_b2pn7"]
 [ext_resource type="PackedScene" uid="uid://q5pyrxh4usoc" path="res://scenes/currency/gem_bar.tscn" id="6_y2hp7"]
 [ext_resource type="PackedScene" uid="uid://cf2611epmyxmk" path="res://scenes/currency/coin_bar.tscn" id="7_0q2qy"]
@@ -41,12 +42,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dp540")
-back_button = NodePath("VBoxContainer/MarginContainer/HBoxContainer/BackButtonTexture")
-character_selector = NodePath("VBoxContainer/CharacterSelector")
-map_selector = NodePath("VBoxContainer/MapCosmeticSelectorSection/MapSelector")
-cosmetic_selector = NodePath("VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector")
-rush_button = NodePath("VBoxContainer/HBoxContainer3/PlayRushButton")
-classic_button = NodePath("VBoxContainer/HBoxContainer3/PlayClassicButton")
+back_button = NodePath("SafeArea/VBoxContainer/MarginContainer/HBoxContainer/BackButtonTexture")
+character_selector = NodePath("SafeArea/VBoxContainer/CharacterSelector")
+map_selector = NodePath("SafeArea/VBoxContainer/MapCosmeticSelectorSection/MapSelector")
+cosmetic_selector = NodePath("SafeArea/VBoxContainer/MapCosmeticSelectorSection/CosmeticSelector")
+rush_button = NodePath("SafeArea/VBoxContainer/HBoxContainer3/PlayRushButton")
+classic_button = NodePath("SafeArea/VBoxContainer/HBoxContainer3/PlayClassicButton")
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -121,25 +122,29 @@ grow_horizontal = 2
 texture = ExtResource("4_b2pn7")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="SafeArea" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("6_a8dex")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="BackButtonTexture" type="TextureButton" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="BackButtonTexture" type="TextureButton" parent="SafeArea/VBoxContainer/MarginContainer/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
@@ -148,47 +153,49 @@ texture_normal = ExtResource("5_u1s1f")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="GemBar" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("6_y2hp7")]
+[node name="GemBar" parent="SafeArea/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("6_y2hp7")]
 layout_mode = 2
 
-[node name="Spacing" type="Control" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Spacing" type="Control" parent="SafeArea/VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="CoinBar" parent="VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_0q2qy")]
+[node name="CoinBar" parent="SafeArea/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_0q2qy")]
 layout_mode = 2
 
-[node name="Spacing" type="Control" parent="VBoxContainer"]
+[node name="Spacing" type="Control" parent="SafeArea/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="CharacterSelector" parent="VBoxContainer" instance=ExtResource("8_0q2qy")]
+[node name="CharacterSelector" parent="SafeArea/VBoxContainer" instance=ExtResource("8_0q2qy")]
 layout_mode = 2
 
-[node name="Spacing2" type="Control" parent="VBoxContainer"]
+[node name="Spacing2" type="Control" parent="SafeArea/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="MapCosmeticSelectorSection" type="HBoxContainer" parent="VBoxContainer"]
+[node name="MapCosmeticSelectorSection" type="HBoxContainer" parent="SafeArea/VBoxContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="MapSelector" parent="VBoxContainer/MapCosmeticSelectorSection" instance=ExtResource("9_dp540")]
+[node name="MapSelector" parent="SafeArea/VBoxContainer/MapCosmeticSelectorSection" instance=ExtResource("9_dp540")]
 layout_mode = 2
 
-[node name="CosmeticSelector" parent="VBoxContainer/MapCosmeticSelectorSection" instance=ExtResource("10_a8dex")]
+[node name="CosmeticSelector" parent="SafeArea/VBoxContainer/MapCosmeticSelectorSection" instance=ExtResource("10_a8dex")]
 layout_mode = 2
 
-[node name="Spacing3" type="Control" parent="VBoxContainer"]
+[node name="Spacing3" type="Control" parent="SafeArea/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="SafeArea/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="PlayRushButton" type="TextureButton" parent="VBoxContainer/HBoxContainer3"]
+[node name="PlayRushButton" type="TextureButton" parent="SafeArea/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(80, 32)
 layout_mode = 2
 texture_normal = ExtResource("5_l0oti")
@@ -196,7 +203,7 @@ texture_pressed = ExtResource("6_b2pn7")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="DropShadowLabel" parent="VBoxContainer/HBoxContainer3/PlayRushButton" instance=ExtResource("7_b2pn7")]
+[node name="DropShadowLabel" parent="SafeArea/VBoxContainer/HBoxContainer3/PlayRushButton" instance=ExtResource("7_b2pn7")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -207,7 +214,7 @@ text = "LOADOUT_RUSH_MODE"
 label_settings = SubResource("LabelSettings_u1s1f")
 shadow_offset = Vector2(1, 1.25)
 
-[node name="PlayClassicButton" type="TextureButton" parent="VBoxContainer/HBoxContainer3"]
+[node name="PlayClassicButton" type="TextureButton" parent="SafeArea/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(80, 32)
 layout_mode = 2
 texture_normal = ExtResource("5_l0oti")
@@ -215,7 +222,7 @@ texture_pressed = ExtResource("6_b2pn7")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="DropShadowLabel" parent="VBoxContainer/HBoxContainer3/PlayClassicButton" instance=ExtResource("7_b2pn7")]
+[node name="DropShadowLabel" parent="SafeArea/VBoxContainer/HBoxContainer3/PlayClassicButton" instance=ExtResource("7_b2pn7")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -226,6 +233,11 @@ text = "LOADOUT_CLASSIC_MODE"
 label_settings = SubResource("LabelSettings_7ybim")
 shadow_offset = Vector2(1, 1.25)
 
-[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/BackButtonTexture" to="." method="_on_back_button_texture_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer3/PlayRushButton" to="." method="_on_play_rush_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer3/PlayClassicButton" to="." method="_on_play_classic_button_pressed"]
+[node name="Spacing4" type="Control" parent="SafeArea/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="SafeArea/VBoxContainer/MarginContainer/HBoxContainer/BackButtonTexture" to="." method="_on_back_button_texture_pressed"]
+[connection signal="pressed" from="SafeArea/VBoxContainer/HBoxContainer3/PlayRushButton" to="." method="_on_play_rush_button_pressed"]
+[connection signal="pressed" from="SafeArea/VBoxContainer/HBoxContainer3/PlayClassicButton" to="." method="_on_play_classic_button_pressed"]

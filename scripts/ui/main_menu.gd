@@ -110,7 +110,6 @@ func _instantiate_modal(modal_type: String):
     if scene and animation_name:
         modal_container.add_child.call_deferred(scene)
         animate_modal_open.call_deferred(scene, animation_name)
-    
 
         
 func animate_modal_open(scene: Node, animation_name: String) -> void:

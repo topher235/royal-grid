@@ -26,6 +26,11 @@ Log="*res://autoloads/log.gd"
 SaveManager="*res://autoloads/save_manager.gd"
 UserConfig="*res://autoloads/user_config.gd"
 
+[debug]
+
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/size/viewport_width=180
