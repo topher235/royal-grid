@@ -4,6 +4,7 @@ signal scene_changed(to_path: String)
 
 @export var game_board: ChessBoard
 @export var animation_player: AnimationPlayer
+@export var end_game_overlay: EndGameOverlay
 @export var pause_modal: PauseModal
 
 @export_group("Scoring")
@@ -154,6 +155,12 @@ func _on_pause_menu_closed() -> void:
 func _on_game_exit_requested() -> void:
     game_board.save_active_game()
     scene_changed.emit("res://scenes/ui/main_menu.tscn")
+
+    
+func calculate_coins() -> void:
+    var coins := CoinCalculator.calculate(current_score)
+    end_game_overlay.coins = coins
+    end_game_overlay.animate_coins()
 
 
 func get_scene_data() -> Dictionary:

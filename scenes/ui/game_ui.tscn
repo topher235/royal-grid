@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://j2grci2ratew"]
+[gd_scene load_steps=42 format=3 uid="uid://j2grci2ratew"]
 
 [ext_resource type="PackedScene" uid="uid://be5nrbdyw7jo3" path="res://scenes/board/game_board.tscn" id="1_qrkc0"]
 [ext_resource type="Script" uid="uid://ckd1v14s6ohpj" path="res://scripts/ui/game_ui.gd" id="1_yvtb5"]
@@ -20,6 +20,7 @@
 [ext_resource type="Resource" uid="uid://cbpgej5m702xt" path="res://resources/maps/map_1.tres" id="11_aq72h"]
 [ext_resource type="Texture2D" uid="uid://onjhgm1e5mgb" path="res://assets/images/menu/pause-button.png" id="11_i3ans"]
 [ext_resource type="PackedScene" uid="uid://d0lc24gk385i3" path="res://scenes/pause/pause_modal.tscn" id="20_84uof"]
+[ext_resource type="Script" uid="uid://jm0eldicawk" path="res://scripts/ui/end_game_overlay.gd" id="20_cyqav"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qrkc0"]
 texture = ExtResource("2_k7elv")
@@ -207,11 +208,11 @@ tracks/4/path = NodePath(".")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.266667),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"p_go"
+"method": &"calculate_coins"
 }]
 }
 tracks/5/type = "value"
@@ -243,10 +244,14 @@ bg_color = Color(0.181798, 0.181798, 0.181798, 1)
 font_size = 12
 font_color = Color(0.149475, 0.149475, 0.149475, 1)
 
-[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "animation_player", "pause_modal", "points_label", "mult_label", "score_label", "final_score_label", "timer_container", "time_left_label")]
+[sub_resource type="LabelSettings" id="LabelSettings_plh64"]
+font_color = Color(0.168627, 0.168627, 0.270588, 1)
+
+[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "animation_player", "end_game_overlay", "pause_modal", "points_label", "mult_label", "score_label", "final_score_label", "timer_container", "time_left_label")]
 script = ExtResource("1_yvtb5")
 game_board = NodePath("GameBoard")
 animation_player = NodePath("AnimationPlayer")
+end_game_overlay = NodePath("EndGameOverlay")
 pause_modal = NodePath("PauseModal")
 points_label = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/PointsPanelContainer/MarginContainer/PointsLabel")
 mult_label = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/MultPanelContainer/MarginContainer/MultLabel")
@@ -517,7 +522,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_i3ans")
 }
 
-[node name="EndGameOverlay" type="Control" parent="."]
+[node name="EndGameOverlay" type="Control" parent="." node_paths=PackedStringArray("coins_label")]
 visible = false
 modulate = Color(1, 1, 1, 0)
 z_index = 15
@@ -532,6 +537,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("20_cyqav")
+coins_label = NodePath("PanelContainer/HBoxContainer/CoinsLabel")
 
 [node name="Panel" type="Panel" parent="EndGameOverlay"]
 layout_mode = 1
@@ -580,6 +587,23 @@ size_flags_vertical = 8
 text = "Final Score: "
 label_settings = SubResource("LabelSettings_pbku6")
 horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EndGameOverlay/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="CoinsLabel" type="Label" parent="EndGameOverlay/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "0"
+label_settings = SubResource("LabelSettings_plh64")
+
+[node name="TextureRect" type="TextureRect" parent="EndGameOverlay/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_5bpyr")
+stretch_mode = 5
 
 [node name="PauseModal" parent="." instance=ExtResource("20_84uof")]
 visible = false
