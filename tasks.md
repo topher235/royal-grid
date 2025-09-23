@@ -2,7 +2,7 @@
 
 ## To MVP
 
-- [ ] Add SafeArea margins
+- [X] Add SafeArea margins
 - [X] Implement **Settings** modal
   - [X] User can enable/disable sound & music
   - [X] Modal is opened from Main Menu
@@ -47,7 +47,8 @@
   - [ ] Add Character portrait
   - [ ] Add modal for game over
   - [ ] Add pause menu
-    - [ ] Ensure RUSH mode pauses its spawning when the pause menu is opened
+    - [X] Ensure RUSH mode pauses its spawning when the pause menu is opened
+  - [X] Add animation counting points down to 0 and score up to the current score 
 - [ ] Stats modal
   - [X] Display player stats
   - [X] When closed, play reverse animation
@@ -59,6 +60,9 @@
   - [X] Player can select language from settings menu
   - [ ] Test string length to ensure characters don't overflow their container
 
+## Bugs
+
+- [ ] Tiles should not be clickable once game is over
 
 ## Later
 

@@ -92,9 +92,13 @@ func _on_piece_captured(piece_used: ChessPiece, piece_captured: ChessPiece) -> v
 
 
 func score_points(points: int) -> void:
-    score += calculate_points(points)
+    var calculated_points := calculate_points(points)
+    score += calculated_points
     if current_game_stats:
         current_game_stats.update_score(score)
+    # 1 event for the ui to know how many points were scored in this move
+    Events.points_scored.emit(points)
+    # 1 event for the ui to know what the actual score is, including mult
     Events.score_updated.emit(score)
 
 
@@ -187,6 +191,9 @@ func end_game() -> void:
     # like stopping timers
     piece_spawner.end_game()
     
+    if timer:
+        timer.stop()
+    
     SaveManager.clear_active_game()
     var player_stats = SaveManager.retrieve_stats()
     # Merge long-term stats with this game's stats
@@ -208,3 +215,15 @@ func set_next_pieces(spawn_data: Array[PieceSpawnData]) -> void:
 func autosave() -> void:
     var active_game = chess_board.get_game_state()
     SaveManager.update_active_game(active_game)
+    
+    
+func pause() -> void:
+    if timer:
+        timer.set_paused(true)
+    piece_spawner.pause()
+
+    
+func unpause() -> void:
+    if timer:
+        timer.set_paused(false)
+    piece_spawner.unpause()

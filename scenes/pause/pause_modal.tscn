@@ -1,0 +1,296 @@
+[gd_scene load_steps=13 format=3 uid="uid://d0lc24gk385i3"]
+
+[ext_resource type="FontFile" uid="uid://rlkmcklv0vdq" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_j77u4"]
+[ext_resource type="Script" uid="uid://b63o78jv8x068" path="res://scripts/pause/pause_modal.gd" id="1_wimji"]
+[ext_resource type="Texture2D" uid="uid://bbb3laai8xdk4" path="res://assets/images/borders/white-separator-1.png" id="2_wimji"]
+[ext_resource type="Texture2D" uid="uid://8ehx7054vb3o" path="res://assets/images/borders/white-separator-2.png" id="3_70wm8"]
+[ext_resource type="Texture2D" uid="uid://ojedi507cty4" path="res://assets/images/borders/art-deco-white-1.png" id="4_yuu5v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1m4u6"]
+bg_color = Color(0.227451, 0.247059, 0.368627, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_xi8j0"]
+font = ExtResource("1_j77u4")
+
+[sub_resource type="LabelSettings" id="LabelSettings_pabmf"]
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_n6hqd"]
+font_size = 8
+
+[sub_resource type="Animation" id="Animation_e4nlu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer:pivot_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(90, 160)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/Panel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/Panel/MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wi6ey"]
+resource_name = "open"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer:pivot_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(90, 160)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0.1, 0.1), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/Panel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0659355),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/Panel/MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0659355, 0.133686),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1lyqu"]
+_data = {
+&"RESET": SubResource("Animation_e4nlu"),
+&"open": SubResource("Animation_wi6ey")
+}
+
+[node name="PauseModal" type="Control" node_paths=PackedStringArray("sound_toggle", "music_toggle", "animation_player")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wimji")
+sound_toggle = NodePath("CenterContainer/Panel/MarginContainer/VBoxContainer/SoundToggleContainer/SoundToggleButton")
+music_toggle = NodePath("CenterContainer/Panel/MarginContainer/VBoxContainer/MusicToggleContainer/MusicToggleButton")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0.607843)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"ModalBackground"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(90, 160)
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(128, 220)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1m4u6")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PAUSE_MODAL_TITLE"
+label_settings = SubResource("LabelSettings_xi8j0")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Spacing" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(80, 8)
+layout_mode = 2
+texture = ExtResource("2_wimji")
+expand_mode = 1
+
+[node name="Spacing2" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="SoundToggleContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/SoundToggleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_MODAL_SOUND"
+label_settings = SubResource("LabelSettings_pabmf")
+autowrap_mode = 2
+
+[node name="SoundToggleButton" type="CheckButton" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/SoundToggleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+icon_alignment = 2
+
+[node name="MusicToggleContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/MusicToggleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_MODAL_MUSIC"
+label_settings = SubResource("LabelSettings_n6hqd")
+autowrap_mode = 2
+
+[node name="MusicToggleButton" type="CheckButton" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/MusicToggleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacing3" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/CenterContainer2"]
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 2
+texture = ExtResource("3_70wm8")
+expand_mode = 1
+
+[node name="Spacing4" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "EXIT"
+
+[node name="Spacing5" type="Control" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CloseButton2" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "CLOSE"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 240)
+layout_mode = 2
+texture = ExtResource("4_yuu5v")
+region_rect = Rect2(0, 0, 166, 168)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 34
+patch_margin_bottom = 32
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1lyqu")
+}
+
+[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_exit_game_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/VBoxContainer/CloseButton2" to="." method="_on_close_button_pressed"]

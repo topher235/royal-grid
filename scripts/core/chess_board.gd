@@ -561,3 +561,15 @@ func rotate_position(pos: Vector2i, direction: RotateSpecialEffect.RotationDirec
     
 func _on_piece_spawner_game_over() -> void:
     game_manager.end_game()
+
+    
+func pause() -> void:
+    game_manager.pause()
+    
+    
+func unpause() -> void:
+    game_manager.unpause()
+    
+    
+func save_active_game() -> void:
+    game_manager.autosave()

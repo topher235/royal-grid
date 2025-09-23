@@ -278,3 +278,13 @@ func end_turn(did_capture: bool) -> void:
 func end_game() -> void:
     if timer:
         timer.stop()
+
+        
+func pause() -> void:
+    if timer:
+        timer.set_paused(true)
+
+        
+func unpause() -> void:
+    if timer:
+        timer.set_paused(false)

@@ -3,16 +3,22 @@ class_name GameUI extends Node2D
 signal scene_changed(to_path: String)
 
 @export var game_board: ChessBoard
+@export var animation_player: AnimationPlayer
+@export var pause_modal: PauseModal
+
+@export_group("Scoring")
+@export var points_label: Label
 @export var mult_label: Label
 @export var score_label: Label
-@export var background_sprite: TextureRect
+@export var final_score_label: Label
+
+@export_group("Time Remaining")
 @export var timer_container: Control
 @export var time_left_label: Label
-@export var final_score_label: Label
-@export var animation_player: AnimationPlayer
 
 var score_tween: Tween
 var score_queue: Array[int]
+var old_score := 0
 var current_score := 0
 var current_mult := 1
 var game_config: GameConfig
@@ -23,6 +29,7 @@ func _ready() -> void:
     score_label.text = "" + str(current_score)
     mult_label.text = "x" + str(current_mult)
 
+    Events.points_scored.connect(_on_points_scored)
     Events.score_updated.connect(_on_score_updated)
     Events.mult_updated.connect(_on_mult_updated)
     if game_config and game_config.use_chess_timer:
@@ -51,19 +58,6 @@ func load_game_state() -> void:
         Log.info(self, "Starting new game")
         if game_board:
             game_board.load_new_game()
-    
-    load_map_background()
-
-
-func load_map_background() -> void:
-    """
-    Load the background sprite from the current map.
-    """
-    if game_board and game_board.game_config and game_board.game_config.map:
-        var map = game_board.game_config.map
-        if map.background_sprite and background_sprite:
-            background_sprite.texture = map.background_sprite
-            Log.info(self, "Loaded background for map: " + map.map_name)
 
 
 func save_current_game() -> void:
@@ -81,59 +75,85 @@ func _on_game_over(final_score: int) -> void:
     Called when the game ends. Clears the active game and updates stats.
     """
     final_score_label.text = final_score_label.text + str(final_score)
-    Log.info(self, final_score_label.text)
     animation_player.play("game_over")
-    Log.info(self, "playing animation")
 
-func p_go():
-    Log.info(self, "game over func")
+    
+func _on_points_scored(points: int) -> void:
+    # These are points, sans multiplier
+    points_label.text = str(points)
+    get_tree().create_timer(1).timeout.connect(
+        animate_counting_label.bind(points_label, points, 0)
+    )
 
 
 func _on_score_updated(new_score: int) -> void:
-    score_queue.append(new_score)
-    update_score_label()
+    # This is the new, final score, if the game were to end
+    old_score = current_score
+    current_score = new_score
+    get_tree().create_timer(1).timeout.connect(
+        animate_counting_label.bind(score_label, old_score, current_score)
+    )
 
 
 func _on_mult_updated(new_mult: int) -> void:
     current_mult = new_mult
-    mult_label.text = "x" + str(current_mult)
+    mult_label.text = str(current_mult)
 
-
-func update_score_label() -> void:
-    if score_queue.is_empty():
-        return
     
-    if score_tween and score_tween.is_running():
-        await score_tween.finished
+func animate_counting_label(label: Label, from_num: int, to_num: int) -> void:
+    """
+    Utility function for animating a counting label. A "counting" label is one that rapidly increments its
+    text from 1 number to another.
     
-    var target_score = score_queue.pop_front()
-    if target_score <= current_score:
-        current_score = target_score
-        score_label.text = "" + str(current_score)
-        return
-    
-    score_tween = create_tween()
-    
-    var steps = target_score - current_score
+    Could be improved with a class-scoped tween, so we can have more control over the animations. For example,
+    if a player scores more points while the label is counting, we might end up with 2 tweens affecting the
+    same node.
+    """
+    # Determine whether we are counting up or down
+    var greater := maxi(from_num, to_num)
+    var lesser := mini(from_num, to_num)
+    var increment_direction := 1 if to_num - from_num >= 0 else -1
+    # Configure the tween
+    var tween: Tween = create_tween()
+    var steps := greater - lesser
     var total_time := 0.3
-    var step_delay := float(total_time / steps)  # 0.1
+    var step_delay := float(total_time / steps)
     var min_pitch := 0.9
     var max_pitch := 1.1
+    var current_num := from_num
     for i in range(1, steps + 1):
-        score_tween.parallel().tween_callback(
+        # we have to increment the current_num outside of the tween callback, otherwise
+        # it will have a snapshot of what it was, and it will only increment 1x
+        current_num += increment_direction
+        tween.parallel().tween_callback(
             func():
-                current_score += 1
                 var pitch := min_pitch + (randf() * (max_pitch - min_pitch))
                 SoundManager.play_ui_sound_with_pitch(Sounds.TYPING, pitch)
-                score_label.text = "" + str(current_score)
-        ).set_delay((step_delay * i))
-
-    await score_tween.finished
-    current_score = target_score
+                label.text = "" + str(current_num)
+        ).set_delay(step_delay * i)
 
     
 func _on_chess_timer_updated(time_left: int) -> void:
     time_left_label.text = str(time_left)
+
+    
+func _on_pause_button_pressed() -> void:
+    pause_modal.visible = true
+    pause_modal.open()
+    game_board.pause()
+    pause_modal.closed.connect(_on_pause_menu_closed, CONNECT_ONE_SHOT)
+    if not pause_modal.game_exit_requested.is_connected(_on_game_exit_requested):
+        pause_modal.game_exit_requested.connect(_on_game_exit_requested)
+
+        
+func _on_pause_menu_closed() -> void:
+    pause_modal.visible = false
+    game_board.unpause()
+
+        
+func _on_game_exit_requested() -> void:
+    game_board.save_active_game()
+    scene_changed.emit("res://scenes/ui/main_menu.tscn")
 
 
 func get_scene_data() -> Dictionary:
