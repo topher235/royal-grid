@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://j2grci2ratew"]
+[gd_scene load_steps=44 format=3 uid="uid://j2grci2ratew"]
 
 [ext_resource type="PackedScene" uid="uid://be5nrbdyw7jo3" path="res://scenes/board/game_board.tscn" id="1_qrkc0"]
 [ext_resource type="Script" uid="uid://ckd1v14s6ohpj" path="res://scripts/ui/game_ui.gd" id="1_yvtb5"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://chptnk2m0mchi" path="res://scripts/ui/next_piece_container.gd" id="8_oqj4c"]
 [ext_resource type="Script" uid="uid://p87g6jrm61qp" path="res://scripts/safe_area.gd" id="8_pbku6"]
 [ext_resource type="Texture2D" uid="uid://mvtfj57fsmlp" path="res://assets/images/portraits/citizen.png" id="9_oqj4c"]
+[ext_resource type="Texture2D" uid="uid://bpyc24vxoemqt" path="res://assets/images/hourglass.png" id="10_baxkn"]
 [ext_resource type="Script" uid="uid://occ5x85heb6x" path="res://resources/pieces/pawn_rules.gd" id="10_fftnl"]
 [ext_resource type="Texture2D" uid="uid://dmq0ppeujigb8" path="res://assets/images/menu/CoinIcon_16x18.png" id="11_5bpyr"]
 [ext_resource type="Resource" uid="uid://cbpgej5m702xt" path="res://resources/maps/map_1.tres" id="11_aq72h"]
@@ -37,6 +38,19 @@ NextPieceContainer/styles/panel = SubResource("StyleBoxTexture_qrkc0")
 Panel/styles/panel = SubResource("StyleBoxFlat_5bpyr")
 ScoreContainer/base_type = &"PanelContainer"
 ScoreContainer/styles/panel = SubResource("StyleBoxTexture_v1bdg")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cyqav"]
+bg_color = Color(0.815686, 0.74902, 0.694118, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.168627, 0.168627, 0.270588, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_84uof"]
 font_size = 8
@@ -247,7 +261,7 @@ font_color = Color(0.149475, 0.149475, 0.149475, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_plh64"]
 font_color = Color(0.168627, 0.168627, 0.270588, 1)
 
-[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "animation_player", "end_game_overlay", "pause_modal", "points_label", "mult_label", "score_label", "final_score_label", "timer_container", "time_left_label")]
+[node name="GameUi" type="Node2D" node_paths=PackedStringArray("game_board", "animation_player", "end_game_overlay", "pause_modal", "points_label", "mult_label", "score_label", "final_score_label", "timer_container", "time_left_label", "hourglass_sprite")]
 script = ExtResource("1_yvtb5")
 game_board = NodePath("GameBoard")
 animation_player = NodePath("AnimationPlayer")
@@ -259,6 +273,7 @@ score_label = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContain
 final_score_label = NodePath("EndGameOverlay/PanelContainer/FinalScoreLabel")
 timer_container = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer")
 time_left_label = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/TimeRemainingLabel")
+hourglass_sprite = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/Control/Marker2D/TextureRect")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -385,6 +400,7 @@ stretch_mode = 5
 [node name="TimerPanelContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cyqav")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer"]
 layout_mode = 2
@@ -403,10 +419,20 @@ label_settings = SubResource("LabelSettings_84uof")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(15, 0)
+[node name="Control" type="Control" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("11_5bpyr")
+size_flags_horizontal = 3
+
+[node name="Marker2D" type="Marker2D" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/Control"]
+position = Vector2(7, 8)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/Control/Marker2D"]
+custom_minimum_size = Vector2(15, 0)
+offset_left = -7.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("10_baxkn")
 expand_mode = 1
 stretch_mode = 5
 

@@ -16,6 +16,7 @@ signal scene_changed(to_path: String)
 @export_group("Time Remaining")
 @export var timer_container: Control
 @export var time_left_label: Label
+@export var hourglass_sprite: TextureRect
 
 var score_tween: Tween
 var score_queue: Array[int]
@@ -35,6 +36,15 @@ func _ready() -> void:
     Events.mult_updated.connect(_on_mult_updated)
     if game_config and game_config.use_chess_timer:
         Events.chess_timer_updated.connect(_on_chess_timer_updated)
+        # Animating the hourglass rotating in a circle
+        var hourglass_tween: Tween = hourglass_sprite.create_tween()
+        hourglass_tween.set_loops()
+        hourglass_tween.tween_callback(
+            func():
+                var marker: Marker2D = hourglass_sprite.get_parent()
+                var old_rotation := marker.rotation_degrees
+                marker.rotation_degrees = wrapi(old_rotation + 45, 0, 360)
+        ).set_delay(0.75)
     else:
         timer_container.hide()
 
