@@ -1,5 +1,6 @@
 class_name GameUI extends Node2D
 
+signal loaded
 signal scene_changed(to_path: String)
 
 @export var game_board: ChessBoard
@@ -31,6 +32,7 @@ var is_game_over := false
 func _ready() -> void:
     score_label.text = "" + str(current_score)
     mult_label.text = "x" + str(current_mult)
+    points_label.text = "0"
 
     Events.points_scored.connect(_on_points_scored)
     Events.score_updated.connect(_on_score_updated)
@@ -185,3 +187,4 @@ func get_scene_data() -> Dictionary:
 func set_scene_data(value: Dictionary):
     game_config = value["game_config"]
     continue_game = value.get("continue", false)
+    loaded.emit()

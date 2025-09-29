@@ -1,5 +1,6 @@
 extends Control
 
+signal loaded
 signal scene_changed(to_path: String)
 
 @export var back_button: TextureButton
@@ -52,5 +53,6 @@ func get_scene_data() -> Dictionary:
     
     
 func set_scene_data(value: Dictionary) -> void:
+    loaded.emit()
     pass
     

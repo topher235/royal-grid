@@ -1,5 +1,6 @@
 class_name MainMenu extends Control
 
+signal loaded
 signal scene_changed(to_path: String)
 
 const SETTINGS_SCENE = preload("res://scenes/settings/settings_modal.tscn")
@@ -127,4 +128,5 @@ func get_scene_data() -> Dictionary:
 
 
 func set_scene_data(value: Dictionary):
+    loaded.emit()
     pass

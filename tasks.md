@@ -9,6 +9,8 @@
   - [X] When closed, the reverse animation plays
 - [X] Implement **Shop** modal
   - [X] Says "Under Construction"
+- [ ] Transitions
+  - [ ] Scene transition, checkerboard swipe
 - [ ] Main Menu
   - [X] Add sounds to button clicks
   - [X] Add move sound to chess piece animation
@@ -21,6 +23,7 @@
     - [ ] Give player options to unlock at this screen
   - [X] Add animation to carousel movement
   - [ ] Add sound to button clicks
+  - [ ] Add sound to carousel movement
   - [X] Connect Rush/Classic buttons to the Game scene with the options set in the GameConfig
   - [X] Extract currency bars into separate scene
   - [X] Load currency into UI from save file
@@ -40,6 +43,7 @@
     - [X] Change effect/piece spawn weights based on number of moves
   - [X] Change RUSH mode to use a chess timer and make a character that spawns on a timer
   - [ ] Award coins based on score
+  - [ ] Add coin effect - appears on the board like a normal effect but gives coins at game end
 - [ ] Game Level UI
   - [X] Re-design tiles to use the new isometric art
   - [X] Add shadow to tile scene for 3d effect

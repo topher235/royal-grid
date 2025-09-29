@@ -672,7 +672,7 @@ theme_override_constants/separation = 0
 [node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/PlayButton/HBoxContainer"]
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VBoxContainer/HBoxContainer/PlayButton/HBoxContainer"]
 z_index = 1
@@ -685,6 +685,7 @@ frame_progress = 0.949096
 [node name="Control3" type="Control" parent="VBoxContainer/HBoxContainer/PlayButton/HBoxContainer"]
 custom_minimum_size = Vector2(11, 30)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/PlayButton/HBoxContainer/Control3"]
 layout_mode = 2
@@ -693,13 +694,14 @@ offset_right = 11.0
 offset_bottom = 29.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("12_otr3d")
 expand_mode = 1
 
 [node name="Control2" type="Control" parent="VBoxContainer/HBoxContainer/PlayButton/HBoxContainer"]
 custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PlayButton/HBoxContainer"]
 texture_filter = 1
