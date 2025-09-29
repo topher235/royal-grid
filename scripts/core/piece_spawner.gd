@@ -103,7 +103,7 @@ func spawn_next_piece(did_capture: bool, override: bool = false) -> void:
     # generate new upcoming pieces
     # TODO: replace with a better equation
     var num_to_generate := 1
-    if num_moves > 20:
+    if num_moves > 0:
         num_to_generate = 2 if num_moves % 2 == 0 else 1
     for i in range(num_to_generate):
         var upcoming_piece = create_random_piece_data(Vector2i(0, 0))

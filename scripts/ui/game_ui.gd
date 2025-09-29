@@ -25,6 +25,7 @@ var current_score := 0
 var current_mult := 1
 var game_config: GameConfig
 var continue_game := false
+var is_game_over := false
 
 
 func _ready() -> void:
@@ -42,8 +43,11 @@ func _ready() -> void:
         hourglass_tween.tween_callback(
             func():
                 var marker: Marker2D = hourglass_sprite.get_parent()
-                var old_rotation := marker.rotation_degrees
-                marker.rotation_degrees = wrapi(old_rotation + 45, 0, 360)
+                if is_game_over:
+                    marker.rotation_degrees = 0
+                else:
+                    var old_rotation := marker.rotation_degrees
+                    marker.rotation_degrees = wrapi(old_rotation + 45, 0, 360)
         ).set_delay(0.75)
     else:
         timer_container.hide()
@@ -87,12 +91,13 @@ func _on_game_over(final_score: int) -> void:
     """
     final_score_label.text = final_score_label.text + str(final_score)
     animation_player.play("game_over")
+    is_game_over = true
 
     
 func _on_points_scored(points: int) -> void:
     # These are points, sans multiplier
     points_label.text = str(points)
-    get_tree().create_timer(1).timeout.connect(
+    get_tree().create_timer(0.5).timeout.connect(
         animate_counting_label.bind(points_label, points, 0)
     )
 
@@ -101,7 +106,7 @@ func _on_score_updated(new_score: int) -> void:
     # This is the new, final score, if the game were to end
     old_score = current_score
     current_score = new_score
-    get_tree().create_timer(1).timeout.connect(
+    get_tree().create_timer(0.5).timeout.connect(
         animate_counting_label.bind(score_label, old_score, current_score)
     )
 

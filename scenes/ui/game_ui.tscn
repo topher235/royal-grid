@@ -1,9 +1,7 @@
-[gd_scene load_steps=44 format=3 uid="uid://j2grci2ratew"]
+[gd_scene load_steps=42 format=3 uid="uid://j2grci2ratew"]
 
 [ext_resource type="PackedScene" uid="uid://be5nrbdyw7jo3" path="res://scenes/board/game_board.tscn" id="1_qrkc0"]
 [ext_resource type="Script" uid="uid://ckd1v14s6ohpj" path="res://scripts/ui/game_ui.gd" id="1_yvtb5"]
-[ext_resource type="Texture2D" uid="uid://b08r1354feymn" path="res://assets/images/ui_components/button/btn_1_full.png" id="2_k7elv"]
-[ext_resource type="Texture2D" uid="uid://dmee0ai3x6ayn" path="res://assets/images/ui_components/button/btn_4_full.png" id="2_qrkc0"]
 [ext_resource type="Script" uid="uid://bhdb5h87dcags" path="res://resources/game_rules.gd" id="2_yvtb5"]
 [ext_resource type="Script" uid="uid://comwnq0c27il5" path="res://resources/piece_spawn_rules.gd" id="3_k7elv"]
 [ext_resource type="Texture2D" uid="uid://uyo7ktar3opt" path="res://assets/images/background/blackWhite.png" id="4_aq72h"]
@@ -23,24 +21,47 @@
 [ext_resource type="PackedScene" uid="uid://d0lc24gk385i3" path="res://scenes/pause/pause_modal.tscn" id="20_84uof"]
 [ext_resource type="Script" uid="uid://jm0eldicawk" path="res://scripts/ui/end_game_overlay.gd" id="20_cyqav"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qrkc0"]
-texture = ExtResource("2_k7elv")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_baxkn"]
+bg_color = Color(0.231373, 0.290196, 0.396078, 0.54902)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.168627, 0.168627, 0.270588, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5bpyr"]
 bg_color = Color(0.815686, 0.74902, 0.694118, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v1bdg"]
-texture = ExtResource("2_qrkc0")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_84uof"]
+bg_color = Color(0.231373, 0.290196, 0.396078, 0.619608)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.168627, 0.168627, 0.270588, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 1
 
 [sub_resource type="Theme" id="Theme_qrkc0"]
 NextPieceContainer/base_type = &"PanelContainer"
-NextPieceContainer/styles/panel = SubResource("StyleBoxTexture_qrkc0")
+NextPieceContainer/styles/panel = SubResource("StyleBoxFlat_baxkn")
 Panel/styles/panel = SubResource("StyleBoxFlat_5bpyr")
 ScoreContainer/base_type = &"PanelContainer"
-ScoreContainer/styles/panel = SubResource("StyleBoxTexture_v1bdg")
+ScoreContainer/styles/panel = SubResource("StyleBoxFlat_84uof")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cyqav"]
 bg_color = Color(0.815686, 0.74902, 0.694118, 1)
+draw_center = false
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -273,7 +294,7 @@ score_label = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContain
 final_score_label = NodePath("EndGameOverlay/PanelContainer/FinalScoreLabel")
 timer_container = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer")
 time_left_label = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/TimeRemainingLabel")
-hourglass_sprite = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/Control/Marker2D/TextureRect")
+hourglass_sprite = NodePath("CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/HourglassContainer/Marker2D/HourglassSprite")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -419,14 +440,14 @@ label_settings = SubResource("LabelSettings_84uof")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer"]
+[node name="HourglassContainer" type="Control" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Marker2D" type="Marker2D" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/Control"]
+[node name="Marker2D" type="Marker2D" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/HourglassContainer"]
 position = Vector2(7, 8)
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/Control/Marker2D"]
+[node name="HourglassSprite" type="TextureRect" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TimerPanelContainer/MarginContainer/HBoxContainer/HourglassContainer/Marker2D"]
 custom_minimum_size = Vector2(15, 0)
 offset_left = -7.0
 offset_top = -8.0
@@ -451,6 +472,7 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"ScoreContainer"
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/ScorePanelContainer"]
 layout_mode = 2
@@ -486,6 +508,7 @@ theme_override_constants/separation = 0
 [node name="PointsPanelContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+theme_type_variation = &"ScoreContainer"
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/PointsPanelContainer"]
 layout_mode = 2
@@ -517,6 +540,7 @@ size_flags_horizontal = 3
 [node name="MultPanelContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+theme_type_variation = &"ScoreContainer"
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/MultPanelContainer"]
 layout_mode = 2
@@ -534,6 +558,7 @@ vertical_alignment = 1
 [node name="UpcomingPiecesContainer" type="PanelContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_type_variation = &"NextPieceContainer"
 script = ExtResource("8_oqj4c")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/SafeArea/MarginContainer/VBoxContainer/UpcomingPiecesContainer"]
