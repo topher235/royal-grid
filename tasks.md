@@ -10,7 +10,7 @@
 - [X] Implement **Shop** modal
   - [X] Says "Under Construction"
 - [ ] Transitions
-  - [ ] Scene transition, checkerboard swipe
+  - [X] Scene transition, checkerboard swipe
 - [ ] Main Menu
   - [X] Add sounds to button clicks
   - [X] Add move sound to chess piece animation
@@ -27,7 +27,7 @@
   - [X] Connect Rush/Classic buttons to the Game scene with the options set in the GameConfig
   - [X] Extract currency bars into separate scene
   - [X] Load currency into UI from save file
-  - [ ] Find new icon for the special currency
+  - [ ] Find new icon for the special currency - crowns?
 - [ ] Gameplay
   - [X] Implement special effects from Characters
   - [X] Implement RUSH mode with spawn on a timer

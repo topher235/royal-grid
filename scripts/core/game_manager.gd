@@ -14,6 +14,9 @@ var combo_multiplier := 0
 var effect_multiplier := 0
 var effect_multiplier_duration := 0  # forever
 
+# Gems
+var collected_gems := 0
+
 var current_game_stats: PlayerStats
 var game_config: GameConfig
 
@@ -237,6 +240,13 @@ func set_next_pieces(spawn_data: Array[PieceSpawnData]) -> void:
 
 func autosave() -> void:
     var active_game = chess_board.get_game_state()
+    
+    # edit with stats we have here
+    active_game.combo_mult = combo_multiplier
+    active_game.effect_mult = effect_multiplier
+    active_game.effect_mult_duration = effect_multiplier_duration
+    active_game.collected_gems = collected_gems
+    
     SaveManager.update_active_game(active_game)
     
     
@@ -250,3 +260,7 @@ func unpause() -> void:
     if timer:
         timer.set_paused(false)
     piece_spawner.unpause()
+
+    
+func add_gems(number_of_gems: int) -> void:
+    collected_gems += number_of_gems

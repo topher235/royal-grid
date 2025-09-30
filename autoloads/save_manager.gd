@@ -1,6 +1,6 @@
 extends Node
 
-const SAVE_FILE_LOCATION := "user://savefile.json"
+const SAVE_FILE_LOCATION := "res://savefile.json"
 const DEFAULT_SAVE_DATA := {
     "active_game": null,
     "stats": {

@@ -7,8 +7,10 @@ class_name ActiveGameData extends Resource
 @export var score: int
 @export var map_id: int
 @export var character_id: int
-@export var mult: int
-@export var mult_duration: int
+@export var combo_mult: int
+@export var effect_mult: int
+@export var effect_mult_duration: int
+@export var collected_gems: int
 @export var stats: PlayerStats
 
 
@@ -35,8 +37,10 @@ func serialize() -> Dictionary:
         "pieces": active_pieces,
         "upcoming_pieces": upcoming_pieces,
         "score": score,
-        "mult": mult,
-        "mult_duration": mult_duration,
+        "combo_mult": combo_mult,
+        "effect_mult": effect_mult,
+        "effect_mult_duration": effect_mult_duration,
+        "collected_gems": collected_gems,
         "map_id": map_id,
         "character_id": character_id,
         "stats": stats.serialize(),
@@ -48,8 +52,10 @@ func deserialize(data: Dictionary) -> void:
     Deserializes data from a Dictionary into this ActiveGameData object.
     """
     score = data.get("score", 0)
-    mult = data.get("mult", 1)
-    mult_duration = data.get("mult_duration", 0)
+    combo_mult = data.get("combo_mult", 0)
+    effect_mult = data.get("effect_mult", 0)
+    effect_mult_duration = data.get("effect_mult_duration", 0)
+    collected_gems = data.get("collected_gems", 0)
     map_id = data.get("map_id", 0)
     character_id = data.get("character_id", 0)
 

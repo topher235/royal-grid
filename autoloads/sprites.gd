@@ -20,6 +20,7 @@ const FREEZE_ICON = preload("res://assets/images/effects/freeze.png")
 const MULT_ICON = preload("res://assets/images/effects/multiplier.png")
 const SPAWN_ICON = preload("res://assets/images/effects/spawn.png")
 const ROTATE_CLOCKWISE_ICON = preload("res://assets/images/effects/rotate_clockwise.png")
+const GEM_ICON = preload("res://assets/images/effects/gem.png")
 
 const WHITE_SPRITES = {
     PieceSpawnData.PieceType.PAWN: PAWN_WHITE,

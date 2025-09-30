@@ -8,4 +8,5 @@ static var DB = {
     4: MultiplierSpecialEffect,
     5: SpawnSpecialEffect,
     6: RotateSpecialEffect,
+    7: GemSpecialEffect,
 }
