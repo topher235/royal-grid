@@ -114,8 +114,30 @@ func _on_score_updated(new_score: int) -> void:
 
 
 func _on_mult_updated(new_mult: int) -> void:
+    if current_mult == new_mult:
+        return
+    
+    var do_animation := true
+    if current_mult > new_mult:
+        do_animation = false
+    
     current_mult = new_mult
-    mult_label.text = str(current_mult)
+    mult_label.text = "x" + str(current_mult)
+
+    if do_animation:
+        var tween: Tween = create_tween()
+        tween.set_parallel(true)
+    
+        var duration := 0.25
+        # Color flash to red and back
+        tween.tween_property(mult_label, "modulate", Color.GREEN, 0.2 * duration)
+        tween.chain().tween_property(mult_label, "modulate", Color.WHITE, 0.8 * duration)
+    
+        # Scale up and back
+        mult_label.pivot_offset = Math.calculate_center(mult_label)
+        tween.tween_property(mult_label, "scale", Vector2(1.2, 1.2), 0.3 * duration)
+        tween.chain().tween_property(mult_label, "scale", Vector2.ONE, 0.7 * duration)
+        tween.tween_callback(func(): mult_label.pivot_offset = Vector2.ZERO).set_delay(duration)
 
     
 func animate_counting_label(label: Label, from_num: int, to_num: int) -> void:
