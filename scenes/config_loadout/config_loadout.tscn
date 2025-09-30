@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://hqxsbl1rjplt"]
+[gd_scene load_steps=21 format=3 uid="uid://hqxsbl1rjplt"]
 
 [ext_resource type="Script" uid="uid://crhhlxt1a1ihp" path="res://scripts/config_loadout/config_loadout.gd" id="1_dp540"]
 [ext_resource type="Texture2D" uid="uid://uyo7ktar3opt" path="res://assets/images/background/blackWhite.png" id="1_jwmto"]
@@ -16,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://rlkmcklv0vdq" path="res://assets/fonts/PixeloidSans-Bold.otf" id="8_e3ugo"]
 [ext_resource type="PackedScene" uid="uid://dr05lvny28bcl" path="res://scenes/config_loadout/map_selector.tscn" id="9_dp540"]
 [ext_resource type="PackedScene" uid="uid://cuo02d8hi64jo" path="res://scenes/config_loadout/cosmetic_selector.tscn" id="10_a8dex"]
+[ext_resource type="Script" uid="uid://dk7fvke57irw8" path="res://scripts/ui/utility/button_sound_player.gd" id="17_2b1cp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3ugo"]
 bg_color = Color(0.815686, 0.74902, 0.694118, 1)
@@ -153,6 +154,9 @@ texture_normal = ExtResource("5_u1s1f")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="ButtonSoundPlayer" type="Node" parent="SafeArea/VBoxContainer/MarginContainer/HBoxContainer/BackButtonTexture"]
+script = ExtResource("17_2b1cp")
+
 [node name="GemBar" parent="SafeArea/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("6_y2hp7")]
 layout_mode = 2
 
@@ -214,6 +218,9 @@ text = "LOADOUT_RUSH_MODE"
 label_settings = SubResource("LabelSettings_u1s1f")
 shadow_offset = Vector2(1, 1.25)
 
+[node name="ButtonSoundPlayer" type="Node" parent="SafeArea/VBoxContainer/HBoxContainer3/PlayRushButton"]
+script = ExtResource("17_2b1cp")
+
 [node name="PlayClassicButton" type="TextureButton" parent="SafeArea/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(80, 32)
 layout_mode = 2
@@ -232,6 +239,9 @@ grow_vertical = 2
 text = "LOADOUT_CLASSIC_MODE"
 label_settings = SubResource("LabelSettings_7ybim")
 shadow_offset = Vector2(1, 1.25)
+
+[node name="ButtonSoundPlayer" type="Node" parent="SafeArea/VBoxContainer/HBoxContainer3/PlayClassicButton"]
+script = ExtResource("17_2b1cp")
 
 [node name="Spacing4" type="Control" parent="SafeArea/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)

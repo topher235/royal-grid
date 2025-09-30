@@ -14,9 +14,9 @@ func _init() -> void:
 
 func execute(gm: GameManager, pos: Vector2i) -> void:
     super(gm, pos)
-    gm.update_points_multiplier(multiplier, multiplier_duration)
+    gm.update_effects_mult(multiplier, multiplier_duration)
 
 
 func expire(gm: GameManager) -> void:
     super(gm)
-    gm.reset_points_multiplier()
+#    gm.reset_points_multiplier()

@@ -70,6 +70,7 @@ func play_carousel(direction: float) -> void:
     is_animating = true
     previous_button.disabled = true
     next_button.disabled = true
+    SoundManager.play_ui_sound_with_pitch(Sounds.MOVE, 1.3)
     
     var base_x := avatar_preview.position.x
     var distance := 64.0

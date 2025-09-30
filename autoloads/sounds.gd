@@ -1,7 +1,8 @@
 extends Node
 
 
-const CLICK = preload("res://assets/audio/sfx/PieceImpact2.wav")
+const CLICK = preload("res://assets/audio/ui/click_0.wav")
+const CLICK_1 = preload("res://assets/audio/ui/click_1.wav")
 const MOVE = preload("res://assets/audio/sfx/PieceMove1.wav")
 const HOVER = preload("res://assets/audio/sfx/Hover2.wav")
 const SPAWN = preload("res://assets/audio/sfx/Spawn.wav")
@@ -11,6 +12,7 @@ const MODAL_CLOSE = preload("res://assets/audio/sfx/ModalClose.wav")
 
 enum SoundType {
     CLICK,
+    CLICK_1,
     MOVE,
     HOVER,
     SPAWN,

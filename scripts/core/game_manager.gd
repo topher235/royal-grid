@@ -5,9 +5,15 @@ class_name GameManager extends Node
 @export var effect_spawner: EffectSpawner
 
 var moves := 0
+var captures_in_a_row := 0
 var score := 0
-var score_multiplier := 1
-var score_multiplier_duration := 0  # forever
+
+# Multiplier stats
+var base_multiplier := 1
+var combo_multiplier := 0
+var effect_multiplier := 0
+var effect_multiplier_duration := 0  # forever
+
 var current_game_stats: PlayerStats
 var game_config: GameConfig
 
@@ -56,13 +62,18 @@ func _on_turn_over(did_capture: bool) -> void:
     if current_game_stats:
         current_game_stats.update_moves(moves)
     
+    if not did_capture:
+        captures_in_a_row = 0
+        update_combo_mult()
+    
     # Do end of turn effects - could involve effects expiring (duration running out)
     get_tree().call_group("effects", "on_end_turn")
     get_tree().call_group("tiles", "on_end_turn")
-    if score_multiplier_duration > 0:
-        score_multiplier_duration -= 1
-        if score_multiplier_duration <= 0:
-            reset_points_multiplier()
+    if effect_multiplier_duration > 0:
+        effect_multiplier_duration -= 1
+        if effect_multiplier_duration <= 0:
+            # duration ran out, reset to 0
+            update_effects_mult(0, 0)
     
     # Now spawn new things
     piece_spawner.end_turn(did_capture)
@@ -78,6 +89,9 @@ func _on_turn_over(did_capture: bool) -> void:
 
 
 func _on_piece_captured(piece_used: ChessPiece, piece_captured: ChessPiece) -> void:
+    captures_in_a_row += 1
+    update_combo_mult()
+    
     # update the PlayerStats, tracking what piece was just captured
     if current_game_stats:
         current_game_stats.update_captured(piece_captured)
@@ -89,6 +103,10 @@ func _on_piece_captured(piece_used: ChessPiece, piece_captured: ChessPiece) -> v
     
     # update the player's score
     score_points(piece_used.data.points)
+
+    
+func get_score_multiplier() -> int:
+    return base_multiplier + combo_multiplier + effect_multiplier
 
 
 func score_points(points: int) -> void:
@@ -103,21 +121,26 @@ func score_points(points: int) -> void:
 
 
 func calculate_points(points: int) -> int:
-    return points * score_multiplier
+    return points * get_score_multiplier()
 
-
-func update_points_multiplier(multiplier: int, duration: int) -> void:
-    score_multiplier += multiplier
-    score_multiplier_duration += duration
+    
+func update_combo_mult() -> void:
+    if captures_in_a_row < 6:
+        combo_multiplier = captures_in_a_row
+    else:
+        combo_multiplier = 5
+    
     if current_game_stats:
-        current_game_stats.update_multiplier(score_multiplier)
-    Events.mult_updated.emit(score_multiplier)
+        current_game_stats.update_multiplier(get_score_multiplier())
+    Events.mult_updated.emit(get_score_multiplier())
 
 
-func reset_points_multiplier() -> void:
-    score_multiplier = 1
-    score_multiplier_duration = 0
-    Events.mult_updated.emit(score_multiplier)
+func update_effects_mult(multiplier: int, duration: int) -> void:
+    effect_multiplier += multiplier
+    effect_multiplier_duration += duration
+    if current_game_stats:
+        current_game_stats.update_multiplier(get_score_multiplier())
+    Events.mult_updated.emit(get_score_multiplier())
 
 
 func spawn_new_piece() -> void:
