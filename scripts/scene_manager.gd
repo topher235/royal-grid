@@ -1,6 +1,12 @@
 class_name SceneManager extends Node
 
-@export var overlay: ColorRect
+enum TransitionType {
+    CHECKERBOARD,
+    FADE
+}
+
+@export var checkerboard_overlay: ColorRect
+@export var fade_overlay: ColorRect
 @export var animation_player: AnimationPlayer
 
 var current_scene
@@ -11,11 +17,23 @@ func _ready() -> void:
     current_scene.connect("scene_changed", _on_scene_changed)
 
 
-func _on_scene_changed(to_path: String) -> void:
+func _on_scene_changed(to_path: String, transition_type: TransitionType = TransitionType.CHECKERBOARD) -> void:
     var data = current_scene.get_scene_data()
 
-    # Play transition in (fade to black)
-    animation_player.play("checkerboard_swipe")
+    # Determine animations based on transition type
+    var fade_in_animation: String
+    var fade_out_animation: String
+
+    match transition_type:
+        TransitionType.CHECKERBOARD:
+            fade_in_animation = "checkerboard_swipe"
+            fade_out_animation = "checkerboard_fadeout"
+        TransitionType.FADE:
+            fade_in_animation = "fade_in"
+            fade_out_animation = "fade_out"
+
+    # Play transition in (cover screen)
+    animation_player.play(fade_in_animation)
     await animation_player.animation_finished
 
     # Prepare and add next scene
@@ -30,7 +48,7 @@ func _on_scene_changed(to_path: String) -> void:
     current_scene = next_scene
 
     # Play transition out (reveal new scene)
-    animation_player.play("checkerboard_fadeout")
+    animation_player.play(fade_out_animation)
     await animation_player.animation_finished
 
     # Reset for next transition

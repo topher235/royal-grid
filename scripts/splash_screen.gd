@@ -59,7 +59,7 @@ func _handle_change_screen() -> void:
         return
     
     if self.is_ready:
-        scene_changed.emit("res://scenes/ui/main_menu.tscn")
+        scene_changed.emit("res://scenes/ui/main_menu.tscn", SceneManager.TransitionType.FADE)
         is_transition_started = true
     else:
         await get_tree().create_timer(0.1).timeout
