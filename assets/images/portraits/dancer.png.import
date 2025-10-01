@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb8fxtkm0l7db"
-path="res://.godot/imported/citizen.png-70c25eb562cf5f52928597fb4f2cdcba.ctex"
+uid="uid://c1yy05jrqwaak"
+path="res://.godot/imported/dancer.png-58c599769a1200dd822dc181c08c5eb4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/portraits/citizen.png"
-dest_files=["res://.godot/imported/citizen.png-70c25eb562cf5f52928597fb4f2cdcba.ctex"]
+source_file="res://assets/images/portraits/dancer.png"
+dest_files=["res://.godot/imported/dancer.png-58c599769a1200dd822dc181c08c5eb4.ctex"]
 
 [params]
 

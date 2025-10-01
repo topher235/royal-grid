@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb8fxtkm0l7db"
-path="res://.godot/imported/citizen.png-70c25eb562cf5f52928597fb4f2cdcba.ctex"
+uid="uid://5t8g2emnrp32"
+path="res://.godot/imported/king.png-50150172f611652b53fd88ceaef22d06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/portraits/citizen.png"
-dest_files=["res://.godot/imported/citizen.png-70c25eb562cf5f52928597fb4f2cdcba.ctex"]
+source_file="res://assets/images/portraits/king.png"
+dest_files=["res://.godot/imported/king.png-50150172f611652b53fd88ceaef22d06.ctex"]
 
 [params]
 

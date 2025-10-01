@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb8fxtkm0l7db"
-path="res://.godot/imported/citizen.png-70c25eb562cf5f52928597fb4f2cdcba.ctex"
+uid="uid://dkfitbgbodgbo"
+path="res://.godot/imported/merchant.png-ec475b521cf03f7e0631f06418482795.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/portraits/citizen.png"
-dest_files=["res://.godot/imported/citizen.png-70c25eb562cf5f52928597fb4f2cdcba.ctex"]
+source_file="res://assets/images/portraits/merchant.png"
+dest_files=["res://.godot/imported/merchant.png-ec475b521cf03f7e0631f06418482795.ctex"]
 
 [params]
 

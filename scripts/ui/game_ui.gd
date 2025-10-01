@@ -3,6 +3,7 @@ class_name GameUI extends Node2D
 signal loaded
 signal scene_changed(to_path: String)
 
+@export var character_avatar: TextureRect
 @export var game_board: ChessBoard
 @export var animation_player: AnimationPlayer
 @export var end_game_overlay: EndGameOverlay
@@ -18,6 +19,7 @@ signal scene_changed(to_path: String)
 @export var timer_container: Control
 @export var time_left_label: Label
 @export var hourglass_sprite: TextureRect
+@export var timer_panel_spacing: Control
 
 var score_tween: Tween
 var score_queue: Array[int]
@@ -30,14 +32,17 @@ var is_game_over := false
 
 
 func _ready() -> void:
+    character_avatar.texture = game_config.character.avatar
     score_label.text = "" + str(current_score)
     mult_label.text = "x" + str(current_mult)
-    points_label.text = "0"
+    points_label.text = ""
 
     Events.points_scored.connect(_on_points_scored)
     Events.score_updated.connect(_on_score_updated)
     Events.mult_updated.connect(_on_mult_updated)
     if game_config and game_config.use_chess_timer:
+        # this spacing is necessary for when there is NO hourglass sprite
+        timer_panel_spacing.visible = false
         Events.chess_timer_updated.connect(_on_chess_timer_updated)
         # Animating the hourglass rotating in a circle
         var hourglass_tween: Tween = hourglass_sprite.create_tween()
@@ -51,6 +56,7 @@ func _ready() -> void:
                     var old_rotation := marker.rotation_degrees
                     marker.rotation_degrees = wrapi(old_rotation + 45, 0, 360)
         ).set_delay(0.75)
+        timer_container.show()
     else:
         timer_container.hide()
 
@@ -170,6 +176,8 @@ func animate_counting_label(label: Label, from_num: int, to_num: int) -> void:
                 var pitch := min_pitch + (randf() * (max_pitch - min_pitch))
                 SoundManager.play_ui_sound_with_pitch(Sounds.TYPING, pitch)
                 label.text = "" + str(current_num)
+                if current_num == 0:
+                    label.text = ""
         ).set_delay(step_delay * i)
 
     

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chvh7t3an6tij"
-path="res://.godot/imported/win_1_full_big.png-e9f8d98ca89dd3172fe41b79364745c1.ctex"
+uid="uid://dh5h1m5s8uhbv"
+path="res://.godot/imported/mystic.png-78bd868a6a29fc37f1d457903838f792.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/ui_components/panel/win_1_full_big.png"
-dest_files=["res://.godot/imported/win_1_full_big.png-e9f8d98ca89dd3172fe41b79364745c1.ctex"]
+source_file="res://assets/images/portraits/mystic.png"
+dest_files=["res://.godot/imported/mystic.png-78bd868a6a29fc37f1d457903838f792.ctex"]
 
 [params]
 

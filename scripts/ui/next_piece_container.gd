@@ -59,6 +59,7 @@ func _animate_next_piece_generated() -> void:
     block.add_child(piece)
     var piece_size := piece.sprite.custom_minimum_size
     block.custom_minimum_size = Vector2(piece_size.x * 0.6, piece_size.y * 0.9)
+    piece.scale = Vector2(0.9, 0.9)
     
     # add the block to the HBox
     hbox.add_child(block)

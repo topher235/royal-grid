@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bunfnkxwger3s"
-path="res://.godot/imported/win_pop_4_right.png-1c5fee8a93d0644fdee51fbaae6e1af5.ctex"
+uid="uid://k1begnn62cik"
+path="res://.godot/imported/art-deco-white-6.png-24ea14aa4a937bc28ad19816a2102c4f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/ui_components/win_pop/win_pop_4_right.png"
-dest_files=["res://.godot/imported/win_pop_4_right.png-1c5fee8a93d0644fdee51fbaae6e1af5.ctex"]
+source_file="res://assets/images/borders/art-deco-white-6.png"
+dest_files=["res://.godot/imported/art-deco-white-6.png-24ea14aa4a937bc28ad19816a2102c4f.ctex"]
 
 [params]
 

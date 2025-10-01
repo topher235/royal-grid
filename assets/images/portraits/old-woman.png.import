@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cetwdkycfd68w"
-path="res://.godot/imported/win_pop_4_left.png-8533797ff150b24d5e496102e2105812.ctex"
+uid="uid://bb5yrif6lvkxt"
+path="res://.godot/imported/old-woman.png-cd5f6768648db689246bf339c56e8805.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/ui_components/win_pop/win_pop_4_left.png"
-dest_files=["res://.godot/imported/win_pop_4_left.png-8533797ff150b24d5e496102e2105812.ctex"]
+source_file="res://assets/images/portraits/old-woman.png"
+dest_files=["res://.godot/imported/old-woman.png-cd5f6768648db689246bf339c56e8805.ctex"]
 
 [params]
 

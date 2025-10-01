@@ -27,7 +27,7 @@
   - [X] Connect Rush/Classic buttons to the Game scene with the options set in the GameConfig
   - [X] Extract currency bars into separate scene
   - [X] Load currency into UI from save file
-  - [ ] Find new icon for the special currency - crowns?
+  - [ ] Find new icon for the special currency - crowns? gems?
 - [ ] Gameplay
   - [X] Implement special effects from Characters
   - [X] Implement RUSH mode with spawn on a timer
@@ -44,6 +44,7 @@
   - [X] Change RUSH mode to use a chess timer and make a character that spawns on a timer
   - [ ] Award coins based on score
   - [ ] Add coin effect - appears on the board like a normal effect but gives coins at game end
+    - [ ] Add a floating, fade away effect showing player how many gems they gained
 - [ ] Game Level UI
   - [X] Re-design tiles to use the new isometric art
   - [X] Add shadow to tile scene for 3d effect
@@ -58,6 +59,9 @@
   - [X] When closed, play reverse animation
   - [ ] Finish implementing PlayerStats.get_display_values
   - [ ] Decide on stats section headers
+  - [ ] Add custom styling to scrollbar
+- [ ] Settings modal
+  - [ ] Fix styling on language select (Englis truncate)
 - [ ] Localization
   - [ ] Set up localization patterns while there is little text
   - [ ] Player can select language on first start

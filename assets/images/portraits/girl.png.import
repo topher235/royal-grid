@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb8fxtkm0l7db"
-path="res://.godot/imported/citizen.png-70c25eb562cf5f52928597fb4f2cdcba.ctex"
+uid="uid://bkau3x1wwsj7a"
+path="res://.godot/imported/girl.png-72bbba31f71f0c87d640f3f176d3fa19.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/portraits/citizen.png"
-dest_files=["res://.godot/imported/citizen.png-70c25eb562cf5f52928597fb4f2cdcba.ctex"]
+source_file="res://assets/images/portraits/girl.png"
+dest_files=["res://.godot/imported/girl.png-72bbba31f71f0c87d640f3f176d3fa19.ctex"]
 
 [params]
 

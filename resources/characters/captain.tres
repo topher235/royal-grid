@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BaseCharacter" load_steps=4 format=3 uid="uid://xdbbfehxky2r"]
 
-[ext_resource type="Texture2D" uid="uid://dedp6j2t0uaa3" path="res://assets/images/portraits/captain.png" id="1_l6600"]
+[ext_resource type="Texture2D" uid="uid://bkx1vwbyrtylt" path="res://assets/images/portraits/captain.png" id="1_l6600"]
 [ext_resource type="Script" uid="uid://bu68lymvd1ne6" path="res://resources/characters/base_character.gd" id="1_mrq2v"]
 [ext_resource type="Script" uid="uid://cl6s05m51i031" path="res://resources/modifiers/base_modifier.gd" id="2_ncou5"]
 
